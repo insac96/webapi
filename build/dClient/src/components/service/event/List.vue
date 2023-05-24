@@ -1,0 +1,58 @@
+<template lang="pug">
+  div(class="EventList" v-if="list")
+    UScrollX
+      UBox(
+        v-for="item in list"
+        :key="item.id"
+        :title="item.name"
+        class="box-resize-scroll"
+        :color="(event && item.id == event.id) && 'dark'"
+        @click="setEvent(item)"
+      )
+        UFlex(justify="center")
+          img(
+            :src="`${publicPath}images/event/${item.type}.png`" 
+            :alt="item.name" 
+            width="70%" 
+            height="auto"
+          )
+
+        template(#footer)
+          UFlex(justify="center")
+            UChip(color="time" :full="(event && item.id == event.id)" :border="(event && item.id != event.id)") {{ $utils.getExpires(item.expires_time).text }}
+</template>
+
+<script>
+export default {
+  props: {
+    event: { type: Object }
+  },
+
+  data() {
+    return {
+      list: null
+    }
+  },
+
+  created () {
+    this.getAllEvent()
+  },
+
+  methods: {
+    async getAllEvent () {
+			const list = await this.API('getAllEvent')
+      if(!list || list.length == 0) return this.notify('Chưa có sự kiện nào khả dụng', 'warn')
+      this.$emit('update:event', list[0])
+      this.list = list
+		},
+
+    setEvent (event) {
+      this.$emit('update:event', null)
+
+      setTimeout(() => {
+        this.$emit('update:event', event)
+      }, 1);
+    }
+  },
+}
+</script>
