@@ -31,12 +31,12 @@ export default {
 
 <style lang="sass">
 .UiText
-  word-wrap: break-word
   &--nowrap
     white-space: nowrap
   &--mini
     max-width: 100%
     white-space: nowrap
     text-overflow: ellipsis
+    word-wrap: break-word
     overflow: hidden
 </style>

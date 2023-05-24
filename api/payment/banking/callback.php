@@ -8,6 +8,7 @@ include_once('../../config.php');
 require_once API_DIR.'/includes/utils.php';
 require_once API_DIR.'/includes/pdo.php';
 require_once API_DIR.'/service/configAction/index.php';
+require_once API_DIR.'/service/notifyAction/index.php';
 require_once API_DIR.'/service/userAction/index.php';
 require_once API_DIR.'/service/payAction/index.php';
 require_once API_DIR.'/service/gateAction/index.php';

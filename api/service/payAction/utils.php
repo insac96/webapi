@@ -78,8 +78,7 @@ class PayUtils extends PayPDO {
   public function verifyPayAuto ($realMoney, $code, $status) {
     // Check Pay
     $pay = $this->getPay($code);
-    if((int)$pay['status'] > 0)
-      res(400, 'Không thể thao tác trên giao dịch này');
+    if((int)$pay['status'] > 0) return res(200, 'Refuse');
 
     // Get Status and Update Pay
     $status = ($realMoney == 0) ? 2 : $status;
@@ -94,12 +93,11 @@ class PayUtils extends PayPDO {
     );
 
     // Is Refuse (Send Notify)
-    if($status == 2) return (new _PDO())->create('ny_notify', array(
-      'account' => (string)$pay['account'],
-      'type' => 'pay',
-      'content' => 'Bạn bị từ chối giao dịch nạp tiền ['.$pay['code'].'] với lý do [Sai thông tin]',
-      'create_time' => time()
-    ));
+    if($status == 2){
+      $notify = 'Bạn bị từ chối giao dịch nạp tiền ['.$pay['code'].'] với lý do [Sai thông tin]';
+      (new Notify())->create($pay['account'], $notify, 'pay');
+      return res(200, 'Refuse');
+    }
 
     // Check User and Get VIP
     $user = (new User())->getUser($pay['account']);
@@ -131,7 +129,7 @@ class PayUtils extends PayPDO {
     $coin_lock_from_referraler = floor($money * $referral_pay_bonus / 100);
     $coin_lock = (int)$coin_lock_from_gate + (int)$coin_lock_from_vip + (int)$coin_lock_from_referraler;
     $wheel = floor($money / $pay_to_wheel);
-
+    
     // Update User
     (new User())->updateUser($user['account'], array(
       'vip_exp' => array('+', (int)$vip_exp),
@@ -143,26 +141,19 @@ class PayUtils extends PayPDO {
       'pay_all' => array('+', (int)$money),
     ));
 
-    (new _PDO())->create('ny_notify', array(
-      'account' => (string)$user['account'],
-      'type' => 'pay',
-      'content' => 'Bạn được duyệt thành công giao dịch nạp tiền ['.$pay['code'].'], nhận về ['.$coin.' Xu] ['.$coin_lock.' Xu Khóa] ['.$wheel.' Lượt Quay]',
-      'create_time' => time()
-    ));
+    $notify = 'Bạn được duyệt thành công giao dịch nạp tiền ['.$pay['code'].'], nhận về ['.$coin.' Xu] ['.$coin_lock.' Xu Khóa] ['.$wheel.' Lượt Quay]';
+    (new Notify())->create($user['account'], $notify, 'pay');
       
     // Update Referraler
-    if($coin_lock_from_referraler == 0 || empty($user['referraler'])) return;
+    if($coin_lock_from_referraler == 0 || empty($user['referraler'])) return res(200, 'Done');
     $diamond = $coin_lock_from_referraler;
 
     (new User())->updateUser($user['referraler']['account'], array(
       'diamond' => array('+', (int)$diamond),
     ));
 
-    (new _PDO())->create('ny_notify', array(
-      'account' => (string)$user['referraler']['account'],
-      'type' => 'invitee',
-      'content' => 'Bạn nhận được ['.$diamond.' Kim Cương] từ giao dịch nạp tiền của ['.$user['account'].'], người mà bạn giới thiệu',
-      'create_time' => time()
-    ));
+    $notify = 'Bạn nhận được ['.$diamond.' Kim Cương] từ giao dịch nạp tiền của ['.$user['account'].']';
+    (new Notify())->create($user['referraler']['account'], $notify, 'invitee');
+    return res(200, 'Done');
   }
 }

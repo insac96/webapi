@@ -1,5 +1,5 @@
 <template lang="pug">
-  div(class="ManageStatisticalUser")
+  div(class="ManageStatisticalSignUp")
     UFlex(wrap="wrap" class="mb-2" v-if="!!loaderChart")
       UCard(class="box-resize-50")
         Bar(:options="chartOptions" :data="chartDataBar")
@@ -8,7 +8,7 @@
 
     UTableAdmin(
       :head="head"
-      get-action="getStatisticalUser"
+      get-action="getStatisticalSignUp"
       :plus-get="date"
       :reload="reload"
       :data-list.sync="dataList"

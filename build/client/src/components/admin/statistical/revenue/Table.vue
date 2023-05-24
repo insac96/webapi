@@ -48,7 +48,12 @@ export default {
     return {
       head: {
         'date': 'Ngày',
-        'pay_all': 'Tổng',
+        'user_pay': 'Người nạp',
+        'pay_count': 'Tổng giao dịch',
+        'pay_success': 'Thành Công',
+        'pay_refuse': 'Thất bại',
+        'pay_wait': 'Chưa duyệt',
+        'pay_all': 'Tổng doanh thu',
         'pay_banking': 'Ngân hàng',
         'pay_card': 'Thẻ cào',
         'pay_momo': 'Momo',

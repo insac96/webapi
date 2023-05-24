@@ -105,7 +105,10 @@ class UserUtils extends UserPDO {
     if(!empty($user['phone']))
       $user['phone'] = substr($user['phone'], 0, 6).'****';
 
-    // Set Prive
+    // Set Notify
+    $user['notify'] = (new Notify())->getCountNewNotify($user['account']);
+
+    // Set Private
     unset($user['password']);
     unset($user['token']);
 

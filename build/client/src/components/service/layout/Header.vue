@@ -7,7 +7,7 @@
         UButton(class="mr-1" @click="$router.push('/sign-in')") Đăng Nhập
         UButton(color="danger" @click="$router.push('/sign-up')") Đăng Ký
       UFlex(v-else align="center")
-        UChip(icon="bx-bell" color="time" class="mr-1" @click="$router.push('/notify')" full) Thông báo
+        UChip(icon="bx-bell" color="time" class="mr-1" @click="$router.push('/notify')" full) Thông báo {{storeUser.notify}}
         UChip(icon="user" color="primary" class="Account" @click="$router.push('/user')" full) {{storeUser.account}}
 </template>
 

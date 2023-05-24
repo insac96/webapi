@@ -43,7 +43,7 @@ export default {
       
       reload: 0,
 
-      reason: ''
+      reason: null
     }
   },
 
@@ -52,7 +52,8 @@ export default {
       const verify = await this.API('verifyPay', {
         status: status,
         code: this.select.code,
-        real_money: this.select.money
+        real_money: this.select.money,
+        reason: this.reason
       }, true)
 
       if(verify) return this.onReload()
@@ -60,6 +61,7 @@ export default {
 
     onReload () {
       this.reload = this.reload + 1
+      this.reason = null
     }
   },
 }

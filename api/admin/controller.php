@@ -10,6 +10,7 @@ require 'payAction/index.php';
 require 'withdrawAction/index.php';
 require 'shopAction/index.php';
 require 'newsAction/index.php';
+require 'notifyAction/index.php';
 require 'eventAction/index.php';
 require 'missionAction/index.php';
 require 'wheelAction/index.php';
@@ -263,9 +264,16 @@ class Controller {
     res(200, null, $list);
   }
 
-  public function getStatisticalUser () {
+  public function getStatisticalSignUp () {
     $user = (new Auth())->getAuth();
-    $list = (new Statistical())->getStatisticalUser();
+    $list = (new Statistical())->getStatisticalSignUp();
+    
+    res(200, null, $list);
+  }
+
+  public function getStatisticalSignIn () {
+    $user = (new Auth())->getAuth();
+    $list = (new Statistical())->getStatisticalSignIn();
     
     res(200, null, $list);
   }

@@ -4,17 +4,20 @@
 
     transition(name="up" mode="out-in")
       StatisticalRevenue(v-if="tab == 'revenue'")
-      StatisticalUser(v-if="tab == 'user'")
+      StatisticalSignUp(v-if="tab == 'signup'")
+      StatisticalSignIn(v-if="tab == 'signin'")
 </template>
 
 <script>
 import StatisticalRevenue from '@/components/admin/statistical/revenue/index.vue'
-import StatisticalUser from '@/components/admin/statistical/User.vue'
+import StatisticalSignUp from '@/components/admin/statistical/SignUp.vue'
+import StatisticalSignIn from '@/components/admin/statistical/SignIn.vue'
 
 export default {
   components: {
     StatisticalRevenue,
-    StatisticalUser
+    StatisticalSignUp,
+    StatisticalSignIn
   },
   
   data() {
@@ -22,7 +25,8 @@ export default {
       tab: 'revenue',
       list: [
         { value: 'revenue', label: 'Doanh thu' },
-        { value: 'user', label: 'Tài khoản' },
+        { value: 'signup', label: 'Đăng Ký' },
+        { value: 'signin', label: 'Đăng Nhập' },
       ]
     }
   },

@@ -54,15 +54,10 @@ class Pay extends PayUtils {
     // Is Refuse (Send Notify)
     if($status == 2){
       $reason = !empty($_POST['reason']) ? $_POST['reason'] : 'Sai thông tin giao dịch';
+      $notify = 'Bạn bị từ chối giao dịch nạp tiền ['.$pay['code'].'] với lý do ['.$reason.']';
+      (new Notify())->create($pay['account'], $notify, 'pay');
 
-      (new _PDO())->create('ny_notify', array(
-        'account' => (string)$pay['account'],
-        'type' => 'pay',
-        'content' => 'Bạn bị từ chối giao dịch nạp tiền ['.$pay['code'].'] với lý do ['.$reason.']',
-        'create_time' => time()
-      ));
-
-      return logAdmin('Từ chối giao dịch nạp tiền ['.$pay['code'].']');
+      return logAdmin('Từ chối giao dịch nạp tiền ['.$pay['code'].'] với lý do ['.$reason.']');
     }
 
     // Get User
@@ -109,14 +104,9 @@ class Pay extends PayUtils {
       'pay_all' => array('+', (int)$money),
     ));
 
-    (new _PDO())->create('ny_notify', array(
-      'account' => (string)$user['account'],
-      'type' => 'pay',
-      'content' => 'Bạn được duyệt thành công giao dịch nạp tiền ['.$pay['code'].'], nhận về ['.$coin.' Xu] ['.$coin_lock.' Xu Khóa] ['.$wheel.' Lượt Quay]',
-      'create_time' => time()
-    ));
+    $notify = 'Bạn được duyệt thành công giao dịch nạp tiền ['.$pay['code'].'], nhận về ['.$coin.' Xu] ['.$coin_lock.' Xu Khóa] ['.$wheel.' Lượt Quay]';
+    (new Notify())->create($user['account'], $notify, 'pay');
 
-    // Log Admin
     logAdmin('Chấp nhận giao dịch nạp tiền ['.$pay['code'].']');
 
     // Update Referraler
@@ -127,11 +117,7 @@ class Pay extends PayUtils {
       'diamond' => array('+', (int)$diamond),
     ));
 
-    (new _PDO())->create('ny_notify', array(
-      'account' => (string)$user['referraler'],
-      'type' => 'invitee',
-      'content' => 'Bạn nhận được ['.$diamond.' Kim Cương] từ giao dịch nạp tiền của ['.$user['account'].'], người mà bạn giới thiệu',
-      'create_time' => time()
-    ));
+    $notify = 'Bạn nhận được ['.$diamond.' Kim Cương] từ giao dịch nạp tiền của ['.$user['account'].']';
+    (new Notify())->create($user['referraler'], $notify, 'invitee');
   }
 }
