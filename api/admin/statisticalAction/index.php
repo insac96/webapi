@@ -56,7 +56,6 @@ class Statistical extends StatisticalUtils {
       GROUP BY date
     ";
     
-
     return getTableList(null, $sql, $count);
   }
 
@@ -98,21 +97,21 @@ class Statistical extends StatisticalUtils {
     $end = empty($_POST['end']) ? $now['sql'] : $_POST['end'];
 
     $sqlCount = "SELECT
-      DATE_FORMAT(FROM_UNIXTIME(update_time), '%Y-%m-%d') AS table_time
-      FROM ny_user
-      WHERE DATE_FORMAT(FROM_UNIXTIME(update_time), '%Y-%m-%d') >= '$start'
-      AND DATE_FORMAT(FROM_UNIXTIME(update_time), '%Y-%m-%d') <= '$end'
+      DATE_FORMAT(FROM_UNIXTIME(create_time), '%Y-%m-%d') AS table_time
+      FROM ny_log_login
+      WHERE DATE_FORMAT(FROM_UNIXTIME(create_time), '%Y-%m-%d') >= '$start'
+      AND DATE_FORMAT(FROM_UNIXTIME(create_time), '%Y-%m-%d') <= '$end'
       GROUP BY table_time
     ";
     $countQuery = (new _PDO())->select($sqlCount, [], true);
     $count = count($countQuery);
 
     $sql = "SELECT
-      COUNT(id) as sign_in,
-      DATE_FORMAT(FROM_UNIXTIME(update_time), '%Y-%m-%d') AS table_time
-      FROM ny_user
-      WHERE DATE_FORMAT(FROM_UNIXTIME(update_time), '%Y-%m-%d') >= '$start'
-      AND DATE_FORMAT(FROM_UNIXTIME(update_time), '%Y-%m-%d') <= '$end'
+      COUNT(account) as sign_in,
+      DATE_FORMAT(FROM_UNIXTIME(create_time), '%Y-%m-%d') AS table_time
+      FROM ny_log_login
+      WHERE DATE_FORMAT(FROM_UNIXTIME(create_time), '%Y-%m-%d') >= '$start'
+      AND DATE_FORMAT(FROM_UNIXTIME(create_time), '%Y-%m-%d') <= '$end'
       GROUP BY table_time
     ";
 

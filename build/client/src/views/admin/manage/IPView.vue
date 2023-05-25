@@ -29,7 +29,7 @@
       UTableAdmin(
         :head="headIPInfo"
         get-action="getAllAccountByIPClient"
-        first-sort="update_time"
+        first-sort="create_time"
         :plus-get="plusGet"
       )
         template(#header)
@@ -43,14 +43,15 @@ export default {
       head: {
         'id': 'ID',
         'ip': 'Địa chỉ IP',
-        'connect': 'Truy vấn API',
+        'account_total': 'Tài khoản',
+        'connect': 'Truy vấn',
         'block': 'Trạng thái chặn',
         'update_time': 'Truy cập gần nhất'
       },
 
       headIPInfo: {
-        'id': 'ID',
         'account': 'Tài khoản',
+        'create_time': 'Làm mới lần cuối',
         'update_time': 'Truy cập gần nhất'
       },
 

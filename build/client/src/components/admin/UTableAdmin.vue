@@ -20,6 +20,10 @@
                   UIcon(:src="sort.type == 'DESC' ? 'bx-chevron-down' : 'bx-chevron-up'" class="ml-1")
               th(v-if="!!actionOne || !!actionTwo || !!actionThree") Chức năng
           tbody
+            tr(v-if="sum && list.length != 0" class="Table__Sum")
+              td(v-for="(value, key, index) in head" :key="key")
+                UChip(v-if="getSum(key, index) != null" color="dark" :full="index == 0") {{ getSum(key, index) }}
+
             tr(v-for="(item, index) in list" :key="index" :class="{'pointer': !!$listeners['select-data']}")
               td(v-for="(value, key) in head" :key="key" @click="selectData(item)")
                 UChip(:full="!!convertColor(key, item[key])" :color="convertColor(key, item[key])" v-if="key != 'gifts'") {{ convertData(key, item[key]) }}
@@ -31,7 +35,7 @@
                   UChip(color="info" full class="mr-1" v-if="actionOne" @click="openActionOne(item)") {{textOne}}
                   UChip(color="success" full class="mr-1" v-if="actionThree" @click="openActionThree(item)") {{textThree}}
                   UChip(color="danger" full v-if="actionTwo" @click="openActionTwo(item)") {{textTwo}}
-
+            
       //- No Data
       div(class="UiTableAdmin__NoData" v-if="list.length == 0") Không có dữ liệu
 
@@ -95,7 +99,8 @@ export default {
     reload: { type: Number },
     plusGet: { type: Object },
     plusSearch: { type: Object },
-    dataList: { type: Array }
+    dataList: { type: Array },
+    sum: { type: Array }
   },
 
   data() {
@@ -234,6 +239,31 @@ export default {
       this.watchAPI()
     },
 
+    // Sum
+    getSum (key, index) {
+      if(index == 0) return 'Tổng'
+      if(!this.sum.includes(key)) return null
+
+      let total = 0;
+      this.list.forEach(item => {
+        total = Number(total) + Number(item[key])
+      })
+
+      const isCurrency = [
+        'coin', 'coin_lock', 'money', 'pay', 'price', 'save_pay_ingame',
+        'diamond', 'wheel', 'need_exp', 'referral_bonus_coin', 'pay_to_wheel', 
+        'diamond_to_money', 'pay_all', 'pay_banking', 'pay_momo', 'pay_card',
+        'amount'
+      ]
+
+      if(isCurrency.includes(key)){
+        return this.$utils.getMoney(total, false)
+      }
+      else {
+        return total
+      }
+    },
+
     // Select
     selectData(item) {
       this.$emit('select-data', JSON.parse(JSON.stringify(item)))
@@ -280,7 +310,7 @@ export default {
         'diamond_to_money', 'pay_all', 'pay_banking', 'pay_momo', 'pay_card',
         'amount'
       ]
-      const isTime = ['create_time', 'verify_time']
+      const isTime = ['create_time', 'verify_time', 'update_time']
       const isExpires = ['expires_bonus', 'expires_time']
       const isPercent = ['bonus', 'discount_shop', 'pay_bonus_coin', 'referral_pay_bonus_coin', 'bonus_default']
 
@@ -297,10 +327,6 @@ export default {
       }
       if(isPercent.includes(type)){
         return data+'%'
-      }
-      if(type == 'update_time'){
-        if(data == 0 || !data) return 'Chưa cập nhật'
-        return this.$utils.getTime(data).from
       }
       if(type == 'max'){
         return data == '0' ? 'Không giới hạn' : data
@@ -346,9 +372,9 @@ export default {
 .UiTableAdmin
   .UiChip
     &:not(.pointer)
-      user-select: all !important
+      user-select: text !important
       .UiText
-        user-select: all !important
+        user-select: text !important
   &__Box
     .UiBox__Body
       max-height: 70vh
@@ -373,6 +399,8 @@ export default {
     box-shadow: 0 0 20px -10px rgba(var(--ui-black), 0.2)
     border: 1px solid rgba(var(--ui-dark), 0.1)
     overflow-x: auto
+    &__Sum
+      background: rgba(var(--ui-black), 0.05)
     &__Content
       position: relative
       width: 100%

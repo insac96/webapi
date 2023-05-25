@@ -9,8 +9,8 @@ class IPClient extends IPClientUtils {
 
   /* Search IP */
   public function searchIPClient () {
-    $sqlCount = "SELECT count(id) AS total FROM ny_log_ip WHERE ip LIKE :query";
-    $sqlSearch = "SELECT * FROM ny_log_ip WHERE ip LIKE :query";
+    $sqlCount = "SELECT count(1) AS total FROM ny_log_ip WHERE ip LIKE :query";
+    $sqlSearch = self::$PDO_GetAllIPClient." WHERE ip LIKE :query";
     return getTableSearch($sqlCount, $sqlSearch);
   }
 
@@ -18,12 +18,19 @@ class IPClient extends IPClientUtils {
     if(empty($_POST['ip'])) return res(400, 'Dữ liệu đầu vào sai');
 
     $ip = $_POST['ip'];
-    $count = (new _PDO())->select("SELECT count(id) AS total FROM ny_log_user_ip WHERE ip=:ip", array(
-      'ip' => (string)$ip
-    ));
-    $count = $count['total'];
+    $sqlCount = "SELECT COUNT(DISTINCT account) as total FROM ny_log_login WHERE ip='$ip'";
+    $countQuery = (new _PDO())->select($sqlCount, []);
+    $count = $countQuery['total'];
+
+    $sql = "SELECT
+      log.account, MAX(log.create_time) AS create_time, ANY_VALUE(user.update_time) AS update_time
+      FROM ny_log_login log
+      LEFT JOIN ny_user user ON user.account = log.account
+      WHERE log.ip = '$ip'
+      GROUP BY log.account
+    ";
     
-    return getTableList(null, "SELECT * FROM ny_log_user_ip WHERE ip='$ip'", $count);
+    return getTableList(null, $sql, $count);
   }
 
   /* Set Block IP*/

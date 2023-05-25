@@ -13,6 +13,7 @@
       :reload="reload"
       :data-list.sync="dataList"
       first-sort="date"
+      :sum="['user_pay', 'pay_count', 'pay_success', 'pay_refuse', 'pay_wait', 'pay_all', 'pay_banking', 'pay_card', 'pay_momo']"
     )
       template(#header)
         UFlex(align="center")

@@ -132,18 +132,6 @@ KEY `id` (`id`)
 ) 
 ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-/* Log User IP */
-DROP TABLE IF EXISTS `ny_log_user_ip`;
-CREATE TABLE `ny_log_user_ip` (
-`id` int(11) NOT NULL AUTO_INCREMENT,
-`account` varchar(100) NOT NULL,
-`ip` varchar(1000) NOT NULL,
-`update_time` int(11) unsigned,
-PRIMARY KEY (`id`),
-KEY `id` (`id`)
-) 
-ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 
 /* Notify */
 DROP TABLE IF EXISTS `ny_notify`;
@@ -480,10 +468,52 @@ ENGINE=InnoDB DEFAULT CHARSET=utf8;
 DROP TABLE IF EXISTS `ny_log_ip`;
 CREATE TABLE `ny_log_ip` (
 `id` int(11) NOT NULL AUTO_INCREMENT,
-`ip` varchar(1000) NOT NULL,
+`ip` varchar(100) NOT NULL,
 `block` tinyint(3) unsigned DEFAULT 0 COMMENT '0: Unblock, 1: Block',
 `connect` double(50,0) DEFAULT 0,
 `update_time` int(11) unsigned,
+PRIMARY KEY (`id`),
+KEY `id` (`id`)
+) 
+ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+/* Log Login */
+DROP TABLE IF EXISTS `ny_log_login`;
+CREATE TABLE `ny_log_login` (
+`id` int(11) NOT NULL AUTO_INCREMENT,
+`account` varchar(100) NOT NULL,
+`ip` varchar(100) NOT NULL,
+`create_time` int(11) unsigned,
+PRIMARY KEY (`id`),
+KEY `id` (`id`)
+) 
+ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+/* Server */
+DROP TABLE IF EXISTS `ny_server`;
+CREATE TABLE `ny_server` (
+`id` int(11) NOT NULL AUTO_INCREMENT,
+`server_id` varchar(100) NOT NULL,
+`db_name` varchar(100),
+`path` varchar(1000) NOT NULL,
+`file_start` varchar(100) NOT NULL DEFAULT 'start.sh',
+`file_stop` varchar(100) NOT NULL DEFAULT 'stop.sh',
+`running` tinyint(3) unsigned DEFAULT 0 COMMENT '0: No, 1: Yes',
+PRIMARY KEY (`id`),
+KEY `id` (`id`)
+) 
+ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+/* Log Login Server */
+DROP TABLE IF EXISTS `ny_log_login_server`;
+CREATE TABLE `ny_log_login_server` (
+`id` int(11) NOT NULL AUTO_INCREMENT,
+`account` varchar(100) NOT NULL,
+`server_id` varchar(100) NOT NULL,
+`create_time` int(11) unsigned,
 PRIMARY KEY (`id`),
 KEY `id` (`id`)
 ) 

@@ -13,5 +13,5 @@ class UserPDO {
     WHERE account=:referraler
   ";
 
-  static $PDO_GetAllInvitee = "SELECT * FROM ny_log_referral WHERE account=:account ORDER BY create_time DESC";
+  static $PDO_GetLastLogin = "SELECT id, create_time FROM ny_log_login WHERE ip=:ip AND account=:account ORDER BY create_time DESC LIMIT 1";
 }

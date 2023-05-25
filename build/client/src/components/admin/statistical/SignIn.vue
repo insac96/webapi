@@ -1,15 +1,24 @@
 <template lang="pug">
-  div(class="ManageStatisticalSignIn" v-if="list")
-    UFlex(align="center")
-      USelect(v-model="limit" :list="listLimit" width="50px" height="30px" class="mr-1 mb-0" center)
-      UInput(v-model="date.start" type="date" icon="bxs-calendar" size="40px" icon-color="dark" placeholder="Bắt đầu" class="mb-0" width="180px")
-      UInput(v-model="date.end" type="date" placeholder="Kết thúc" size="40px" class="mb-0" width="150px")
-    
+  div(class="ManageStatisticalSignIn")
     UFlex(wrap="wrap" class="mb-2" v-if="!!loaderChart")
       UCard(class="box-resize-50")
         Bar(:options="chartOptions" :data="chartDataBar")
       UCard(class="box-resize-50")
         LineChartGenerator(:options="chartOptions" :data="chartDataLine")
+
+    UTableAdmin(
+      :head="head"
+      get-action="getStatisticalSignIn"
+      :plus-get="date"
+      :reload="reload"
+      :data-list.sync="dataList"
+      first-sort="table_time"
+      :sum="['sign_in']"
+    )
+      template(#header)
+        UFlex(align="center")
+          UInput(v-model="date.start" type="date" icon="bxs-calendar" size="40px" icon-color="dark" placeholder="Bắt đầu" class="mb-0" width="180px")
+          UInput(v-model="date.end" type="date" placeholder="Kết thúc" size="40px" class="mb-0" width="150px")
 </template>
 
 <script>
@@ -38,22 +47,19 @@ export default {
 
   data() {
     return {
-      limit: 10,
+      head: {
+        'table_time': 'Ngày',
+        'sign_in': 'Người đăng nhập',
+      },
 
-      listLimit: [
-        { value: 5, label: 5 },
-        { value: 10, label: 10 },
-        { value: 20, label: 20 },
-        { value: 50, label: 50 },
-        { value: 100, label: 100 },
-      ],
-      
+      reload: 0,
+
       date: {
         start: null,
         end: this.$utils.getTime(new Date() / 1000).dateInput
       },
 
-      list: null,
+      dataList: null,
       
       loaderChart: false,
       chartDataBar: null,
@@ -66,43 +72,22 @@ export default {
 
   watch: {
     'date.start' () {
-      this.getStatisticalSignIn()
+      this.onReload()
     },
     'date.end' () {
-      this.getStatisticalSignIn()
+      this.onReload()
     },
-    limit () {
-      this.getStatisticalSignIn()
-    },
-    list () {
+    dataList () {
       this.makeChart()
     }
   },
 
-  created() {
-    this.getStatisticalSignIn()
-  },
-
   methods: {
-    async getStatisticalSignIn () {
-      const get = await this.API('getStatisticalSignIn', {
-        limit: this.limit,
-        sort: {
-          by: 'table_time',
-          type: 'DESC'
-        },
-        ...this.date
-      }, true)
-
-      if(!get) return
-      this.list = get.list
-    },
-
     makeChart () {
-      if(!this.list) return
+      if(!this.dataList) return
 
       this.loaderChart = false
-      const list = JSON.parse(JSON.stringify(this.list)).reverse()
+      const list = JSON.parse(JSON.stringify(this.dataList)).reverse()
       const labels = []
       const sign_in = []
 
@@ -115,7 +100,7 @@ export default {
         labels,
         datasets: [
           { 
-            label: 'Người truy cập',
+            label: 'Người đăng nhập',
             data: sign_in,
             backgroundColor: 'rgb(6,122,203)',
           }
@@ -126,7 +111,7 @@ export default {
         labels,
         datasets: [
           { 
-            label: 'Người truy cập',
+            label: 'Người đăng nhập',
             data: sign_in,
             fill: false,
             borderColor: 'rgb(6,122,203)',
@@ -136,6 +121,10 @@ export default {
       }
 
       this.loaderChart = true
+    },
+
+    onReload () {
+      this.reload = this.reload + 1
     }
   },
 }

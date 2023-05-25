@@ -13,6 +13,7 @@
       :reload="reload"
       :data-list.sync="dataList"
       first-sort="table_time"
+      :sum="['sign_up_all', 'sign_up_no_referral', 'sign_up_referral']"
     )
       template(#header)
         UFlex(align="center")

@@ -31,16 +31,20 @@ class User extends UserUtils {
     if(empty($_POST['account'])) return res(400, 'Vui lòng chọn tài khoản trước');
 
     $account = $_POST['account'];
-    $count = (new _PDO())->select("SELECT count(id) AS total FROM ny_log_user_ip WHERE account=:account", array(
+    $count = (new _PDO())->select("SELECT count(DISTINCT ip) AS total FROM ny_log_login WHERE account=:account", array(
       'account' => $account
     ));
     $count = $count['total'];
 
-    return getTableList(null, "SELECT 
-      user_ip.*, log_ip.block
-      FROM ny_log_user_ip user_ip
-      LEFT JOIN ny_log_ip log_ip ON user_ip.ip = log_ip.ip
-      WHERE account='$account'
+    return getTableList(null, "SELECT
+      loglogin.ip, MAX(loglogin.create_time) AS create_time, 
+      ANY_VALUE(logip.block) AS block, 
+      ANY_VALUE(user.update_time) AS update_time
+      FROM ny_log_login loglogin
+      LEFT JOIN ny_log_ip logip ON logip.ip = loglogin.ip
+      LEFT JOIN ny_user user ON user.account = loglogin.account
+      WHERE loglogin.account='$account'
+      GROUP BY loglogin.ip
     ", $count);
   }
 

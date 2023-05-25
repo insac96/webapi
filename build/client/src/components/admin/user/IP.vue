@@ -4,7 +4,7 @@
       :head="head"
       get-action="getLogUserIP"
       :plus-get="plusGet"
-      first-sort="update_time"
+      first-sort="create_time"
     )
 </template>
 
@@ -17,10 +17,10 @@ export default {
   data() {
     return {
       head: {
-        'id': 'ID',
         'ip': 'Địa chỉ IP',
         'block': 'Trạng thái khóa',
-        'update_time': 'Truy cập'
+        'create_time': 'Làm mới lần cuối',
+        'update_time': 'Truy cập gần nhất'
       },
       selectUser: JSON.parse(JSON.stringify(this.user))
     }

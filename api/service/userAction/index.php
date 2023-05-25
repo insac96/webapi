@@ -34,10 +34,4 @@ class User extends UserUtils {
       'get_gifts_referral' => 1
     ));
   }
-
-  /* Get All Invitee Of User */
-  public function getAllInvitee ($user) {
-    $list = (new _PDO())->select(self::$PDO_GetAllInvitee, array('account' => $user['account']), true);
-    return $list;
-  }
 }
