@@ -1,5 +1,7 @@
 <template lang="pug">
   div(class="ShopCurrency" v-if="list")
+    UAlert(border color="shop" v-if="list.length == 0") Chưa có tiền tệ nào đang bày bán, vui lòng quay lại sau
+
     UFlex(wrap="wrap" align="center")
       UBox(
         v-for="item in list"
@@ -55,8 +57,8 @@ export default {
   methods: {
     async getShopCurrency () {
       const list = await this.API('getShopCurrency')
-      if(!list || list.length == 0) return this.notify('Chưa có vật phẩm nào bày bán')
-      if(!!list) return this.list = list
+      if(!list) return this.notify('Chưa có vật phẩm nào bày bán')
+      this.list = list
     },
 
     async buyCurrency () {

@@ -41,7 +41,8 @@ export default {
       this.getAllNotify()
     },
     tab () {
-      this.getAllNotify()
+      this.list = null
+      setTimeout(() => this.getAllNotify(), 1)
     }
   },
 

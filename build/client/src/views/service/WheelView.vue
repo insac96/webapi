@@ -1,11 +1,12 @@
 <template lang="pug">
   div(class="WheelView")
     transition(name="up")
-      UCard(class="mb-2" v-if="isLogin && routerPath != '/game'")
+      UCard(class="mb-2" v-if="isLogin && routerPath != '/game' && gifts && gifts.length != 0")
         UFlex(justify="center")
           UserCurrency
     
     transition(name="up")
+      UAlert(border color="wheel" v-if="gifts.length == 0") Vòng quay may mắn hiện đang bảo trì, vui lòng quay lại sau
       WheelCircle(v-if="!!gifts" :list="gifts" @reload="reload")
 
     transition(name="up")

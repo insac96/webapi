@@ -158,6 +158,7 @@ CREATE TABLE `ny_gate` (
 `stk` varchar(50) NOT NULL,
 `icon` varchar(2000),
 `qr_link` varchar(2000),
+`bonus_default` int(11) NOT NULL DEFAULT 0,
 `bonus` int(11) NOT NULL DEFAULT 0,
 `expires_bonus` int(11) unsigned DEFAULT 0,
 `display` tinyint(3) unsigned NOT NULL DEFAULT 1 COMMENT '0: Hide, 1: Show',

@@ -14,8 +14,9 @@ class Gate extends GateUtils {
       || !is_numeric($_POST['type']) 
       || empty($_POST['person']) 
       || empty($_POST['stk'])
-      || empty($_POST['expires_bonus'])
+      || !is_numeric($_POST['bonus_default'])
       || !is_numeric($_POST['bonus'])
+      || empty($_POST['expires_bonus'])
       || !is_numeric($_POST['display'])
     ) return res(400, 'Dữ liệu đầu vào không đủ');
 
@@ -37,6 +38,7 @@ class Gate extends GateUtils {
         'stk' => (string)$_POST['stk'],
         'icon' => (string)$_POST['icon'],
         'qr_link' => (string)$_POST['qr_link'],
+        'bonus_default' => (int)$_POST['bonus_default'],
         'bonus' => (int)$_POST['bonus'],
         'expires_bonus' => (int)$expires_time,
         'display' => (int)$_POST['display'],

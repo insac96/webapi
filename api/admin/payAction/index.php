@@ -69,7 +69,7 @@ class Pay extends PayUtils {
     // Get Bonus Of Gate
     $gate = (new Gate())->getGate($pay['gate_id']);
     if(isExpires($gate['expires_bonus']))
-      $bonus = 0;
+      $bonus = (int)$gate['bonus_default'];
     else
       $bonus = (int)$gate['bonus'];
     

@@ -1,5 +1,7 @@
 <template lang="pug">
   div(class="EventList" v-if="list")
+    UAlert(border color="event" v-if="list.length == 0") Chưa có sự kiện nào khả dụng, vui lòng quay lại sau
+
     UScrollX
       UBox(
         v-for="item in list"
@@ -41,7 +43,7 @@ export default {
   methods: {
     async getAllEvent () {
 			const list = await this.API('getAllEvent')
-      if(!list || list.length == 0) return this.notify('Chưa có sự kiện nào khả dụng', 'warn')
+      if(!list) return
       this.$emit('update:event', list[0])
       this.list = list
 		},

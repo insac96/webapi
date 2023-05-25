@@ -12,12 +12,13 @@
     )
       template(#one v-if="select")
         UInput(v-model="select.name" label-top="Tên kênh")
-        UInput(v-model="select.person" label-top="Người hưởng thụ")
-        UInput(v-model="select.stk" label-top="Số tài khoản")
-        UInput(v-model="select.bonus" label-top="Khuyến mại %" type="number")
-        UFlex(align="center" justify="space-between" full class="mb-2")
-          UInput(v-model="select.expires_bonus.date" label-top="Ngày hết hạn" type="date" width="49%" class="mb-0")
-          UInput(v-model="select.expires_bonus.time" label-top="Thời gian hết hạn" type="time" width="49%")
+        UInput(v-model="select.person" label-top="Người hưởng thụ" v-if="select.type != 2")
+        UInput(v-model="select.stk" label-top="Số tài khoản" v-if="select.type != 2")
+        UInput(v-model="select.bonus_default" label-top="Khuyến mại mặc định %" type="number")
+        UFlex(align="center" justify="space-between" full)
+          UInput(v-model="select.bonus" label-top="Khuyến mại có thời hạn %" type="number" width="49%")
+          UInput(v-model="select.expires_bonus.date" label-top="Ngày hết hạn" type="date" width="49%")
+          UInput(v-model="select.expires_bonus.time" label-top="Thời gian hết hạn" type="time" width="49%" class="mb-2")
         UInput(v-model="select.icon" label-top="Link ảnh nếu có")
         UInput(v-model="select.qr_link" label-top="Link QR" v-if="select.type != 2")
         USelect(v-model="select.display" :list="displayVal" label-top="Hiển thị")
@@ -30,7 +31,8 @@ export default {
       head: {
         'id': 'ID',
         'name': 'Tên kênh',
-        'bonus': 'Khuyến mại',
+        'bonus_default': 'Khuyến mại mặc định',
+        'bonus': 'Khuyến mại có thời hạn',
         'expires_bonus': 'Hạn khuyến mại',
         'display': 'Hiển thị',
         'update_time': 'Cập nhật'

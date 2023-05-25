@@ -1,5 +1,7 @@
 <template lang="pug">
   div(class="ShopItem" v-if="list")
+    UAlert(border color="shop" v-if="list.length == 0") Chưa có vật phẩm nào đang bày bán, vui lòng quay lại sau
+
     UFlex(wrap="wrap" align="center")
       UBox(
         v-for="item in list"
@@ -74,8 +76,8 @@ export default {
   methods: {
     async getShopItem () {
       const list = await this.API('getShopItem')
-      if(!list || list.length == 0) return this.notify('Chưa có vật phẩm nào bày bán', 'warn')
-      if(!!list) return this.list = list
+      if(!list) return this.notify('Chưa có vật phẩm nào bày bán', 'warn')
+      this.list = list
     },
 
     async buyItem () {

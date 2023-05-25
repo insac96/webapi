@@ -282,7 +282,7 @@ export default {
       ]
       const isTime = ['create_time', 'verify_time']
       const isExpires = ['expires_bonus', 'expires_time']
-      const isPercent = ['bonus', 'discount_shop', 'pay_bonus_coin', 'referral_pay_bonus_coin']
+      const isPercent = ['bonus', 'discount_shop', 'pay_bonus_coin', 'referral_pay_bonus_coin', 'bonus_default']
 
       if(isCurrency.includes(type)){
         return this.$utils.getMoney(data, false)

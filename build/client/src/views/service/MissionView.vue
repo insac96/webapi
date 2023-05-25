@@ -1,5 +1,7 @@
 <template lang="pug">
   div(class="MissionView" v-if="list")
+    UAlert(border color="mission" v-if="list.length == 0") Chưa có nhiệm vụ nào khả dụng, vui lòng quay lại sau
+
     UFlex(wrap="wrap" align="center")
       UBox(
         v-for="item in list"
@@ -72,7 +74,7 @@ export default {
   methods: {
     async getAllMission () {
 			const list = await this.API('getAllMission')
-      if(!list || list.length == 0) return this.notify('Chưa có nhiêm vụ nào khả dụng', 'warn')
+      if(!list) return
       this.list = list
 		},
 

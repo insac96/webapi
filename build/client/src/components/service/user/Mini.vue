@@ -46,7 +46,7 @@ export default {
   methods: {
     goToAdmin () {
       if(!this.storeUser || this.storeUser.type == 0) return
-      this.$router.push('/admin')
+      window.open('/client/admin', '_blank')
     }
   },
 }

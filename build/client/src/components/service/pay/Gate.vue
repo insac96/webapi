@@ -65,7 +65,7 @@ export default {
 
     bonus (gate) {
       const expires = this.$utils.getExpires(gate.expires_bonus)
-      return expires.active ? gate.bonus : 0
+      return expires.active ? gate.bonus : gate.bonus_default
     }
   },
 }

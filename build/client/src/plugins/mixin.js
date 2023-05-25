@@ -57,7 +57,14 @@ const mixin = Vue.extend({
 
     async getUser () {
       const user = await this.API('getUser')
-      if(user) this.$store.commit('setUser', user)
+      if(user) return this.$store.commit('setUser', user)
+    },
+
+    async getUserAdmin () {
+      const user = await this.API('getUser')
+      if(!user) return 
+      if(user.type == 0) return this.$router.push('/')
+      if(user) return this.$store.commit('setUser', user)
     },
 
     async getConfig () {

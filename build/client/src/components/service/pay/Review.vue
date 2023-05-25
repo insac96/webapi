@@ -64,15 +64,15 @@ export default {
 
   computed: {
     review () {
-      const bonus = Number(this.gate.bonus)
       const expires = this.$utils.getExpires(this.gate.expires_bonus)
+      const bonus = expires.active ? Number(this.gate.bonus) : Number(this.gate.bonus_default)
       const vipPayToWheel = !!this.isLogin ? Number(this.storeUser['vip']['pay_to_wheel']) : 0
       const vipPayBonusCoin = !!this.isLogin ? Number(this.storeUser['vip']['pay_bonus']) : 0
       const vipPayBonusCoinFromReferraler = !!this.isLogin ? Number(!!this.storeUser['referraler'] ? this.storeUser['referraler']['referral_pay_bonus'] : 0) : 0
 
       const money = Number(this.money)
       const coin = money
-      const coin_lock = !expires.active ? 0 : Math.floor(money * bonus / 100)
+      const coin_lock = Math.floor(money * bonus / 100)
       const coin_lock_vip = Math.floor(money * vipPayBonusCoin / 100)
       const coin_lock_referraler = Math.floor(money * vipPayBonusCoinFromReferraler / 100);
       const coin_lock_all = coin_lock + coin_lock_vip + coin_lock_referraler

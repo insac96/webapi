@@ -3,7 +3,11 @@ HOSTNAME="localhost"
 PORT="3306"
 USERNAME="root"
 PASSWORD="root"
-API="API"
+WEB="WEB"
+CTV="CTV"
 
-mysql -h$HOSTNAME -P$PORT -u$USERNAME -p$PASSWORD -e "create database $API DEFAULT CHARACTER SET utf8;"
-mysql -u$USERNAME -p$PASSWORD $API < api.sql
+mysql -h$HOSTNAME -P$PORT -u$USERNAME -p$PASSWORD -e "create database $WEB DEFAULT CHARACTER SET utf8;"
+mysql -u$USERNAME -p$PASSWORD $WEB < web.sql
+
+mysql -h$HOSTNAME -P$PORT -u$USERNAME -p$PASSWORD -e "create database $CTV DEFAULT CHARACTER SET utf8;"
+mysql -u$USERNAME -p$PASSWORD $CTV < ctv.sql

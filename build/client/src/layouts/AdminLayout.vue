@@ -37,7 +37,7 @@ export default {
     checkAuth () {
       const token = this.$utils.getCookie('token')
       if(!token) return this.$router.push('/sign-in')
-      this.getUser()
+      this.getUserAdmin()
     }
   },
 }

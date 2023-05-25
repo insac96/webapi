@@ -24,7 +24,7 @@
       div(class="Spin" @click="spinWheel")
         UIcon(src="wheel")
 
-    audio(:src="`${publicPath}sounds/wheel/spin.mp3`" preload="auto" ref="audio")
+    audio(:src="`${publicPath}sounds/wheel/${sound}.mp3`" preload="auto" ref="audio")
 
     UDialog(v-model="dialog.result" @hide="$emit('reload')" max="180px")
       UBox(v-if="gift" title="Kết quả lượt quay" width="100%" @click="dialog.result = false")
@@ -78,11 +78,7 @@ export default {
         'unlucky': 'Mất Lượt',
         'item': 'Vật phẩm',
       },
-      sounds: {
-        spin: `${this.publicPath}sounds/wheel/spin.mp3`,
-        lose: `${this.publicPath}sounds/wheel/lose.mp3`,
-        win: `${this.publicPath}sounds/wheel/win.mp3`
-      }
+      sound: 'spin'
     }
   },
 
@@ -127,16 +123,16 @@ export default {
     },
 
     startAnim () {
-      this.playSound(this.sounds.spin)
+      this.playSound('spin')
       this.spin = true
       this.anim = window.requestAnimationFrame(this.animation)
     },
 
     endAnim () {
       if(this.gift.type == 'unlucky')
-        this.playSound(this.sounds.lose)
+        this.playSound('lose')
       else
-        this.playSound(this.sounds.win)
+        this.playSound('win')
 
       this.spin = false
       this.dialog.result = true
@@ -154,9 +150,9 @@ export default {
       }
     },
 
-    playSound (src) {
-      this.audio.src = src
-      this.audio.onended = () => this.audio.src = ''
+    playSound (name) {
+      this.sound = name
+      this.audio.onended = () => this.sound = 'spin'
       this.audio.play()
     },
   }
