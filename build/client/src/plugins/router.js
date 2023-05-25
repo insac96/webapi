@@ -123,8 +123,13 @@ const routes = [
         component: () => import(/* webpackChunkName: "route" */ '@/views/admin/manage/UserView.vue'),
       },
       {
+        path: 'manage-ip',
+        name: 'Quản lý IP',
+        component: () => import(/* webpackChunkName: "route" */ '@/views/admin/manage/IPView.vue'),
+      },
+      {
         path: 'manage-vip',
-        name: 'Cấp VIP',
+        name: 'Đặc quyền VIP',
         component: () => import(/* webpackChunkName: "route" */ '@/views/admin/manage/VipView.vue'),
       },
       {

@@ -131,6 +131,28 @@ class UserUtils extends UserPDO {
   /* Auto Update */
   public function autoUpdate ($user) {
     $update = array();
+
+    // Save IP
+    $IP = getClientIP();
+    $logIP = (new _PDO())->select("SELECT id FROM ny_log_user_ip WHERE ip=:ip AND account=:account", array(
+      'ip' => (string)$IP,
+      'account' => $user['account']
+    ));
+    if(empty($logIP)){
+      (new _PDO())->create('ny_log_user_ip', array(
+        'ip' => (string)$IP,
+        'account' => $user['account'],
+        'update_time' => time()
+      ));
+    }
+    else {
+      $account = $user['account'];
+      $time = time();
+      $sql = "UPDATE ny_log_user_ip SET update_time='$time' WHERE ip=$IP AND account=$account";
+      (new _PDO())->run($sql);
+    }
+
+    // Get Time Update
     $time = $this->getTimeUpdate();
     $isNextDate = ($user['date'] != $time['date']) ? true : false;
     $isNextMonth = ($user['month'] != $time['month']) ? true : false;

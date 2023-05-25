@@ -23,7 +23,8 @@ export default {
           child: [
             { title: 'Thống kê', to: '/admin/manage-statistical' },
             { title: 'Tài khoản', to: '/admin/manage-user' },
-            { title: 'Cấp VIP', to: '/admin/manage-vip' },
+            { title: 'Địa chỉ IP', to: '/admin/manage-ip' },
+            { title: 'Đặc quyền VIP', to: '/admin/manage-vip' },
             { title: 'Cài đặt', to: '/admin/manage-config' },
           ]
         },

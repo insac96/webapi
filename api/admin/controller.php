@@ -1,6 +1,7 @@
 <?php
 require 'utils.php';
 require 'configAction/index.php';
+require 'ipAction/index.php';
 require 'statisticalAction/index.php';
 require 'vipAction/index.php';
 require 'authAction/index.php';
@@ -30,8 +31,37 @@ class Controller {
     (new Config())->saveConfig();
     res(200, 'Cập nhật thành công', null);
   }
-
 /* End Config */
+
+/* IP Client */
+  public function getAllIPClient () {
+    (new Auth())->getAuth();
+    $list = (new IPClient())->getAllIPClient();
+    
+    res(200, null, $list);
+  }
+
+  public function searchIPClient () {
+    (new Auth())->getAuth();
+    $list = (new IPClient())->searchIPClient();
+    
+    res(200, null, $list);
+  }
+
+  public function getAllAccountByIPClient () {
+    (new Auth())->getAuth();
+    $list = (new IPClient())->getAllAccountByIPClient();
+    
+    res(200, null, $list);
+  }
+
+  public function setBlockIP () {
+    (new Auth())->getAuth();
+    (new IPClient())->setBlockIP();
+    res(200, 'Thao tác thành công');
+  }
+/* End IP Client */
+
 /* User */
   public function getAllUser () {
     (new Auth())->getAuth();
@@ -47,6 +77,20 @@ class Controller {
     res(200, null, $list);
   }
 
+  public function getLogUserIP () {
+    (new Auth())->getAuth();
+    $list = (new User())->getLogUserIP();
+    
+    res(200, null, $list);
+  }
+
+  public function getLogUserReferral () {
+    (new Auth())->getAuth();
+    $list = (new User())->getLogUserReferral();
+    
+    res(200, null, $list);
+  }
+  
   public function updateUserAuth () {
     (new Auth())->getAuth(2);
     (new User())->updateUserAuth();

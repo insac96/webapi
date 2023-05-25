@@ -21,7 +21,6 @@
       template(#two v-if="select")
         UAlert(color="danger" border class="mb-2") Bạn chắc chắn từ chối giao dịch này
         UInput(v-model="reason" label-top="Lý do gửi đến người nạp")
-
 </template>
 
 <script>

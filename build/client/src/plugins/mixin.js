@@ -60,13 +60,6 @@ const mixin = Vue.extend({
       if(user) return this.$store.commit('setUser', user)
     },
 
-    async getUserAdmin () {
-      const user = await this.API('getUser')
-      if(!user) return 
-      if(user.type == 0) return this.$router.push('/')
-      if(user) return this.$store.commit('setUser', user)
-    },
-
     async getConfig () {
       const config = await this.API('getConfig')
       if(config) return this.$store.commit('setConfig', config)
@@ -99,6 +92,7 @@ const mixin = Vue.extend({
           this.notify(msg, type)
           
           // Check and Return
+          if(code == 405) return this.logout()
           if(code == 401) return this.logout()
           if(code == 200) return resolve(data || true)
           if(code != 200) return resolve(null)

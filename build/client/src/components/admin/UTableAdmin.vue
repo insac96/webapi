@@ -26,7 +26,7 @@
                 UFlex(wrap="wrap" v-else)
                   UChip(v-if="convertData('gifts', item[key]).length == 0") Chưa cập nhật
                   UItem(v-for="(gift, iGift) in convertData('gifts', item[key])" :key="iGift" :item="gift")
-              th(v-if="!!actionOne || !!actionTwo || !!actionThree")
+              td(v-if="!!actionOne || !!actionTwo || !!actionThree")
                 UFlex(align="center")
                   UChip(color="info" full class="mr-1" v-if="actionOne" @click="openActionOne(item)") {{textOne}}
                   UChip(color="success" full class="mr-1" v-if="actionThree" @click="openActionThree(item)") {{textThree}}
@@ -344,6 +344,11 @@ export default {
 
 <style lang="sass">
 .UiTableAdmin
+  .UiChip
+    &:not(.pointer)
+      user-select: all !important
+      .UiText
+        user-select: all !important
   &__Box
     .UiBox__Body
       max-height: 70vh
@@ -389,6 +394,9 @@ export default {
           text-align: start
           cursor: pointer
       tbody
+        tr
+          &:hover
+            background: rgba(var(--ui-dark), 0.2)
         td
           padding: calc(var(--space) * 0.8) var(--space)
           background: rgba(var(--ui-content),0.4)

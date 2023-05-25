@@ -95,32 +95,6 @@ class _PDO {
     }
   }
 
-  /* Search */
-  public function search ($sql, array $data) {
-    try {
-      $stmt = $this->conn->prepare($sql);
-      $stmt->setFetchMode(PDO::FETCH_ASSOC);
-      foreach ($data as $key => $value) {
-        if($key == 'start'){
-          $stmt->bindParam(':start', $data[$key], PDO::PARAM_INT);
-        }
-        else if ($key == 'limit') {
-          $stmt->bindParam(':limit', $data[$key], PDO::PARAM_INT);
-        }
-        else {
-          $stmt->bindParam(':'.$key, $data[$key], PDO::PARAM_STR);
-        }
-      }
-      $stmt->execute();
-      $result = $stmt->fetchAll();
-      $this->disconnect();
-      return $result;
-    }
-    catch (Exception $e) {
-      res(500, 'SQL Error');
-    }
-  }
-
   /* Create Data */
   public function create ($name, $insert) {
     try {

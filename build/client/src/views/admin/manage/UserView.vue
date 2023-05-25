@@ -12,7 +12,7 @@
       @one="updateUserAuth"
       @three="updateUserInfo"
       @open-three="openAdd"
-      @select-data="openEditMission"
+      @select-data="openUserInfo"
     )
       template(#one v-if="select")
         UInput(v-model="select.account" label-top="Tài khoản" disabled)
@@ -29,21 +29,18 @@
         UInput(v-model="addVal.wheel" label-top="Thêm Lượt Quay" type="number")
         UInput(v-model="addVal.reason" label-top="Lý do")
 
-    UDialog(v-model="dialogEditMission" @hide="cancelEditMission")
-      UBox(width="100%" title="Cập nhật nhiệm vụ" v-if="selectEditMission")
-        UInput(v-model="selectEditMission.account" label-top="Tài khoản" disabled)
-        USelect(v-model="selectEditMission.join_group" label-top="Group Facebook" :list="missionVal")
-        USelect(v-model="selectEditMission.join_zalo" label-top="Group Zalo" :list="missionVal")
-        USelect(v-model="selectEditMission.join_telegram" label-top="Group Telegram" :list="missionVal")
-        USelect(v-model="selectEditMission.share_web" label-top="Share Website" :list="missionVal")
-        template(#footer)
-          UFlex(align="center" justify="flex-end")
-            UButton(color="primary" class="mr-1" @click="updateUserMission") Thực Hiện
-            UButton(color="dark" @click="cancelEditMission") Hủy Bỏ
+    transition(name="up")
+      UserInfo(:user="selectUserInfo" v-if="selectUserInfo" @reload="onReload" class="mt-2")
 </template>
 
 <script>
+import UserInfo from  '@/components/admin/user/index.vue'
+
 export default {
+  components: {
+    UserInfo
+  },
+
   data() {
     return {
       head: {
@@ -87,12 +84,7 @@ export default {
         reason: null
       },
 
-      selectEditMission: null,
-      dialogEditMission: false,
-      missionVal: [
-        { value: 0, label: 'Chưa hoàn thành' },
-        { value: 1, label: 'Hoàn thành' },
-      ]
+      selectUserInfo: null,
     }
   },
 
@@ -108,28 +100,14 @@ export default {
       if(!!update) return this.onReload()
     },
 
-    async updateUserMission () {
-      if(!this.selectEditMission) return this.notify('Vui lòng chọn tài khoản trước');
-      const update = await this.API('updateUserMission', this.selectEditMission, true)
-
-      if(!update) return 
-      this.cancelEditMission()
-      this.onReload()
-    },
-
     openAdd () {
       if(!this.select) return
       this.addVal.account = this.select.account
     },
 
-    openEditMission (data) {
-      this.selectEditMission = data
-      this.dialogEditMission = true
-    },
-
-    cancelEditMission () {
-      this.dialogEditMission = false
-      this.selectEditMission = null
+    openUserInfo (data) {
+      this.selectUserInfo = null
+      setTimeout(() => this.selectUserInfo = data, 1)
     },
 
     onReload () {

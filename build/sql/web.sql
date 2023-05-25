@@ -132,6 +132,18 @@ KEY `id` (`id`)
 ) 
 ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+/* Log User IP */
+DROP TABLE IF EXISTS `ny_log_user_ip`;
+CREATE TABLE `ny_log_user_ip` (
+`id` int(11) NOT NULL AUTO_INCREMENT,
+`account` varchar(100) NOT NULL,
+`ip` varchar(1000) NOT NULL,
+`update_time` int(11) unsigned,
+PRIMARY KEY (`id`),
+KEY `id` (`id`)
+) 
+ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 /* Notify */
 DROP TABLE IF EXISTS `ny_notify`;
@@ -168,9 +180,9 @@ KEY `id` (`id`)
 ) 
 ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO `ny_gate` VALUES (1, 1, 'Banking', 'System', 'System', null, 'https://img.vietqr.io/image/[bankcode]-[stk]-print.png', 0, 0, 1, 0);
-INSERT INTO `ny_gate` VALUES (2, 2, 'Card', 'System', 'System', null, null, 0, 0, 1, 0);
-INSERT INTO `ny_gate` VALUES (3, 3, 'Momo', 'System', 'System', null, 'https://momosv3.apimienphi.com/api/QRCode', 0, 0, 1, 0);
+INSERT INTO `ny_gate` VALUES (1, 1, 'Banking', 'System', 'System', null, 'https://img.vietqr.io/image/[bankcode]-[stk]-print.png', 0, 0, 0, 1, 0);
+INSERT INTO `ny_gate` VALUES (2, 2, 'Card', 'System', 'System', null, null, 0, 0, 0, 1, 0);
+INSERT INTO `ny_gate` VALUES (3, 3, 'Momo', 'System', 'System', null, 'https://momosv3.apimienphi.com/api/QRCode', 0, 0, 0, 1, 0);
 
 
 /* Event */
@@ -464,6 +476,18 @@ KEY `id` (`id`)
 ) 
 ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+
+DROP TABLE IF EXISTS `ny_log_ip`;
+CREATE TABLE `ny_log_ip` (
+`id` int(11) NOT NULL AUTO_INCREMENT,
+`ip` varchar(1000) NOT NULL,
+`block` tinyint(3) unsigned DEFAULT 0 COMMENT '0: Unblock, 1: Block',
+`connect` double(50,0) DEFAULT 0,
+`update_time` int(11) unsigned,
+PRIMARY KEY (`id`),
+KEY `id` (`id`)
+) 
+ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 

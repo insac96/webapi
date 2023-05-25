@@ -49,7 +49,8 @@ export default {
   position: relative
   display: inline-flex
   align-items: center
-  width: var(--ui-chip-width)
+  min-width: var(--ui-chip-width)
+  max-width: var(--ui-chip-width)
   height: var(--ui-chip-height)
   background: rgb(var(--ui-gray-200))
   color: rgb(var(--ui-chip-text))

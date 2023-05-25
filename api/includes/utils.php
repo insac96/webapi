@@ -16,6 +16,62 @@ function errorHandler ($errno, $errstr) {
   res(500, '['.$errno.'] '.$errstr);
 }
 
+/* Get Client IP */
+function getClientIP ($adv = true){
+  $ip = null;
+
+  if ($adv) {
+    if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+      $arr = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
+      $pos = array_search('unknown', $arr);
+      if (false !== $pos) {
+        unset($arr[$pos]);
+      }
+      $ip = trim($arr[0]);
+    } 
+    else if (isset($_SERVER['HTTP_CLIENT_IP'])) {
+      $ip = $_SERVER['HTTP_CLIENT_IP'];
+    } 
+    else if (isset($_SERVER['REMOTE_ADDR'])) {
+      $ip = $_SERVER['REMOTE_ADDR'];
+    }
+  }
+  else if (isset($_SERVER['REMOTE_ADDR'])) {
+    $ip = $_SERVER['REMOTE_ADDR'];
+  }
+
+  $long = sprintf('%u', ip2long($ip));
+  if(empty($long)) return res(403, 'Vui lòng tuy cập bằng địa chỉ IP hợp lệ');
+  return $ip;
+}
+
+/* Check Block IP */
+function checkBlockIP () {
+  $IP = getClientIP();
+  $log = (new _PDO())->select("SELECT block, connect FROM ny_log_ip WHERE ip=:ip", array(
+    'ip' => (string)$IP
+  ));
+
+  if(empty($log)){
+    (new _PDO())->create('ny_log_ip', array(
+      'ip' => (string)$IP,
+      'update_time' => time()
+    ));
+    return;
+  }
+  else {
+    (new _PDO())->update('ny_log_ip', array(
+      'update_time' => time(),
+      'connect' => array('+', 1)
+    ), array(
+      'ip' => (string)$IP
+    ));
+
+    if($log['block'] != 1) return;
+    if($log['block'] == 1) return res('405', 'Bạn bị chặn quyền truy cập');
+  }
+}
+
 /* Convert Time */
 function convertTime ($time = null) {
   $time = isset($time) ? $time : time();

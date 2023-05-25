@@ -14,6 +14,9 @@ require_once API_DIR.'/includes/pdo.php';
 /* Set Error Handler */
 set_error_handler('errorHandler');
 
+/* Check IP Block */
+checkBlockIP();
+
 /* Set POST */
 $request_body = file_get_contents('php://input');
 $dataPost = json_decode($request_body, true);

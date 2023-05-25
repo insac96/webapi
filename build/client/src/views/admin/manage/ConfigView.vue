@@ -1,5 +1,5 @@
 <template lang="pug">
-  div(class="ActivateEventView" v-if="config")
+  div(class="ManageConfigView" v-if="config")
     UTab(:list="list" v-model="tab" color="shop" class="mb-2")
 
     transition(name="up" mode="out-in")

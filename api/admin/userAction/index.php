@@ -26,6 +26,37 @@ class User extends UserUtils {
     return getTableSearch($sqlCount, $sqlSearch);
   }
 
+  /* Get User IP */
+  public function getLogUserIP () {
+    if(empty($_POST['account'])) return res(400, 'Vui lòng chọn tài khoản trước');
+
+    $account = $_POST['account'];
+    $count = (new _PDO())->select("SELECT count(id) AS total FROM ny_log_user_ip WHERE account=:account", array(
+      'account' => $account
+    ));
+    $count = $count['total'];
+
+    return getTableList(null, "SELECT 
+      user_ip.*, log_ip.block
+      FROM ny_log_user_ip user_ip
+      LEFT JOIN ny_log_ip log_ip ON user_ip.ip = log_ip.ip
+      WHERE account='$account'
+    ", $count);
+  }
+
+  /* Get User Referral */
+  public function getLogUserReferral () {
+    if(empty($_POST['account'])) return res(400, 'Vui lòng chọn tài khoản trước');
+
+    $account = $_POST['account'];
+    $count = (new _PDO())->select("SELECT count(id) AS total FROM ny_log_referral WHERE account=:account", array(
+      'account' => $account
+    ));
+    $count = $count['total'];
+
+    return getTableList(null, "SELECT * FROM ny_log_referral WHERE account='$account'", $count);
+  }
+
   /* Update User Auth */
   public function updateUserAuth () {
     if(
