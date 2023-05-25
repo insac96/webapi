@@ -347,7 +347,6 @@ export default {
   &__Box
     .UiBox__Body
       max-height: 70vh
-      overflow-x: hidden
       overflow-y: auto
   &__NoData
     padding: var(--space)

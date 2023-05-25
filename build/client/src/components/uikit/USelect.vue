@@ -132,7 +132,7 @@ export default {
     box-shadow: 0 0 20px -5px rgba(var(--ui-black), 0.2)
     border: 1px solid rgba(var(--ui-dark), 0.1)
     overflow: auto
-    z-index: 1
+    z-index: 99
     &__Item
       display: flex
       align-items: center
