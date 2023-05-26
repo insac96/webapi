@@ -24,8 +24,8 @@ export default {
             { title: 'Thống kê', to: '/admin/manage-statistical' },
             { title: 'Máy chủ', to: '/admin/manage-server' },
             { title: 'Tài khoản', to: '/admin/manage-user' },
-            { title: 'Địa chỉ IP', to: '/admin/manage-ip' },
-            { title: 'Đặc quyền VIP', to: '/admin/manage-vip' },
+            { title: 'IP', to: '/admin/manage-ip' },
+            { title: 'VIP', to: '/admin/manage-vip' },
             { title: 'Cài đặt', to: '/admin/manage-config' },
           ]
         },

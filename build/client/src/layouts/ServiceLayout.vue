@@ -10,6 +10,7 @@
         router-view
       LayoutFooter
 
+    LayoutGiftReferral
     WebNotify
 </template>
 
@@ -18,6 +19,7 @@ import LayoutHeader from '@/components/service/layout/Header.vue'
 import LayoutSidebar from '@/components/service/layout/Sidebar.vue'
 import LayoutBanner from '@/components/service/layout/Banner.vue'
 import LayoutControl from '@/components/service/layout/Control.vue'
+import LayoutGiftReferral from '@/components/service/layout/GiftReferral.vue'
 import LayoutFooter from '@/components/service/layout/Footer.vue'
 import WebNotify from '@/components/Notify.vue'
 
@@ -27,6 +29,7 @@ export default {
     LayoutSidebar,
     LayoutBanner,
     LayoutControl,
+    LayoutGiftReferral,
     LayoutFooter,
     WebNotify
   },

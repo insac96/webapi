@@ -34,4 +34,24 @@ class User extends UserUtils {
       'get_gifts_referral' => 1
     ));
   }
+
+  /* Update User Mission */
+  public function updateUserMission ($user) {
+    if(empty($_POST['type'])) return res(400, 'Dữ liệu đầu vào sai');
+    
+    $typeAccept = array('zalo', 'group', 'telegram');
+    $type = trim(strtolower($_POST['type']));
+    $type_check = 'join_'.$type;
+
+    // Check Type
+    if(!in_array($type, $typeAccept)) return res(400, 'Kiểu nhiệm vụ không hỗ trợ');
+
+    // Check User
+    if($user[$type_check] > 0) return res(400, 'Bạn đã hoàn thành nhiệm vụ này rồi');
+
+    // Update User
+    $this->updateUser($user['account'], array(
+      $type_check => 1
+    ));
+  }
 }

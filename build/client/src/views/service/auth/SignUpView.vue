@@ -18,7 +18,7 @@ export default {
       account: null,
       password: null,
       phone: null,
-      referral_code: null
+      referral_code: this.$route.params.code || null
     }
   },
 

@@ -10,6 +10,7 @@
       '--ui-input-width': width,
       '--ui-input-height': height,
     }"
+    @click="$emit('click')"
   >
     <div class="UiInput__Label" v-if="labelTop">{{labelTop}}</div>
 

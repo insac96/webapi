@@ -58,7 +58,12 @@ class User extends UserUtils {
     ));
     $count = $count['total'];
 
-    return getTableList(null, "SELECT * FROM ny_log_referral WHERE account='$account'", $count);
+    return getTableList(null, "SELECT
+      log.id, log.invitee, log.create_time,
+      (SELECT SUM(money) FROM ny_pay WHERE status = 1 AND account = log.invitee) as pay_all
+      FROM ny_log_referral log
+      WHERE log.account='$account'
+    ", $count);
   }
 
   /* Update User Auth */

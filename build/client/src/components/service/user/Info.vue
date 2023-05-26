@@ -65,14 +65,14 @@
           UChip(@click="$router.push('/shop')" full) Tiêu thêm
 
     //- Dialog - Mã mời
-    UDialog(v-model="dialog.referral")
+    UDialog(v-model="dialog.referral" @show="makeLink" @hide="")
       UBox(title="Mã mời của tôi" width="100%")
         UFlex(align="center" justify="space-between")
           UText(size="0.85rem") Mã mời
           UChip(icon="code" color="info" class="select-all") {{ storeUser.referral_code }}
-        UFlex(align="center" justify="space-between" class="mt-2" v-if="linkReferral")
+        UFlex(align="center" justify="space-between" class="mt-2")
           UText(size="0.85rem" class="mr-2" no-wrap) Link mời
-          UChip(large class="select-all") {{ linkReferral }}
+          UChip(icon="bx-link" color="dark" large class="select-all") {{ linkReferral || 'Đang tạo...' }}
 
     //- Dialog - Đổi mật khẩu
     UDialog(v-model="dialog.password" @hide="close")
@@ -113,6 +113,8 @@ export default {
         bank: false
       },
 
+      linkReferral: null,
+
       update: {
         oldPassword: null,
         newPassword: null,
@@ -127,14 +129,27 @@ export default {
   },
 
   computed: {
-    linkReferral () {
+    async makeLink () {
       if(!this.isLogin) return null
       if(!this.storeConfig) return null
-      if(!this.storeUser.referral_code) return null
+      if(!this.storeUser) return null
 
-      const code = this.storeUser.referral_code
-      const referralLink = this.storeConfig.referral_link || this.storeConfig.web_link
-      return !!referralLink ? `${referralLink}/client/referral/${code}` : null
+      const code = this.storeUser.referral_code || null
+      const weblink = this.storeConfig.web_link || null
+
+      if(!code || !weblink) return null
+      const originalLink = `${weblink}/client/referral/${code}`
+      const apiUrl = `https://api.shrtco.de/v2/shorten?url=${originalLink}`;
+
+      try {
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+        const link = data.result.full_short_link;
+        this.linkReferral = link
+
+      } catch (e) {
+        this.linkReferral = originalLink
+      }
     }
   },
 

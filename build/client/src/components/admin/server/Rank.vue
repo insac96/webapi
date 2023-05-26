@@ -32,7 +32,7 @@ export default {
       reload: 0,
 
       plus: {
-        start: null,
+        start: this.$utils.getTime(new Date() / 1000).dateInput,
         end: this.$utils.getTime(new Date() / 1000).dateInput,
         server_id: this.server.server_id
       },

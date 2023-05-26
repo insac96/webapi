@@ -91,9 +91,19 @@ const routes = [
         component: () => import(/* webpackChunkName: "route" */ '@/views/service/auth/SignUpView.vue'),
       },
       {
+        path: 'referral/:code',
+        name: 'Đăng Ký',
+        component: () => import(/* webpackChunkName: "route" */ '@/views/service/auth/SignUpView.vue'),
+      },
+      {
         path: 'sign-forgot',
         name: 'Quên Mật Khẩu',
         component: () => import(/* webpackChunkName: "route" */ '@/views/service/auth/ForgotView.vue'),
+      },
+      {
+        path: 'complete/:type',
+        name: 'Hoàn thành nhiệm vụ',
+        component: () => import(/* webpackChunkName: "route" */ '@/views/service/CompleteView.vue'),
       },
     ]
   },

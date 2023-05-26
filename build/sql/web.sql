@@ -43,7 +43,7 @@ CREATE TABLE `ny_vip` (
 `referral_bonus_coin` double(50,0) unsigned NOT NULL DEFAULT 0 COMMENT 'money',
 `pay_to_wheel` double(50,0) unsigned NOT NULL DEFAULT 0 COMMENT '? Pay = 1 Wheel',
 `diamond_to_money` double(50,0) unsigned NOT NULL DEFAULT 0 COMMENT '1 Diamond = ? Money',
-`gifts` text, 
+`gifts` text,
 PRIMARY KEY (`id`),
 KEY `id` (`id`)
 )

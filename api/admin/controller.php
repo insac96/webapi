@@ -53,35 +53,30 @@ class Controller {
     res(200, 'Cập nhật thành công', null);
   }
 
-  /* Start Server */
   public function startServer () {
     (new Auth())->getAuth(2);
     (new Server())->startServer();
     res(200, 'Bật máy chủ thành công', null);
   }
 
-  /* Stop Server */
   public function stopServer () {
     (new Auth())->getAuth(2);
     (new Server())->stopServer();
     res(200, 'Tắt máy chủ thành công', null);
   }
 
-  /* Get Log Server Login */
   public function getLogServerLogin () {
     (new Auth())->getAuth(2);
     $list = (new Server())->getLogServerLogin();
     res(200, null, $list);
   }
 
-  /* Get Log Server Spend */
   public function getLogServerSpend () {
     (new Auth())->getAuth(2);
     $list = (new Server())->getLogServerSpend();
     res(200, null, $list);
   }
 
-  /* Get Log Server Rank */
   public function getLogServerRank () {
     (new Auth())->getAuth(2);
     $list = (new Server())->getLogServerRank();

@@ -9,7 +9,7 @@
       :title="`${event.prefix} ${$utils.getMoney(milestone.need, false)} ${event.suffix}`"
     )
       UFlex(align="center")
-        div(class="mr-auto")
+        div(class="mr-auto" class="ListGift")
           UChip(v-if="$utils.getGifts(milestone.gifts).length == 0") Chưa cập nhật phần thưởng
           UFlex(v-else wrap="wrap")
             UItem(v-for="(gift, index) in $utils.getGifts(milestone.gifts)" :key="index" :item="gift")
@@ -110,4 +110,8 @@ export default {
     margin-bottom: var(--space)
     &:last-child
       margin-bottom: 0
+    .ListGift
+      width: 100%
+      flex-grow: 1
+      margin-right: var(--space)
 </style>

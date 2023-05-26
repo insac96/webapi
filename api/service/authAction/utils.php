@@ -11,7 +11,7 @@ class AuthUtils extends AuthPDO {
   public function makeReferralCode ($account) {
     $config = (new Config())->getConfigAll();
     $prefix = !empty($config['prefix_referral']) ? $config['prefix_referral'] : 'R-';
-    return $prefix.''.$account;
+    return $prefix.''.strtoupper($account);
   }
 
   /* Make Token and Set Auth */

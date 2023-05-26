@@ -24,8 +24,8 @@
         UInput(v-model="select.server_id" label-top="ID Máy Chủ" read-only)
         UInput(v-model="select.db_name" label-top="Cơ sở dữ Liệu")
         UInput(v-model="select.path" label-top="Đường dẫn thư mục")
-        UInput(v-model="select.file_start" label-top="Tệp chạy")
-        UInput(v-model="select.file_stop" label-top="Tệp dừng")
+        UInput(v-model="select.file_start" label-top="Lệnh chạy")
+        UInput(v-model="select.file_stop" label-top="Lệnh dừng")
 
       template(#three v-if="select")
         UAlert(color="success" border class="mb-2") Bạn chắc chắn bật máy chủ này

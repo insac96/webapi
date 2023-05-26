@@ -20,7 +20,7 @@
         UChip(icon="coin" color="coin") - {{ vipSelect.discount_shop }}%
       UFlex(align="center" justify="space-between" class="mb-2")
         UText(size="0.85rem") Nạp thưởng Xu Khóa
-        UChip(icon="coin_lock" color="coin_lock") + {{ vipSelect.pay_bonus_coin }}%
+        UChip(icon="coin_lock" color="coin_lock") + {{ vipSelect.pay_bonus }}%
       UFlex(align="center" justify="space-between" class="mb-2")
         UText(size="0.85rem") Nạp thưởng Vòng Quay
         UChip(icon="wheel" color="wheel") {{ $utils.getMoney(vipSelect.pay_to_wheel, false) }} VNĐ /
@@ -32,7 +32,7 @@
         UChip(icon="user" color="user") {{ $utils.getMoney(vipSelect.referral_bonus_coin, false) }} Xu / 
       UFlex(align="center" justify="space-between")
         UText(size="0.85rem") Người bạn giới thiệu nạp thưởng
-        UChip(icon="diamond" color="diamond") {{ vipSelect.referral_pay_bonus_coin }}%
+        UChip(icon="diamond" color="diamond") {{ vipSelect.referral_pay_bonus }}%
 </template>
 
 <script>

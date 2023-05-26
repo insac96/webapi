@@ -57,13 +57,15 @@ class Auth extends AuthUtils {
       res(400, 'Vui lòng nhập đủ thông tin');
     
     // No Format
-    $account = trim($_POST['account']);
+    $account = trim(strtolower($_POST['account']));
     $password = trim($_POST['password']);
     $phone = trim(strtolower($_POST['phone']));
 
     // Validate
     if(strlen($account) < 6 || strlen($account) > 15)
       res(400, 'Tên tài khoản trong khoảng từ 5-15 ký tự');
+    if(!preg_match('/^[a-z\d]{6,15}$/i', $account))
+      res(400, 'Tên tài khoản không chứa ký tự đặc biệt');
     if(preg_match("/\\s/", $account))
       res(400, 'Tài khoản không để khoảng trắng');
     if(strlen($password) < 6 || strlen($password) > 15)

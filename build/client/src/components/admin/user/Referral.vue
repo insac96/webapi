@@ -19,8 +19,8 @@ export default {
       head: {
         'id': 'ID',
         'invitee': 'Người được mời',
-        'action': 'Nội dung',
-        'create_time': 'Thời gian'
+        'pay_all': 'Tổng nạp',
+        'create_time': 'Thời gian mời'
       },
       selectUser: JSON.parse(JSON.stringify(this.user))
     }

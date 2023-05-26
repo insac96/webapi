@@ -6,7 +6,6 @@
     UInput(v-model="configConvert.game_banner" label-top="Banner")
     UInput(v-model="configConvert.game_icon_path" label-top="Đường dẫn Icon")
     UInput(v-model="configConvert.web_link" label-top="Link Trang Web")
-    UInput(v-model="configConvert.referral_link" label-top="Link Mã Mời")
     template(#footer)
       UFlex(justify="flex-end")
         UButton(@click="$emit('save', configConvert)") Lưu

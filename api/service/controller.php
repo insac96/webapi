@@ -69,6 +69,13 @@ public function getConfig () {
     (new User())->getGiftReferraler($user);
     res(200, 'Nhận thưởng thành công', null);
   }
+
+  public function updateUserMission () {
+    $user = (new Auth())->getAuth();
+    (new User())->updateUserMission($user);
+    
+    res(200, 'Cập nhật thành công');
+  }
 /* End User */
 
 /* News */
