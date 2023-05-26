@@ -49,6 +49,7 @@ export default {
   position: relative
   display: inline-flex
   align-items: center
+  justify-content: center
   min-width: var(--ui-chip-width)
   max-width: var(--ui-chip-width)
   height: var(--ui-chip-height)
@@ -60,7 +61,7 @@ export default {
   user-select: all
   overflow: hidden
   &__Icon
-    display: inline-flex
+    display: flex
     align-items: center
     justify-content: center
     min-width: calc(var(--ui-chip-height) * 0.8)

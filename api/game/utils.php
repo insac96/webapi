@@ -1,5 +1,29 @@
 <?php
 class GameUtils {
+  /* Get All Server Admin */
+  public function getAllServerAdmin () {
+    if(DEV){
+      $list = [];
+      $list[] = array('server_id' => 'sf1', 'server_name' => 'Máy Chủ 1', 'db_name' => 'game_1');
+      $list[] = array('server_id' => 'sf2', 'server_name' => 'Máy Chủ 2', 'db_name' => 'game_2');
+      $list[] = array('server_id' => 'sf3', 'server_name' => 'Máy Chủ 3', 'db_name' => 'game_3');
+      $list[] = array('server_id' => 'sf4', 'server_name' => 'Máy Chủ 4', 'db_name' => 'game_4');
+      return $list;
+    }
+
+    $sql = "SELECT 
+      server.server_id, 
+      server.name AS server_name,
+      config.mysql_db AS db_name
+      FROM ny_server server
+      LEFT JOIN ny_server_config config
+      ON server.server_id = config.server_id
+    ";
+
+    $list = (new _PDO('backstage'))->select($sql, [], true);
+    return $list;
+  }
+
   /* Get Server */
   public function getServer ($server_id) {
     $sql = "SELECT 

@@ -33,11 +33,28 @@ export default {
     this.checkAuth()
   },
 
+  mounted() {
+    window.document.addEventListener('login_game', this.loginGame, false)
+  },
+
+  beforeDestroy() {
+    window.document.removeEventListener('login_game', this.loginGame, false)
+  },
+
   methods: {
     checkAuth () {
       const token = this.$utils.getCookie('token')
       if(!token) return this.$router.push('/sign-in')
       this.getUser()
+    },
+
+    async loginGame (e) {
+      if(!e.detail) return this.notify('Có lỗi xảy ra')
+      const detail = JSON.parse(e.detail)
+      const server_id = detail.server_id
+
+      if(!server_id) return this.notify('Có lỗi xảy ra')
+      await this.API('loginGame', { server_id: server_id })
     }
   },
 }

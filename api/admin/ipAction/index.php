@@ -23,7 +23,9 @@ class IPClient extends IPClientUtils {
     $count = $countQuery['total'];
 
     $sql = "SELECT
-      log.account, MAX(log.create_time) AS create_time, ANY_VALUE(user.update_time) AS update_time
+      log.account, 
+      MAX(log.create_time) AS create_time, 
+      MAX(user.update_time) AS update_time
       FROM ny_log_login log
       LEFT JOIN ny_user user ON user.account = log.account
       WHERE log.ip = '$ip'

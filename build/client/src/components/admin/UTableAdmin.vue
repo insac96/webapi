@@ -160,6 +160,11 @@ export default {
         1: 'SMOD',
         2: 'ADMIN'
       },
+
+      runningView: {
+        0: 'Tắt',
+        1: 'Bật'
+      }
     }
   },
 
@@ -253,7 +258,7 @@ export default {
         'coin', 'coin_lock', 'money', 'pay', 'price', 'save_pay_ingame',
         'diamond', 'wheel', 'need_exp', 'referral_bonus_coin', 'pay_to_wheel', 
         'diamond_to_money', 'pay_all', 'pay_banking', 'pay_momo', 'pay_card',
-        'amount'
+        'amount', 'spend_all', 'spend_recharge', 'spend_item'
       ]
 
       if(isCurrency.includes(key)){
@@ -308,7 +313,7 @@ export default {
         'coin', 'coin_lock', 'money', 'pay', 'price', 'save_pay_ingame',
         'diamond', 'wheel', 'need_exp', 'referral_bonus_coin', 'pay_to_wheel', 
         'diamond_to_money', 'pay_all', 'pay_banking', 'pay_momo', 'pay_card',
-        'amount'
+        'amount', 'spend_all', 'spend_recharge', 'spend_item'
       ]
       const isTime = ['create_time', 'verify_time', 'update_time']
       const isExpires = ['expires_bonus', 'expires_time']
@@ -352,6 +357,9 @@ export default {
       if(type == 'referraler'){
         return data ? data : 'Không'
       }
+      if(type == 'running'){
+        return this.runningView[data]
+      }
       return data || 'Chưa cập nhật'
     },
 
@@ -359,8 +367,11 @@ export default {
       if(type == 'status'){
         return `status-${data}`
       }
-      else if(type == 'type_user'){
+      if(type == 'type_user'){
         return `type-${data}`
+      }
+      if(type == 'running'){
+        return data == 0 ? 'danger' : 'success'
       }
       return null
     },

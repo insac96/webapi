@@ -240,6 +240,12 @@ public function getAllVip () {
     $role = (new Game())->getRole($user);
     res(200, null, $role);
   }
+
+  public function loginGame () {
+    $user = (new Auth())->getAuth();
+    (new Game())->loginGame($user);
+    res(200, 'Vào trò chơi thành công', null);
+  }
 /* End Game */
 
 }

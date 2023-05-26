@@ -373,6 +373,7 @@ CREATE TABLE `ny_log_shop` (
 `server_id` varchar(100) NOT NULL,
 `shop_id` int(11) NOT NULL,
 `shop_type` varchar(100) NOT NULL,
+`price` double(50,0) unsigned NOT NULL,
 `action` text,
 `create_time` int(11) unsigned,
 PRIMARY KEY (`id`),
@@ -496,11 +497,13 @@ DROP TABLE IF EXISTS `ny_server`;
 CREATE TABLE `ny_server` (
 `id` int(11) NOT NULL AUTO_INCREMENT,
 `server_id` varchar(100) NOT NULL,
+`server_name` varchar(100),
 `db_name` varchar(100),
-`path` varchar(1000) NOT NULL,
+`path` text,
 `file_start` varchar(100) NOT NULL DEFAULT 'start.sh',
 `file_stop` varchar(100) NOT NULL DEFAULT 'stop.sh',
 `running` tinyint(3) unsigned DEFAULT 0 COMMENT '0: No, 1: Yes',
+`update_time` int(11) unsigned,
 PRIMARY KEY (`id`),
 KEY `id` (`id`)
 ) 

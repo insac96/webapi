@@ -40,10 +40,9 @@ export default {
   --ui-tab-color: var(--ui-primary)
 .UiTab
   position: relative
-  display: inline-flex
+  display: flex
   align-items: center
-  justify-content: center
-  width: auto
+  justify-content: flex-start
   max-width: 100%
   background: rgba(var(--ui-content))
   border-radius: var(--radius)
@@ -51,6 +50,7 @@ export default {
   border: 1px solid rgba(var(--ui-dark), 0.1)
   overflow-y: hidden
   overflow-x: auto
+  white-space: nowrap
   .Tab
     padding: calc(var(--space) * 0.8) var(--space)
     margin: 3px

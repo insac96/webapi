@@ -3,7 +3,7 @@ class EventPDO {
   static $PDO_GetAllEvent = "SELECT * FROM ny_event WHERE display='1' ORDER BY update_time DESC";
   static $PDO_GetEvent = "SELECT * FROM ny_event WHERE display='1' AND id=:id";
 
-  static $PDO_GetAllMilestone = "SELECT * FROM ny_event_milestone WHERE event_id=:event_id";
+  static $PDO_GetAllMilestone = "SELECT * FROM ny_event_milestone WHERE event_id=:event_id ORDER BY need ASC";
   static $PDO_GetMilestone = "SELECT * FROM ny_event_milestone WHERE id=:id";
   
   static $PDO_GetLogEvent = "SELECT 

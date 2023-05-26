@@ -47,6 +47,7 @@ class Shop extends ShopUtils {
       'server_id' => (string)$_POST['server_id'],
       'shop_id' => (int)$recharge['id'],
       'shop_type' => 'recharge',
+      'price' => (int)$recharge['price'],
       'action' => 'Đã mua gói ['.$recharge['name'].'] với giá ['.$recharge['price'].' Xu] tại máy chủ ['.$_POST['server_id'].']',
       'create_time' => time()
     ));
@@ -95,6 +96,7 @@ class Shop extends ShopUtils {
       'server_id' => (string)$_POST['server_id'],
       'shop_id' => (int)$item['id'],
       'shop_type' => 'item',
+      'price' => (int)$item['price'],
       'action' => 'Đã mua vật phẩm ['.$item['name'].'] số lượng [x'.$item['amount'].'] với giá ['.$item['price'].' Xu] tại máy chủ ['.$_POST['server_id'].']',
       'create_time' => time()
     ));
@@ -131,20 +133,9 @@ class Shop extends ShopUtils {
       $buy_with => array('-', (int)$currency['price']),
       $currency_type => array('+', (int)$currency['amount'])
     );
-    // Update User Spend
-    if($buy_with == 'coin' || $buy_with == 'coin_lock'){
-      $updateSpend = array(
-        'spend_day' => array('+', (int)$currency['price']),
-        'spend_month' => array('+', (int)$currency['price']),
-        'spend_all' => array('+', (int)$currency['price']),
-      );
-    }
-    else {
-      $updateSpend = array();
-    }
         
     // Update
-    (new User())->updateUser($user['account'], array_merge($updateCurrency, $updateSpend));
+    (new User())->updateUser($user['account'], $updateCurrency);
     
     // Create Log
     (new _PDO())->create('ny_log_shop', array(
@@ -152,6 +143,7 @@ class Shop extends ShopUtils {
       'server_id' => 'WEB',
       'shop_id' => (int)$currency['id'],
       'shop_type' => 'currency',
+      'price' => (int)$currency['price'],
       'action' => 'Đã mua ['.$currency['name'].'] với giá ['.$currency['price'].'] bằng ['.$currency['buy_with'].']',
       'create_time' => time()
     ));

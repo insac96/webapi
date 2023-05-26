@@ -1,7 +1,7 @@
 <template lang="pug">
   div(class="ManageUserInfo" v-if="user")
     UFlex(align="center" class="mb-2")
-      UButton(class="mr-auto" color="dark") {{ user.account }}
+      UButton(class="mr-auto") {{ user.account }}
       UTab(:list="list" v-model="tab")
 
     transition(name="up" mode="out-in")

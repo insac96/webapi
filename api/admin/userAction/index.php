@@ -38,8 +38,8 @@ class User extends UserUtils {
 
     return getTableList(null, "SELECT
       loglogin.ip, MAX(loglogin.create_time) AS create_time, 
-      ANY_VALUE(logip.block) AS block, 
-      ANY_VALUE(user.update_time) AS update_time
+      MAX(logip.block) AS block, 
+      MAX(user.update_time) AS update_time
       FROM ny_log_login loglogin
       LEFT JOIN ny_log_ip logip ON logip.ip = loglogin.ip
       LEFT JOIN ny_user user ON user.account = loglogin.account

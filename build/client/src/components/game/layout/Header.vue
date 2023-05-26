@@ -1,7 +1,9 @@
 <template lang="pug">
   UFlex(class="GameLayoutHeader" align="center")
     UIcon(src="bx-menu-alt-left" size="1.5rem" color="dark" class="mr-auto" @click="$emit('menu')")
-    UserCurrency
+    UserCurrency(:diamond="false")
+    UButton(color="danger" @click="$router.push('/')" size="33px" avatar class="ml-1")
+      UIcon(src="bx-x" size="1.5rem")
 </template>
 
 <style lang="sass">

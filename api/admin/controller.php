@@ -1,6 +1,7 @@
 <?php
 require 'utils.php';
 require 'configAction/index.php';
+require 'serverAction/index.php';
 require 'ipAction/index.php';
 require 'statisticalAction/index.php';
 require 'vipAction/index.php';
@@ -21,7 +22,7 @@ require 'logAction/index.php';
 class Controller {
 /* Config */
   public function getConfig () {
-    (new Auth())->getAuth();
+    (new Auth())->getAuth(2);
     $config = (new Config())->getConfig();
     res(200, null, $config);
   }
@@ -33,30 +34,85 @@ class Controller {
   }
 /* End Config */
 
+/* Server */
+  public function getAllServer () {
+    (new Auth())->getAuth(2);
+    $list = (new Server())->getAllServer();
+    res(200, null, $list);
+  }
+
+  public function syncServer () {
+    (new Auth())->getAuth(2);
+    (new Server())->syncServer();
+    res(200, 'Đồng bộ thành công', null);
+  }
+  
+  public function updateServer () {
+    (new Auth())->getAuth(2);
+    (new Server())->updateServer();
+    res(200, 'Cập nhật thành công', null);
+  }
+
+  /* Start Server */
+  public function startServer () {
+    (new Auth())->getAuth(2);
+    (new Server())->startServer();
+    res(200, 'Bật máy chủ thành công', null);
+  }
+
+  /* Stop Server */
+  public function stopServer () {
+    (new Auth())->getAuth(2);
+    (new Server())->stopServer();
+    res(200, 'Tắt máy chủ thành công', null);
+  }
+
+  /* Get Log Server Login */
+  public function getLogServerLogin () {
+    (new Auth())->getAuth(2);
+    $list = (new Server())->getLogServerLogin();
+    res(200, null, $list);
+  }
+
+  /* Get Log Server Spend */
+  public function getLogServerSpend () {
+    (new Auth())->getAuth(2);
+    $list = (new Server())->getLogServerSpend();
+    res(200, null, $list);
+  }
+
+  /* Get Log Server Rank */
+  public function getLogServerRank () {
+    (new Auth())->getAuth(2);
+    $list = (new Server())->getLogServerRank();
+    res(200, null, $list);
+  }
+/* End Server */
+
 /* IP Client */
   public function getAllIPClient () {
-    (new Auth())->getAuth();
+    (new Auth())->getAuth(2);
     $list = (new IPClient())->getAllIPClient();
     
     res(200, null, $list);
   }
 
   public function searchIPClient () {
-    (new Auth())->getAuth();
+    (new Auth())->getAuth(2);
     $list = (new IPClient())->searchIPClient();
     
     res(200, null, $list);
   }
 
   public function getAllAccountByIPClient () {
-    (new Auth())->getAuth();
+    (new Auth())->getAuth(2);
     $list = (new IPClient())->getAllAccountByIPClient();
     
     res(200, null, $list);
   }
 
   public function setBlockIP () {
-    (new Auth())->getAuth();
+    (new Auth())->getAuth(2);
     (new IPClient())->setBlockIP();
     res(200, 'Thao tác thành công');
   }
@@ -64,28 +120,28 @@ class Controller {
 
 /* User */
   public function getAllUser () {
-    (new Auth())->getAuth();
+    (new Auth())->getAuth(2);
     $list = (new User())->getAllUser();
     
     res(200, null, $list);
   }
 
   public function searchUser () {
-    (new Auth())->getAuth();
+    (new Auth())->getAuth(2);
     $list = (new User())->searchUser();
     
     res(200, null, $list);
   }
 
   public function getLogUserIP () {
-    (new Auth())->getAuth();
+    (new Auth())->getAuth(2);
     $list = (new User())->getLogUserIP();
     
     res(200, null, $list);
   }
 
   public function getLogUserReferral () {
-    (new Auth())->getAuth();
+    (new Auth())->getAuth(2);
     $list = (new User())->getLogUserReferral();
     
     res(200, null, $list);
@@ -115,7 +171,7 @@ class Controller {
 
 /* News */
   public function getAllNews () {
-    (new Auth())->getAuth();
+    (new Auth())->getAuth(2);
     $list = (new News())->getAllNews();
 
     res(200, null, $list);
@@ -145,7 +201,7 @@ class Controller {
 
 /* Gate */
   public function getAllGate () {
-    (new Auth())->getAuth();
+    (new Auth())->getAuth(2);
     $list = (new Gate())->getAllGate();
     res(200, null, $list);
   }
@@ -160,14 +216,14 @@ class Controller {
 
 /* Shop Recharge */
   public function getAllShopRecharge () {
-    (new Auth())->getAuth();
+    (new Auth())->getAuth(2);
     $list = (new Shop())->getAllShopRecharge();
     
     res(200, null, $list);
   }
 
   public function searchShopRecharge () {
-    (new Auth())->getAuth();
+    (new Auth())->getAuth(2);
     $list = (new Shop())->searchShopRecharge();
 
     res(200, null, $list);
@@ -197,14 +253,14 @@ class Controller {
 
 /* Shop Item */
   public function getAllShopItem () {
-    (new Auth())->getAuth();
+    (new Auth())->getAuth(2);
     $list = (new Shop())->getAllShopItem();
 
     res(200, null, $list);
   }
 
   public function searchShopItem () {
-    (new Auth())->getAuth();
+    (new Auth())->getAuth(2);
     $list = (new Shop())->searchShopItem();
 
     res(200, null, $list);
@@ -234,14 +290,14 @@ class Controller {
 
 /* Shop Currency */
   public function getAllShopCurrency () {
-    (new Auth())->getAuth();
+    (new Auth())->getAuth(2);
     $list = (new Shop())->getAllShopCurrency();
 
     res(200, null, $list);
   }
 
   public function searchShopCurrency () {
-    (new Auth())->getAuth();
+    (new Auth())->getAuth(2);
     $list = (new Shop())->searchShopCurrency();
 
     res(200, null, $list);
@@ -271,21 +327,21 @@ class Controller {
 
 /* Pay */
   public function getAllPay () {
-    (new Auth())->getAuth();
+    (new Auth())->getAuth(2);
     $list = (new Pay())->getAllPay();
     
     res(200, null, $list);
   }
 
   public function searchPay () {
-    (new Auth())->getAuth();
+    (new Auth())->getAuth(2);
     $list = (new Pay())->searchPay();
     
     res(200, null, $list);
   }
 
   public function verifyPay () {
-    $user = (new Auth())->getAuth();
+    $user = (new Auth())->getAuth(2);
     (new Pay())->verifyPay($user['account']);
     
     res(200, 'Thao tác thành công');
@@ -295,28 +351,28 @@ class Controller {
 
 /* Statistical */
   public function getStatisticalRevenue () {
-    $user = (new Auth())->getAuth();
+    $user = (new Auth())->getAuth(2);
     $revenue = (new Statistical())->getStatisticalRevenue();
 
     res(200, null, $revenue);
   }
 
   public function getStatisticalTableRevenue () {
-    $user = (new Auth())->getAuth();
+    $user = (new Auth())->getAuth(2);
     $list = (new Statistical())->getStatisticalTableRevenue();
     
     res(200, null, $list);
   }
 
   public function getStatisticalSignUp () {
-    $user = (new Auth())->getAuth();
+    $user = (new Auth())->getAuth(2);
     $list = (new Statistical())->getStatisticalSignUp();
     
     res(200, null, $list);
   }
 
   public function getStatisticalSignIn () {
-    $user = (new Auth())->getAuth();
+    $user = (new Auth())->getAuth(2);
     $list = (new Statistical())->getStatisticalSignIn();
     
     res(200, null, $list);
@@ -325,21 +381,21 @@ class Controller {
 
 /* Withdraw */
   public function getAllWithdraw () {
-    (new Auth())->getAuth();
+    (new Auth())->getAuth(2);
     $list = (new Withdraw())->getAllWithdraw();
     
     res(200, null, $list);
   }
 
   public function searchWithdraw () {
-    (new Auth())->getAuth();
+    (new Auth())->getAuth(2);
     $list = (new Withdraw())->searchWithdraw();
     
     res(200, null, $list);
   }
 
   public function verifyWithdraw () {
-    $user = (new Auth())->getAuth();
+    $user = (new Auth())->getAuth(2);
     (new Withdraw())->verifyWithdraw($user['account']);
     
     res(200, 'Thao tác thành công');
@@ -348,7 +404,7 @@ class Controller {
 
 /* Event */
   public function getAllEvent () {
-    (new Auth())->getAuth();
+    (new Auth())->getAuth(2);
     $list = (new Event())->getAllEvent();
 
     res(200, null, $list);
@@ -378,7 +434,7 @@ class Controller {
 
 /* Event Milestone */
   public function getAllEventMilestone () {
-    (new Auth())->getAuth();
+    (new Auth())->getAuth(2);
     $list = (new Event())->getAllEventMilestone();
 
     res(200, null, $list);
@@ -408,7 +464,7 @@ class Controller {
 
 /* Mission */
   public function getAllMission () {
-    (new Auth())->getAuth();
+    (new Auth())->getAuth(2);
     $list = (new Mission())->getAllMission();
 
     res(200, null, $list);
@@ -438,7 +494,7 @@ class Controller {
 
 /* Wheel */
   public function getAllWheelGift () {
-    (new Auth())->getAuth();
+    (new Auth())->getAuth(2);
     $list = (new Wheel())->getAllWheelGift();
 
     res(200, null, $list);
@@ -468,7 +524,7 @@ class Controller {
 
 /* Giftcode */
   public function getAllGiftcode () {
-    (new Auth())->getAuth();
+    (new Auth())->getAuth(2);
     $list = (new Giftcode())->getAllGiftcode();
 
     res(200, null, $list);
@@ -498,7 +554,7 @@ class Controller {
 
 /* VIP */
   public function getAllVip () {
-    (new Auth())->getAuth();
+    (new Auth())->getAuth(2);
     $list = (new Vip())->getAllVip();
     res(200, null, $list);
   }
@@ -513,49 +569,49 @@ class Controller {
 
 /* Log */
   public function searchLog () {
-    (new Auth())->getAuth();
+    (new Auth())->getAuth(2);
     $list = (new Log())->searchLog();
 
     res(200, null, $list);
   }
 
   public function getAllLogAdmin () {
-    (new Auth())->getAuth();
+    (new Auth())->getAuth(2);
     $list = (new Log())->getAllLogAdmin();
     
     res(200, null, $list);
   }
 
   public function getAllLogShop () {
-    (new Auth())->getAuth();
+    (new Auth())->getAuth(2);
     $list = (new Log())->getAllLogShop();
     
     res(200, null, $list);
   }
 
   public function getAllLogEvent () {
-    (new Auth())->getAuth();
+    (new Auth())->getAuth(2);
     $list = (new Log())->getAllLogEvent();
     
     res(200, null, $list);
   }
 
   public function getAllLogMission () {
-    (new Auth())->getAuth();
+    (new Auth())->getAuth(2);
     $list = (new Log())->getAllLogMission();
     
     res(200, null, $list);
   }
 
   public function getAllLogWheel () {
-    (new Auth())->getAuth();
+    (new Auth())->getAuth(2);
     $list = (new Log())->getAllLogWheel();
     
     res(200, null, $list);
   }
 
   public function getAllLogGiftcode () {
-    (new Auth())->getAuth();
+    (new Auth())->getAuth(2);
     $list = (new Log())->getAllLogGiftcode();
     
     res(200, null, $list);

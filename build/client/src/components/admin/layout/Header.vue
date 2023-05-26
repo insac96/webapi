@@ -5,7 +5,7 @@
     UChip() 
       span Xin chào, 
       span(class="capitalize") {{storeUser.account}}
-    UChip(full color="danger" class="ml-1" @click="$router.push('/')") Exit
+    UChip(full color="danger" class="ml-1" @click="$router.push('/')") Thoát
 </template>
 
 <style lang="sass">

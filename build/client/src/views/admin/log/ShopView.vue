@@ -17,7 +17,7 @@ export default {
         'account': 'Tài khoản',
         'server_id': 'Máy chủ',
         'shop_type': 'Loại cửa hàng',
-        'shop_id': 'ID Vật phẩm',
+        'price': 'Giá mua',
         'action': 'Hành động',
         'create_time': 'Thời gian'
       },

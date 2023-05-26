@@ -118,6 +118,11 @@ const routes = [
         component: () => import(/* webpackChunkName: "route" */ '@/views/admin/manage/StatisticalView.vue'),
       },
       {
+        path: 'manage-server',
+        name: 'Máy chủ',
+        component: () => import(/* webpackChunkName: "route" */ '@/views/admin/manage/ServerView.vue'),
+      },
+      {
         path: 'manage-user',
         name: 'Tài khoản',
         component: () => import(/* webpackChunkName: "route" */ '@/views/admin/manage/UserView.vue'),
@@ -137,7 +142,7 @@ const routes = [
         name: 'Cài đặt',
         component: () => import(/* webpackChunkName: "route" */ '@/views/admin/manage/ConfigView.vue'),
       },
-
+      
       {
         path: 'payment-gate',
         name: 'Kênh nạp',
