@@ -115,6 +115,28 @@ class Server extends ServerUtils {
     );
   }
 
+  /* Get All Server By Account */
+  public function getAllServerByAccount () {
+    if(empty($_POST['account'])) return res(400, 'Không tìm thấy tài khoản nhân vật');
+
+    $sql = "SELECT
+      server_id
+      FROM ny_log_login_server
+      WHERE account = :account
+      GROUP BY server_id
+    ";
+
+    $list = (new _PDO())->select($sql, array('account' => $_POST['account']), true);
+    $listServer = [];
+
+    foreach ($list as $item) {
+      $server_id = $item['server_id'];
+      $listServer[] = (new Game())->getServer($server_id);
+    }
+
+    return $listServer;
+  }
+
   /* Get Log Server Login */
   public function getLogServerLogin () {
     if(empty($_POST['server_id'])) return res(400, 'Dữ liệu đầu vào sai');

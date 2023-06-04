@@ -156,4 +156,34 @@ class User extends UserUtils {
     // Log
     logAdmin('Cập nhật trạng thái nhiệm vụ cho tài khoản ['.$user['account'].']');
   }
+
+  /* Send Item To User */
+  public function sendItemToUser () {
+    if(
+      empty($_POST['account']) 
+      || empty($_POST['server_id']) 
+      || empty($_POST['gifts'])
+      || empty($_POST['reason'])
+    )
+      res(400, 'Dữ liệu đầu vào không đủ');
+
+    // Check User
+    $user = $this->getUser($_POST['account']);
+
+    // Check Gifts
+    $items = (array)json_decode((string)$_POST['gifts']);
+    if(!is_array($items))
+      res(400, 'Vật phẩm đưa vào không hợp lệ');
+    if(count($items) == 0)
+      res(400, 'Vui lòng thêm ít nhất 1 vật phẩm');
+
+    // Send
+    (new Game())->sendItems($user['account'], array(
+      'server_id' => $_POST['server_id'],
+      'items' => $items
+    ));
+
+    // Log
+    logAdmin('Gửi vật phẩm cho tài khoản ['.$user['account'].'] tại máy chủ ['.$_POST['server_id'].'] với lý do ['.$_POST['reason'].']');
+  }
 }

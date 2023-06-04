@@ -143,6 +143,12 @@ class Controller {
     
     res(200, 'Gửi phần thưởng thành công');
   }
+
+  public function getAllServerByAccount () {
+    (new Auth())->getAuth(2);
+    $list = (new Server())->getAllServerByAccount();
+    res(200, null, $list);
+  }
 /* End Server */
 
 /* IP Client */
@@ -222,6 +228,13 @@ class Controller {
     (new User())->updateUserMission();
     
     res(200, 'Cập nhật tài khoản người dùng thành công');
+  }
+
+  public function sendItemToUser () {
+    (new Auth())->getAuth(2);
+    (new User())->sendItemToUser();
+    
+    res(200, 'Gửi vật phẩm thành công');
   }
 /* End User */
 

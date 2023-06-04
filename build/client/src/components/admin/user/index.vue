@@ -8,18 +8,21 @@
       UserIP(v-if="tab == 'ip'" :user="user")
       UserReferral(v-if="tab == 'referral'" :user="user")
       UserMission(v-if="tab == 'mission'" :user="user" @reload="onReload")
+      UserSendItem(v-if="tab == 'senditem'" :user="user")
 </template>
 
 <script>
 import UserIP from '@/components/admin/user/IP.vue'
 import UserReferral from '@/components/admin/user/Referral.vue'
 import UserMission from '@/components/admin/user/Mission.vue'
+import UserSendItem from '@/components/admin/user/Item.vue'
 
 export default {
   components: {
     UserIP,
     UserReferral,
-    UserMission
+    UserMission,
+    UserSendItem
   },
 
   props: {
@@ -33,7 +36,8 @@ export default {
       list: [
         { value: 'ip', label: 'Địa chỉ IP' },
         { value: 'referral', label: 'Giới thiệu' },
-        { value: 'mission', label: 'Nhiệm vụ' }
+        { value: 'mission', label: 'Nhiệm vụ' },
+        { value: 'senditem', label: 'Gửi vật phẩm' }
       ]
     }
   },

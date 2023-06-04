@@ -1,21 +1,21 @@
 <template lang="pug">
   div(class="UGiftAdmin")
     UFlex(justify="space-between" align="center" class="mb-2")
-      UChip Phần thưởng
+      UChip {{title}}
       UButton(@click="dialog.add = true") Thêm
 
     UTable(v-if="list" :no-data="list.length == 0")
       template(#head)
         tr
           th ID
-          th Tên
+          th(v-if="!send") Tên
           th Số lượng
           th Chức năng
       template(#default)
         tr(v-for="(item, index) in list" :key="index")
           td
             UChip() {{ item.id }}
-          td
+          td(v-if="!send")
             UChip(large) {{ item.name }}
           td
             UChip() {{ $utils.getMoney(item.amount) }}
@@ -25,22 +25,22 @@
               UChip(full color="danger" @click="removeGift(index)") Xóa
 
     UDialog(v-model="dialog.add" max="500px")
-      UBox(title="Thêm phần thưởng" width="100%")
+      UBox(:title="`Thêm ${title}`" width="100%")
         UInput(v-model="addVal.id" label-top="ID Vật phẩm")
-        UInput(v-model="addVal.name" label-top="Tên vật phẩm")
+        UInput(v-model="addVal.name" label-top="Tên vật phẩm" v-if="!send")
         UInput(v-model="addVal.amount" label-top="Số lượng")
-        UInput(v-model="addVal.icon" label-top="Mã Icon nếu có")
+        UInput(v-model="addVal.icon" label-top="Mã Icon nếu có" v-if="!send")
         template(#footer)
           UFlex(align="center" justify="flex-end")
             UButton(color="danger" @click="addGift") Thực Hiện
             UButton(color="dark" @click="cancel") Hủy Bỏ
 
     UDialog(v-model="dialog.edit" max="500px")
-      UBox(title="Sửa phần thưởng" v-if="select" width="100%")
+      UBox(:title="`Sửa ${title}`" v-if="select" width="100%")
         UInput(v-model="select.id" label-top="ID Vật phẩm")
-        UInput(v-model="select.name" label-top="Tên vật phẩm")
+        UInput(v-model="select.name" label-top="Tên vật phẩm" v-if="!send")
         UInput(v-model="select.amount" label-top="Số lượng")
-        UInput(v-model="select.icon" label-top="Mã Icon nếu có")
+        UInput(v-model="select.icon" label-top="Mã Icon nếu có" v-if="!send")
         template(#footer)
           UFlex(align="center" justify="flex-end")
             UButton(color="danger" @click="editGift") Thực Hiện
@@ -51,6 +51,8 @@
 export default {
   props: {
     gifts: { type: Array },
+    send: { type: Boolean },
+    title: { type: String, default: 'Phần thưởng' }
   },
 
   data() {
@@ -84,14 +86,23 @@ export default {
     },
 
     addGift () {
-      if(!this.addVal.id || !this.addVal.name || !this.addVal.amount) return this.notify('Vui lòng nhập đầy đủ')
-
+      if(!!this.send){
+        if(!this.addVal.id || !this.addVal.amount) return this.notify('Vui lòng nhập đầy đủ')
+      }
+      else {
+        if(!this.addVal.id || !this.addVal.name || !this.addVal.amount) return this.notify('Vui lòng nhập đầy đủ')
+      }
       this.list.push(this.addVal)
       this.done()
     },
 
     editGift () {
-      if(!this.select.id || !this.select.name || !this.select.amount) return this.notify('Vui lòng nhập đầy đủ')
+      if(!!this.send){
+        if(!this.select.id || !this.select.amount) return this.notify('Vui lòng nhập đầy đủ')
+      }
+      else {
+        if(!this.select.id || !this.select.name || !this.select.amount) return this.notify('Vui lòng nhập đầy đủ')
+      }
 
       const index = this.list.findIndex(i => i.id == this.select.id)
       if(index == -1) return this.notify('Lỗi dữ liệu')

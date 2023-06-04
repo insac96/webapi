@@ -1,12 +1,13 @@
 <template lang="pug">
-  UCard(width="100%" title="Cập nhật nhiệm vụ" v-if="selectUser")
-    USelect(v-model="selectUser.join_group" label-top="Group Facebook" :list="missionVal")
-    USelect(v-model="selectUser.join_zalo" label-top="Group Zalo" :list="missionVal")
-    USelect(v-model="selectUser.join_telegram" label-top="Group Telegram" :list="missionVal")
-    USelect(v-model="selectUser.share_web" label-top="Share Website" :list="missionVal")
-    template(#footer)
-      UFlex(align="center" justify="flex-end")
-        UButton(color="primary" class="mr-1" @click="updateUserMission") Lưu
+  UFlex(justify="center")
+    UCard(class="box-resize-50" title="Cập nhật nhiệm vụ" v-if="selectUser")
+      USelect(v-model="selectUser.join_group" label-top="Group Facebook" :list="missionVal")
+      USelect(v-model="selectUser.join_zalo" label-top="Group Zalo" :list="missionVal")
+      USelect(v-model="selectUser.join_telegram" label-top="Group Telegram" :list="missionVal")
+      USelect(v-model="selectUser.share_web" label-top="Share Website" :list="missionVal")
+      template(#footer)
+        UFlex(align="center" justify="flex-end")
+          UButton(color="primary" class="mr-1" @click="updateUserMission") Lưu
 </template>
 
 <script>
