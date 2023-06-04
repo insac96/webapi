@@ -42,7 +42,7 @@ export default {
         { title: 'Sự Kiện', icon: 'event', to: '/event' },
         { title: 'Nhiệm Vụ', icon: 'mission', to: '/mission' },
         { title: 'Vòng Quay', icon: 'wheel', to: '/wheel' },
-        { title: 'GiftCode', icon: 'giftcode', to: '/giftcode' },
+        { title: 'Xếp Hạng', icon: 'rank', to: '/rank' }
       ],
 
       open: false

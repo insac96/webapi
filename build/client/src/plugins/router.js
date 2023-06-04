@@ -51,6 +51,11 @@ const routes = [
         component: () => import(/* webpackChunkName: "route" */ '@/views/service/GiftcodeView.vue'),
       },
       {
+        path: 'rank',
+        name: 'Xếp Hạng',
+        component: () => import(/* webpackChunkName: "route" */ '@/views/service/RankView.vue'),
+      },
+      {
         path: 'vip',
         name: 'VIP',
         component: () => import(/* webpackChunkName: "route" */ '@/views/service/VipView.vue'),

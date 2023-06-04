@@ -8,7 +8,7 @@
         v-for="item in list" :key="item.icon" 
         @click="$router.push(item.to)"
       )
-        UButton(size="3rem" avatar :color="item.icon" class="mb-1")
+        UButton(size="2.8rem" avatar :color="item.icon" class="mb-1")
           UIcon(:src="item.icon" size="1.3rem")
         UText(size="0.8rem" weight="500" color="gray-600" no-wrap) {{item.title}}
 </template>

@@ -1,6 +1,7 @@
 <?php
 require_once API_DIR.'/payment/card/index.php';
 require_once API_DIR.'/game/index.php';
+require 'serverAction/index.php';
 require 'notifyAction/index.php';
 require 'configAction/index.php';
 require 'authAction/index.php';
@@ -255,4 +256,9 @@ public function getAllVip () {
   }
 /* End Game */
 
+/* Server */
+  public function getServerRank () {
+    $list = (new Server())->getServerRank();
+    res(200, null, $list);
+  }
 }

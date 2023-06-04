@@ -83,6 +83,7 @@ Vue.mixin(Vue.extend({
       if(name == 'notify') return 'bxs-bell-ring'
       if(name == 'game') return 'bxs-game'
       if(name == 'giftcode') return 'bx bxs-gift'
+      if(name == 'rank') return 'bx bxs-bar-chart-alt-2'
 
       if(name == 'time') return 'bx-time'
       if(name == 'reload') return 'bx-revision'

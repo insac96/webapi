@@ -38,6 +38,7 @@ export default {
       const list = this.list ? JSON.parse(JSON.stringify(this.list)) : []
       list.unshift({ title: 'Chơi ngay', icon: 'game', to: '/game' })
       list.unshift({ title: 'Trang chủ', icon: 'home', to: '/home' })
+      list.push({ title: 'GiftCode', icon: 'giftcode', to: '/giftcode' })
       return list
     },
 

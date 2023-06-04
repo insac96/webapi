@@ -75,12 +75,11 @@ class Game extends GameUtils {
     
     // Get
     $sql = "SELECT
-      accountname AS account,
-      actorname AS role_name,
-      totalpower AS power,
+      account, power,
+      name AS role_name,
       (SELECT @n := @n + 1 n FROM (SELECT @n := 0) m) AS rank
-      FROM actors
-      ORDER BY totalpower DESC
+      FROM ny_role
+      ORDER BY power DESC
       LIMIT $limit
     ";
     
@@ -102,12 +101,12 @@ class Game extends GameUtils {
     
     // Get
     $sql = "SELECT
-      accountname AS account,
-      actorname AS role_name,
-      level,
+      account,
+      name AS role_name,
+      role_level AS level,
       (SELECT @n := @n + 1 n FROM (SELECT @n := 0) m) AS rank
-      FROM actors
-      ORDER BY level DESC
+      FROM ny_role
+      ORDER BY role_level DESC
       LIMIT $limit
     ";
     

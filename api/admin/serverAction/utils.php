@@ -91,7 +91,16 @@ class ServerUtils extends ServerPDO {
       (new Game())->sendItems($value['account'], array(
         'server_id' => $server_id,
         'items' => $value['items']
-      ));   
+      ));
+
+      if($type == 'spend')
+        $notify = 'Bạn nhận được quà xếp hạng ['.$value['rank'].'] Tiêu Phí tại máy chủ ['.$server_id.']';
+      if($type == 'power')
+        $notify = 'Bạn nhận được quà xếp hạng ['.$value['rank'].'] Lực Chiến tại máy chủ ['.$server_id.']';
+      if($type == 'level')
+        $notify = 'Bạn nhận được quà xếp hạng ['.$value['rank'].'] Cấp Độ tại máy chủ ['.$server_id.']';
+      
+      (new Notify())->create($value['account'], $notify, 'gifts');
     }
   }
 }

@@ -7,7 +7,8 @@
 <script>
 export default {
   props: {
-    model: { type: String }
+    model: { type: String },
+    noRole: { type: Boolean }
   },
 
   model: {
@@ -29,8 +30,13 @@ export default {
 
   watch: {
     server (val) {
-      if(!val) return this.role = null
-      this.getRole()
+      if(!this.noRole){
+        if(!val) return this.role = null
+        this.getRole()
+      }
+      else {
+        this.$emit('change', val)
+      }
     },
 
     role (val) {
