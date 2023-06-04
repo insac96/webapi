@@ -52,7 +52,7 @@ class EventUtils extends EventPDO {
     if(!isset($check)) 
       return $this->returnActive('Lỗi', 0, 'Mốc thưởng của sự kiện không chính xác');
 
-    // Check Log
+    // Get Log
     $account = $user['account'];
     $event_id = $event['id'];
     $milestone_id = $milestone['id'];
@@ -61,15 +61,24 @@ class EventUtils extends EventPDO {
       'event_id' => $event_id,
       'milestone_id' => $milestone_id
     ));
+
+    // Check Log
     if(!empty($log)){
       $old_time = convertTime($log['create_time']);
       $now_time = convertTime();
       
       if($event_type == 'pay_day' || $event_type == 'spend_day'){
-        if($now_time['date'] <= $old_time['date']) return $this->returnActive('Đã nhận', 3, 'Bạn đã nhận mốc thưởng này rồi');
+        if(
+          $now_time['date'] <= $old_time['date'] 
+          && $now_time['month'] == $old_time['month']
+          && $now_time['year'] == $old_time['year']
+        ) return $this->returnActive('Đã nhận', 3, 'Bạn đã nhận mốc thưởng này rồi');
       }
-      else if($event_type == 'pay_month' || $event_type == 'spend_month'){
-        if($now_time['month'] <= $old_time['month']) return $this->returnActive('Đã nhận', 3, 'Bạn đã nhận mốc thưởng này rồi');
+      else if($event_type == 'login_day' || $event_type == 'pay_month' || $event_type == 'spend_month'){
+        if(
+          $now_time['month'] <= $old_time['month']
+          && $now_time['year'] == $old_time['year']
+        ) return $this->returnActive('Đã nhận', 3, 'Bạn đã nhận mốc thưởng này rồi');
       }
       else {
         return $this->returnActive('Đã nhận', 3, 'Bạn đã nhận mốc thưởng này rồi');

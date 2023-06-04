@@ -82,14 +82,16 @@ export default {
 
   methods: {
     async createGiftCode () {
-      this.addVal.gifts = JSON.stringify(this.addVal.gifts)
-      const create = await this.API('createGiftCode', this.addVal, true)
+      const addVal = JSON.parse(JSON.stringify(this.addVal))
+      addVal.gifts = JSON.stringify(addVal.gifts)
+      const create = await this.API('createGiftCode', addVal, true)
       if(!!create) return this.onReload()
     },
 
     async updateGiftCode () {
-      this.select.gifts = JSON.stringify(this.select.gifts)
-      const update = await this.API('updateGiftCode', this.select, true)
+      const select = JSON.parse(JSON.stringify(this.select))
+      select.gifts = JSON.stringify(select.gifts)
+      const update = await this.API('updateGiftCode', select, true)
       if(!!update) return this.onReload()
     },
 

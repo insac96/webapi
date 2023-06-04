@@ -509,21 +509,19 @@ KEY `id` (`id`)
 ) 
 ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
-/* Log Login Server */
-DROP TABLE IF EXISTS `ny_log_login_server`;
-CREATE TABLE `ny_log_login_server` (
+/* Server Rank Gift */
+DROP TABLE IF EXISTS `ny_server_rank_gift`;
+CREATE TABLE `ny_server_rank_gift` (
 `id` int(11) NOT NULL AUTO_INCREMENT,
-`account` varchar(100) NOT NULL,
 `server_id` varchar(100) NOT NULL,
-`create_time` int(11) unsigned,
+`type` varchar(100) NOT NULL,
+`min` int(11) unsigned DEFAULT 0,
+`max` int(11) unsigned DEFAULT 0,
+`gifts` text,
 PRIMARY KEY (`id`),
 KEY `id` (`id`)
 ) 
 ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
-
 
 
 

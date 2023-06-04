@@ -51,8 +51,9 @@ export default {
 
   methods: {
     async updateVip () {
-      this.select.gifts = JSON.stringify(this.select.gifts)
-      const update = await this.API('updateVip', this.select, true)
+      const select = JSON.parse(JSON.stringify(this.select))
+      select.gifts = JSON.stringify(select.gifts)
+      const update = await this.API('updateVip', select, true)
       if(!!update) return this.onReload()
     },
 

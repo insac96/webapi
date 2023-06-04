@@ -64,4 +64,58 @@ class Game extends GameUtils {
       ));
     }
   }
+
+  /* Get Rank Power */
+  public function getRankPower ($server_id, $limit) {
+    if(empty($server_id) || !is_numeric($limit)) return res(400, 'Dữ liệu đầu vào sai');
+
+    // Check Server
+    $server = $this->getServer($server_id);
+    $dbgame = $server['mysql_db'];
+    
+    // Get
+    $sql = "SELECT
+      accountname AS account,
+      actorname AS role_name,
+      totalpower AS power,
+      (SELECT @n := @n + 1 n FROM (SELECT @n := 0) m) AS rank
+      FROM actors
+      ORDER BY totalpower DESC
+      LIMIT $limit
+    ";
+    
+    $list = (new _PDO($dbgame))->select($sql, [], true);
+    
+    return array(
+      'list' => $list,
+      'total_page' => 1
+    );
+  }
+  
+  /* Get Rank Level */
+  public function getRankLevel ($server_id, $limit) {
+    if(empty($server_id) || !is_numeric($limit)) return res(400, 'Dữ liệu đầu vào sai');
+
+    // Check Server
+    $server = $this->getServer($server_id);
+    $dbgame = $server['mysql_db'];
+    
+    // Get
+    $sql = "SELECT
+      accountname AS account,
+      actorname AS role_name,
+      level,
+      (SELECT @n := @n + 1 n FROM (SELECT @n := 0) m) AS rank
+      FROM actors
+      ORDER BY level DESC
+      LIMIT $limit
+    ";
+    
+    $list = (new _PDO($dbgame))->select($sql, [], true);
+    
+    return array(
+      'list' => $list,
+      'total_page' => 1
+    );
+  }
 }

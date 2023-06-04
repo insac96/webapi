@@ -189,8 +189,8 @@ class Server extends ServerUtils {
     return getTableList(null, $sql, $count);
   }
 
-  /* Get Log Server Rank */
-  public function getLogServerRank () {
+  /* Get Server Rank Spend */
+  public function getServerRankSpend () {
     if(empty($_POST['server_id'])) return res(400, 'Dữ liệu đầu vào sai');
     $server_id = $_POST['server_id'];
 
@@ -224,5 +224,192 @@ class Server extends ServerUtils {
     ";
 
     return getTableList(null, $sql, $count);
+  }
+
+  /* Get Server Rank Power */
+  public function getServerRankPower () {
+    if(empty($_POST['server_id'])) return res(400, 'Dữ liệu đầu vào sai');
+    $server_id = (string)$_POST['server_id'];
+    $limit = (int)$_POST['limit'];
+    $list = (new Game())->getRankPower($server_id, $limit);
+    return $list;
+  }
+
+  /* Get Server Rank Level */
+  public function getServerRankLevel () {
+    if(empty($_POST['server_id'])) return res(400, 'Dữ liệu đầu vào sai');
+    $server_id = (string)$_POST['server_id'];
+    $limit = (int)$_POST['limit'];
+    $list = (new Game())->getRankLevel($server_id, $limit);
+    return $list;
+  }
+
+  /* Get All Server Rank Gift */
+  public function getAllServerRankGift () {
+    if(empty($_POST['server_id']) || empty($_POST['type'])) return res('Dữ liệu đầu vào sai');
+
+    $server_id = $_POST['server_id'];
+    $type = $_POST['type'];
+    $sqlCount = "SELECT id FROM ny_server_rank_gift WHERE server_id=:server_id AND type=:type";
+    $countQuery = (new _PDO())->select($sqlCount, array(
+      'server_id' => $server_id,
+      'type' => $type,
+    ), true);
+    $count = count($countQuery);
+    $sql = "SELECT * FROM ny_server_rank_gift WHERE server_id = '$server_id' AND type = '$type'";
+    return getTableList(null, $sql, $count);
+  }
+
+  /* Create Server Rank Gift */
+  public function createServerRankGift () {
+    if(
+      empty($_POST['server_id']) 
+      || empty($_POST['type'])
+      || !is_numeric($_POST['min'])
+      || !is_numeric($_POST['max'])
+    )
+      res(400, 'Dữ liệu đầu vào không đủ');
+
+    // Check Min, Max
+    if((int)$_POST['min'] == 0 || (int)$_POST['max'] == 0)
+      res(400, 'Thứ hạng không thể bằng 0');
+    
+    // Check Gift
+    $gifts = (array)json_decode((string)$_POST['gifts']);
+    if(!is_array($gifts))
+      res(400, 'Phần thưởng đưa vào không hợp lệ');
+
+    // Create
+    (new _PDO())->create('ny_server_rank_gift', array(
+      'server_id' => (string)$_POST['server_id'],
+      'type' => (string)$_POST['type'],
+      'min' => (int)$_POST['min'],
+      'max' => (int)$_POST['max'],
+      'gifts' => (string)$_POST['gifts']
+    ));
+
+    // Log
+    logAdmin('Tạo phần thưởng xếp hạng trên máy chủ ['.$_POST['server_id'].']');
+  }
+
+  /* Update Server Rank Gift */
+  public function updateServerRankGift () {
+    if(
+      !is_numeric($_POST['id'])
+      || empty($_POST['server_id']) 
+      || !is_numeric($_POST['min'])
+      || !is_numeric($_POST['max'])
+    )
+      res(400, 'Dữ liệu đầu vào không đủ');
+
+    // Get Rank Gift
+    $rank_gift = $this->getServerRankGift($_POST['id']);
+
+    // Check Min, Max
+    if((int)$_POST['min'] == 0 || (int)$_POST['max'] == 0)
+      res(400, 'Thứ hạng không thể bằng 0');
+    
+    // Check Gift
+    $gifts = (array)json_decode((string)$_POST['gifts']);
+    if(!is_array($gifts))
+      res(400, 'Phần thưởng đưa vào không hợp lệ');
+
+    // Create
+    (new _PDO())->update('ny_server_rank_gift', array(
+      'min' => (int)$_POST['min'],
+      'max' => (int)$_POST['max'],
+      'gifts' => (string)$_POST['gifts']
+    ), array(
+      'id' => (int)$rank_gift['id']
+    ));
+
+    // Log
+    logAdmin('Cập nhật phần thưởng hạng trên máy chủ ['.$rank_gift['server_id'].']');
+  }
+
+  /* Delete Server Rank Gift */
+  public function deleteServerRankGift () {
+    $rank_gift = $this->getServerRankGift($_POST['rank_gift_id']);
+
+    (new _PDO())->delete(self::$PDO_DeleteServerRankGift, array('id' => $rank_gift['id']));
+    logAdmin('Xóa phần thưởng xếp hạng tại máy chủ ['.$rank_gift['server_id'].']');
+  }
+
+  /* Send Rank Gift Spend */
+  public function sendRankGiftSpend () {
+    if(
+      !is_numeric($_POST['limit'])
+      || empty($_POST['start'])
+      || empty($_POST['end'])
+      || empty($_POST['server_id'])
+    )
+      res(400, 'Dữ liệu đầu vào không đủ');
+
+    // Set Data
+    $server_id = (string)$_POST['server_id'];
+    $start = (string)$_POST['start'];
+    $end = (string)$_POST['end'];
+    $limit = (int)$_POST['limit'];
+
+    // Get List Account
+    $sql = "SELECT
+      SUM(CASE WHEN 1 = 1 THEN price ELSE 0 END) AS spend_all,
+      (SELECT @n := @n + 1 n FROM (SELECT @n := 0) m) AS rank,
+      account
+      FROM ny_log_shop
+      WHERE shop_type != 'currency'
+      AND server_id = '$server_id'
+      AND DATE_FORMAT(FROM_UNIXTIME(create_time), '%Y-%m-%d') >= '$start'
+      AND DATE_FORMAT(FROM_UNIXTIME(create_time), '%Y-%m-%d') <= '$end'
+      GROUP BY account
+      ORDER BY spend_all DESC
+    ";
+    $listAccount = (new _PDO())->select($sql, [], true);
+    $this->sendRankGift($listAccount, 'spend');
+
+    // Log
+    logAdmin('Gửi phần thưởng xếp hạng tiêu phí trên máy chủ ['.$server_id.']');
+  }
+
+  /* Send Rank Gift Power */
+  public function sendRankGiftPower () {
+    if(
+      !is_numeric($_POST['limit'])
+      || empty($_POST['server_id'])
+    )
+      res(400, 'Dữ liệu đầu vào không đủ');
+
+    // Set Data
+    $server_id = (string)$_POST['server_id'];
+    $limit = (int)$_POST['limit'];
+
+    // Get List Account
+    $rank = (new Game())->getRankPower($server_id, $limit);
+    $listAccount = $rank['list'];
+    $this->sendRankGift($listAccount, 'power');
+
+    // Log
+    logAdmin('Gửi phần thưởng xếp hạng lực chiến trên máy chủ ['.$server_id.']');
+  }
+
+  /* Send Rank Gift Power */
+  public function sendRankGiftLevel () {
+    if(
+      !is_numeric($_POST['limit'])
+      || empty($_POST['server_id'])
+    )
+      res(400, 'Dữ liệu đầu vào không đủ');
+
+    // Set Data
+    $server_id = (string)$_POST['server_id'];
+    $limit = (int)$_POST['limit'];
+
+    // Get List Account
+    $rank = (new Game())->getRankLevel($server_id, $limit);
+    $listAccount = $rank['list'];
+    $this->sendRankGift($listAccount, 'level');
+
+    // Log
+    logAdmin('Gửi phần thưởng xếp hạng cấp độ trên máy chủ ['.$server_id.']');
   }
 }

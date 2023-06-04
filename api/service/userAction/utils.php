@@ -172,6 +172,7 @@ class UserUtils extends UserPDO {
 
     // Check Is Next Month
     if($isNextMonth){
+      $update['login_day'] = 1;
       $update['pay_month'] = 0;
       $update['spend_month'] = 0;
     }

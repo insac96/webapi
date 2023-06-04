@@ -7,7 +7,7 @@
         form(@submit.prevent="searchAPI" v-if="searchAction")
           UInput(v-model="search" icon="bx-search" icon-color="dark" placeholder="Tìm kiếm")
         slot(name="header")
-        UButton(class="ml-auto" v-if="actionCreate" @click="openActionCreate") Thêm mới
+        UButton(class="ml-auto" v-if="actionCreate" @click="openActionCreate") {{textCreate}}
 
       //- Table
       div(class="Table")
@@ -46,7 +46,7 @@
 
       //- Dialog Action Create
       UDialog(v-model="dialog.actionCreate" v-if="actionCreate" max="700px")
-        UBox(width="100%" title="Thêm Mới" class="UiTableAdmin__Box")
+        UBox(width="100%" :title="textCreate" class="UiTableAdmin__Box")
           slot(name="create")
           template(#footer)
             UFlex(align="center" justify="flex-end")
@@ -92,6 +92,7 @@ export default {
     actionOne: { type: Boolean },
     actionTwo: { type: Boolean },
     actionThree: { type: Boolean },
+    textCreate: { type: String, default: 'Thêm mới' },
     textOne: { type: String, default: 'Sửa' },
     textTwo: { type: String, default: 'Xóa' },
     textThree: { type: String, default: 'Thêm' },
@@ -100,6 +101,7 @@ export default {
     plusGet: { type: Object },
     plusSearch: { type: Object },
     dataList: { type: Array },
+    dataSort: { type: Object },
     sum: { type: Array }
   },
 
@@ -206,6 +208,11 @@ export default {
       this.list = get.list
       this.totalPage = get.total_page
       this.$emit('update:dataList', get.list)
+      this.$emit('update:dataSort', {
+        limit: this.limit,
+        sort: this.sort,
+        ...plusGet
+      })
     },
 
     // Search API
@@ -223,6 +230,11 @@ export default {
       this.list = search.list
       this.totalPage = search.total_page
       this.$emit('update:dataList', get.list)
+      this.$emit('update:dataSort', {
+        limit: this.limit,
+        sort: this.sort,
+        ...plusGet
+      })
     },
 
     // Watch Get

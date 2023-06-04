@@ -1,17 +1,23 @@
 <template lang="pug">
-  div(class="ManageServerLogin")
+  div(class="ManageServerRankSpend")
     UTableAdmin(
       :head="head"
-      get-action="getLogServerRank"
+      get-action="getServerRankSpend"
       :plus-get="plus"
       :reload="reload"
-      :data-list.sync="dataList"
+      :data-sort.sync="dataSort"
       first-sort="spend_all"
+      action-create
+      text-create="Gửi quà"
+      @create="sendRankGiftSpend"
     )
       template(#header)
         UFlex(align="center")
           UInput(v-model="plus.start" type="date" icon="bxs-calendar" size="40px" icon-color="dark" placeholder="Bắt đầu" class="mb-0" width="180px")
           UInput(v-model="plus.end" type="date" placeholder="Kết thúc" size="40px" class="mb-0" width="150px")
+
+      template(#create)
+        UAlert(color="info" border) Chức năng này sẽ dựa trên BXH theo thống kê bạn đã chọn đế gửi phần thưởng đến người chơi
 </template>
 
 <script>
@@ -37,7 +43,7 @@ export default {
         server_id: this.server.server_id
       },
 
-      dataList: null,
+      dataSort: null,
     }
   },
 
@@ -51,6 +57,12 @@ export default {
   },
 
   methods: {
+    async sendRankGiftSpend () {
+      if(!this.dataSort) return
+      const send = await this.API('sendRankGiftSpend', this.dataSort, true)
+      if(!!send) return this.onReload()
+    },
+
     onReload () {
       this.reload = this.reload + 1
     }

@@ -99,14 +99,16 @@ export default {
 
   methods: {
     async createMission () {
-      this.addVal.gifts = JSON.stringify(this.addVal.gifts)
-      const create = await this.API('createMission', this.addVal, true)
+      const addVal = JSON.parse(JSON.stringify(this.addVal))
+      addVal.gifts = JSON.stringify(addVal.gifts)
+      const create = await this.API('createMission', addVal, true)
       if(!!create) return this.onReload()
     },
 
     async updateMission () {
-      this.select.gifts = JSON.stringify(this.select.gifts)
-      const update = await this.API('updateMission', this.select, true)
+      const select = JSON.parse(JSON.stringify(this.select))
+      select.gifts = JSON.stringify(select.gifts)
+      const update = await this.API('updateMission', select, true)
       if(!!update) return this.onReload()
     },
 

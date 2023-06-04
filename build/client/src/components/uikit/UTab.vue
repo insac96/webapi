@@ -40,9 +40,8 @@ export default {
   --ui-tab-color: var(--ui-primary)
 .UiTab
   position: relative
-  display: flex
-  align-items: center
-  justify-content: flex-start
+  white-space: nowrap
+  display: inline-block
   max-width: 100%
   background: rgba(var(--ui-content))
   border-radius: var(--radius)
@@ -50,9 +49,12 @@ export default {
   border: 1px solid rgba(var(--ui-dark), 0.1)
   overflow-y: hidden
   overflow-x: auto
-  white-space: nowrap
   .Tab
-    padding: calc(var(--space) * 0.8) var(--space)
+    display: inline-flex
+    align-items: center
+    justify-content: center
+    min-height: 35px
+    padding: 0 var(--space)
     margin: 3px
     border-radius: inherit
     color: rgb(var(--ui-dark))

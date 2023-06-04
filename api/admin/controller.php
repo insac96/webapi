@@ -1,5 +1,6 @@
 <?php
 require 'utils.php';
+require 'ctvAction/index.php';
 require 'configAction/index.php';
 require 'serverAction/index.php';
 require 'ipAction/index.php';
@@ -77,10 +78,70 @@ class Controller {
     res(200, null, $list);
   }
 
-  public function getLogServerRank () {
+  public function getServerRankSpend () {
     (new Auth())->getAuth(2);
-    $list = (new Server())->getLogServerRank();
+    $list = (new Server())->getServerRankSpend();
     res(200, null, $list);
+  }
+
+  public function getServerRankPower () {
+    (new Auth())->getAuth(2);
+    $list = (new Server())->getServerRankPower();
+    res(200, null, $list);
+  }
+
+  public function getServerRankLevel () {
+    (new Auth())->getAuth(2);
+    $list = (new Server())->getServerRankLevel();
+    res(200, null, $list);
+  }
+
+  public function getAllServerRankGift () {
+    (new Auth())->getAuth(2);
+    $list = (new Server())->getAllServerRankGift();
+    res(200, null, $list);
+  }
+
+  public function updateServerRankGift () {
+    (new Auth())->getAuth(2);
+    (new Server())->updateServerRankGift();
+    
+    res(200, 'Cập nhật phần thưởng thành công');
+  }
+
+  public function createServerRankGift () {
+    (new Auth())->getAuth(2);
+    (new Server())->createServerRankGift();
+    
+    res(200, 'Tạo phần thưởng thành công');
+  }
+
+  public function deleteServerRankGift () {
+    (new Auth())->getAuth(2);
+    (new Server())->deleteServerRankGift();
+    
+    res(200, 'Xóa phần thưởng thành công');
+  }
+
+  public function sendRankGiftSpend () {
+    (new Auth())->getAuth(2);
+    (new Server())->sendRankGiftSpend();
+    
+    res(200, 'Gửi phần thưởng thành công');
+  }
+
+  public function sendRankGiftPower () {
+    (new Auth())->getAuth(2);
+    (new Server())->sendRankGiftPower();
+    
+    res(200, 'Gửi phần thưởng thành công');
+  }
+
+  public function sendRankGiftLevel () {
+    (new Auth())->getAuth(2);
+    (new Server())->sendRankGiftLevel();
+    
+    res(200, 'Gửi phần thưởng thành công');
   }
 /* End Server */
 
@@ -612,4 +673,47 @@ class Controller {
     res(200, null, $list);
   }
 /* End Log */
+
+
+/* ADMIN */
+  public function getStatisticalRevenue_ADMIN () {
+    $revenue = (new Statistical())->getStatisticalRevenue();
+    res(200, null, $revenue);
+  }
+
+  public function getStatisticalTableRevenue_ADMIN () {
+    $list = (new Statistical())->getStatisticalTableRevenue();
+    res(200, null, $list);
+  }
+
+  public function getStatisticalSignUp_ADMIN () {
+    $list = (new Statistical())->getStatisticalSignUp();
+    res(200, null, $list);
+  }
+
+  public function getStatisticalSignIn_ADMIN () {
+    $list = (new Statistical())->getStatisticalSignIn();
+    res(200, null, $list);
+  }
+
+  public function getAllCTV_ADMIN () {
+    $list = (new CTV())->getAllCTV();
+    res(200, null, $list);
+  }
+
+  public function searchCTV_ADMIN () {
+    $list = (new CTV())->searchCTV();
+    res(200, null, $list);
+  }
+
+  public function getLogCTVReferral_ADMIN () {
+    $list = (new CTV())->getLogCTVReferral();
+    res(200, null, $list);
+  }
+
+  public function getAllLogAdmin_ADMIN () {
+    $list = (new Log())->getAllLogAdmin();
+    res(200, null, $list);
+  }
+/* END ADMIN */
 }

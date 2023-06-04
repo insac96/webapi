@@ -75,16 +75,18 @@ export default {
   methods: {
     async createEventMilestone () {
       if(!this.event) return
-      this.addVal.event_id = this.event.id
-      this.addVal.gifts = JSON.stringify(this.addVal.gifts)
-      const create = await this.API('createEventMilestone', this.addVal, true)
+      const addVal = JSON.parse(JSON.stringify(this.addVal))
+      addVal.event_id = this.event.id
+      addVal.gifts = JSON.stringify(addVal.gifts)
+      const create = await this.API('createEventMilestone', addVal, true)
       if(!!create) return this.onReload()
     },
 
     async updateEventMilestone () {
       if(!this.event) return
-      this.select.gifts = JSON.stringify(this.select.gifts)
-      const update = await this.API('updateEventMilestone', this.select, true)
+      const select = JSON.parse(JSON.stringify(this.select))
+      select.gifts = JSON.stringify(select.gifts)
+      const update = await this.API('updateEventMilestone', select, true)
       if(!!update) return this.onReload()
     },
 
