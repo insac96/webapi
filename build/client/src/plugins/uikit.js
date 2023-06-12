@@ -19,10 +19,12 @@ import UPagination from '@/components/uikit/UPagination'
 
 import SelectServer from '@/components/Server'
 import UserCurrency from '@/components/Currency'
+import SelectServerAdmin from '@/components/admin/ServerAdmin'
 import UGiftAdmin from '@/components/admin/UGiftAdmin'
 import UTableAdmin from '@/components/admin/UTableAdmin'
 Vue.component('SelectServer', SelectServer)
 Vue.component('UserCurrency', UserCurrency)
+Vue.component('SelectServerAdmin', SelectServerAdmin)
 Vue.component('UGiftAdmin', UGiftAdmin)
 Vue.component('UTableAdmin', UTableAdmin)
 

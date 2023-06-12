@@ -148,15 +148,27 @@ const routes = [
         component: () => import(/* webpackChunkName: "route" */ '@/views/admin/manage/IPView.vue'),
       },
       {
-        path: 'manage-vip',
-        name: 'Đặc quyền VIP',
-        component: () => import(/* webpackChunkName: "route" */ '@/views/admin/manage/VipView.vue'),
-      },
-      {
         path: 'manage-config',
         name: 'Cài đặt',
         component: () => import(/* webpackChunkName: "route" */ '@/views/admin/manage/ConfigView.vue'),
       },
+
+      {
+        path: 'action-vip',
+        name: 'Đặc quyền VIP',
+        component: () => import(/* webpackChunkName: "route" */ '@/views/admin/action/VipView.vue'),
+      },
+      {
+        path: 'action-gift',
+        name: 'Bộ quà tặng',
+        component: () => import(/* webpackChunkName: "route" */ '@/views/admin/action/GiftView.vue'),
+      },
+      {
+        path: 'action-send',
+        name: 'Gửi vật phẩm',
+        component: () => import(/* webpackChunkName: "route" */ '@/views/admin/action/SendView.vue'),
+      },
+      
       
       {
         path: 'payment-gate',

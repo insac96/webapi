@@ -13,7 +13,8 @@ class Giftcode extends GiftcodeUtils {
     // Get Received
     $received = (new _PDO())->select(self::$PDO_GetReceived, array(
       'account' => (string)$user['account'],
-      'giftcode_id' => (int)$giftcode['id']
+      'giftcode_id' => (int)$giftcode['id'],
+      'server_id' => (string)$_POST['server_id']
     ));
 
     // Check

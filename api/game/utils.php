@@ -58,6 +58,22 @@ class GameUtils {
     return $role;
   }
 
+  /* Get Account By Role */
+  public function getAccountByRole ($role_name, $server_id) {
+    if(empty($server_id) || empty($role_name)) return res(400, 'Dữ liệu đầu vào sai');
+
+    // Check Server
+    $server = $this->getServer($server_id);
+
+    // Get Role
+    $dbgame = $server['mysql_db'];
+    $sql = "SELECT role_id, name AS role_name, account FROM ny_role WHERE name=:name";
+    $role = (new _PDO($dbgame))->select($sql, array('name' => $role_name));
+
+    if(empty($role)) return res(400, 'Không tìm thấy nhân vật ở máy chủ này');
+    return $role['account'];
+  }
+
   /* Send Item */
   public function sendItems ($account, array $data) {
     if(DEV) return true;

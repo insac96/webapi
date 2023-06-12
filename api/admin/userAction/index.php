@@ -160,17 +160,31 @@ class User extends UserUtils {
   /* Send Item To User */
   public function sendItemToUser () {
     if(
-      empty($_POST['account']) 
+      empty($_POST['tab']) 
       || empty($_POST['server_id']) 
       || empty($_POST['gifts'])
       || empty($_POST['reason'])
     )
       res(400, 'Dữ liệu đầu vào không đủ');
 
-    // Check User
-    $user = $this->getUser($_POST['account']);
+    // Set
+    $tab = $_POST['tab'];
+    $server_id = (string)$_POST['server_id'];
+    
+    // Is Account
+    if($tab == 'account'){
+      if(empty($_POST['account'])) return res(400, 'Dữ liệu đầu vào không đủ');
+      $user = $this->getUser($_POST['account']);
+      $account = $user['account'];
+    }
 
-    // Check Gifts
+    // Is Role
+    if($tab  == 'role'){
+      if(empty($_POST['role'])) return res(400, 'Dữ liệu đầu vào không đủ');
+      $account = (new Game())->getAccountByRole($_POST['role'], $server_id);
+    }
+
+    // Check Item
     $items = (array)json_decode((string)$_POST['gifts']);
     if(!is_array($items))
       res(400, 'Vật phẩm đưa vào không hợp lệ');
@@ -178,12 +192,12 @@ class User extends UserUtils {
       res(400, 'Vui lòng thêm ít nhất 1 vật phẩm');
 
     // Send
-    (new Game())->sendItems($user['account'], array(
-      'server_id' => $_POST['server_id'],
+    (new Game())->sendItems($account, array(
+      'server_id' => $server_id,
       'items' => $items
     ));
 
     // Log
-    logAdmin('Gửi vật phẩm cho tài khoản ['.$user['account'].'] tại máy chủ ['.$_POST['server_id'].'] với lý do ['.$_POST['reason'].']');
+    logAdmin('Gửi vật phẩm cho tài khoản ['.$account.'] tại máy chủ ['.$server_id.'] với lý do ['.$_POST['reason'].']');
   }
 }

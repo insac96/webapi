@@ -26,7 +26,7 @@
 
             tr(v-for="(item, index) in list" :key="index" :class="{'pointer': !!$listeners['select-data']}")
               td(v-for="(value, key) in head" :key="key" @click="selectData(item)")
-                UChip(:full="!!convertColor(key, item[key])" :color="convertColor(key, item[key])" v-if="key != 'gifts'") {{ convertData(key, item[key]) }}
+                UChip(:full="!!convertColor(key, item[key])" :color="convertColor(key, item[key])" v-if="key != 'gifts' && key != 'list'") {{ convertData(key, item[key]) }}
                 UFlex(wrap="wrap" v-else)
                   UChip(v-if="convertData('gifts', item[key]).length == 0") Chưa cập nhật
                   UItem(v-for="(gift, iGift) in convertData('gifts', item[key])" :key="iGift" :item="gift")
@@ -357,7 +357,7 @@ export default {
       if(type == 'shop_type'){
         return this.shopTypeView[data]
       }
-      if(type == 'gifts'){
+      if(type == 'gifts' || type == 'list'){
         return JSON.parse(data)
       }
       if(type == 'block'){
@@ -400,8 +400,8 @@ export default {
         user-select: text !important
   &__Box
     .UiBox__Body
-      max-height: 70vh
-      overflow-y: auto
+      // max-height: 70vh
+      // overflow-y: auto
   &__NoData
     padding: var(--space)
     font-size: 0.8rem

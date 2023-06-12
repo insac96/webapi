@@ -536,4 +536,16 @@ KEY `id` (`id`)
 ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
+/* Gift Box */
+DROP TABLE IF EXISTS `ny_gift`;
+CREATE TABLE `ny_gift` (
+`id` int(11) NOT NULL AUTO_INCREMENT,
+`name` varchar(100) NOT NULL,
+`list` text,
+PRIMARY KEY (`id`),
+KEY `id` (`id`)
+) 
+ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
 

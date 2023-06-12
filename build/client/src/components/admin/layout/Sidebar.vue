@@ -24,9 +24,16 @@ export default {
             { title: 'Thống kê', to: '/admin/manage-statistical' },
             { title: 'Máy chủ', to: '/admin/manage-server' },
             { title: 'Tài khoản', to: '/admin/manage-user' },
-            { title: 'IP', to: '/admin/manage-ip' },
-            { title: 'VIP', to: '/admin/manage-vip' },
+            { title: 'Địa chỉ IP', to: '/admin/manage-ip' },
             { title: 'Cài đặt', to: '/admin/manage-config' },
+          ]
+        },
+        {
+          title: 'Chức năng',
+          child: [
+            { title: 'Sửa VIP', to: '/admin/action-vip' },
+            { title: 'Tạo bộ quà', to: '/admin/action-gift' },
+            { title: 'Gửi vật phẩm', to: '/admin/action-send' },
           ]
         },
         {

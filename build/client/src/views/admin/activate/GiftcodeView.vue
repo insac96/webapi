@@ -19,7 +19,7 @@
     )
       template(#create)
         UInput(v-model="addVal.name" label-top="Mã GiftCode")
-        UInput(v-model="addVal.server_id" label-top="ID Server Áp Dụng")
+        SelectServerAdmin(v-model="addVal.server_id")
         UInput(v-model="addVal.max" type="number" label-top="Giới hạn người dùng")
         UFlex(align="center" justify="space-between" full class="mb-2")
           UInput(v-model="addVal.expires_time.date" label-top="Ngày hết hạn" type="date" width="49%" class="mb-0")
@@ -28,7 +28,7 @@
 
       template(#one v-if="select")
         UInput(v-model="select.name" label-top="Mã GiftCode")
-        UInput(v-model="select.server_id" label-top="ID Server Áp Dụng")
+        SelectServerAdmin(v-model="select.server_id")
         UInput(v-model="select.max" type="number" label-top="Giới hạn người dùng")
         UFlex(align="center" justify="space-between" full class="mb-2")
           UInput(v-model="select.expires_time.date" label-top="Ngày hết hạn" type="date" width="49%" class="mb-0")

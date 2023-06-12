@@ -18,6 +18,7 @@ require 'eventAction/index.php';
 require 'missionAction/index.php';
 require 'wheelAction/index.php';
 require 'giftcodeAction/index.php';
+require 'giftAction/index.php';
 require 'logAction/index.php';
 
 class Controller {
@@ -417,7 +418,6 @@ class Controller {
   }
 /* End Pay */
 
-
 /* Statistical */
   public function getStatisticalRevenue () {
     $user = (new Auth())->getAuth(2);
@@ -636,6 +636,42 @@ class Controller {
   }
 /* End VIP */
 
+/* Gift */
+  public function getAllGift () {
+    (new Auth())->getAuth(2);
+    $list = (new Gift())->getAllGift();
+
+    res(200, null, $list);
+  }
+
+  public function getAllGiftSelect () {
+    (new Auth())->getAuth(2);
+    $list = (new Gift())->getAllGift(true);
+    res(200, null, $list);
+  }
+
+  public function createGift () {
+    (new Auth())->getAuth(2);
+    (new Gift())->createGift();
+    
+    res(200, 'Tạo bộ quà tặng thành công');
+  }
+
+  public function updateGift () {
+    (new Auth())->getAuth(2);
+    (new Gift())->updateGift();
+    
+    res(200, 'Sửa bộ quà tặng thành công');
+  }
+
+  public function deleteGift () {
+    (new Auth())->getAuth(2);
+    (new Gift())->deleteGift();
+    
+    res(200, 'Xóa bộ quà tặng thành công');
+  }
+/* End Gift */
+
 /* Log */
   public function searchLog () {
     (new Auth())->getAuth(2);
@@ -686,7 +722,6 @@ class Controller {
     res(200, null, $list);
   }
 /* End Log */
-
 
 /* ADMIN */
   public function getStatisticalRevenue_ADMIN () {

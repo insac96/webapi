@@ -1,8 +1,8 @@
 <template lang="pug">
   div(class="UGiftAdmin")
-    UFlex(justify="space-between" align="center" class="mb-2")
-      UChip {{title}}
-      UButton(@click="dialog.add = true") Thêm
+    UFlex(align="center" class="mb-2")
+      USelect(v-if="dbGift && dbGift.length > 0" v-model="selectDbGift" :list="dbGift" label="name" value="list" placeholder="Chọn bộ quà tặng có sẵn" icon="bx-gift" icon-color="primary" class="mb-0")
+      UButton(@click="dialog.add = true" class="ml-auto") Thêm
 
     UTable(v-if="list" :no-data="list.length == 0")
       template(#head)
@@ -58,9 +58,11 @@ export default {
   data() {
     return {
       select: null,
-
       list: null,
 
+      selectDbGift: null,
+      dbGift: null,
+      
       addVal: {
         id: null,
         name: null,
@@ -75,14 +77,29 @@ export default {
     }
   },
 
+  watch: {
+    selectDbGift (val) {
+      if(!val) return
+      this.list = JSON.parse(val)
+      this.done()
+      this.selectDbGift = null
+    }
+  },
+
   created() {
     this.list = JSON.parse(JSON.stringify(this.gifts))
+    this.getAllGiftSelect()
   },
 
   methods: {
     selectEdit (gift) {
       this.select = gift
       this.dialog.edit = true
+    },
+
+    async getAllGiftSelect () {
+      const dbGift = await this.API('getAllGiftSelect', null, true)
+      if(!!dbGift) return this.dbGift = dbGift
     },
 
     addGift () {
