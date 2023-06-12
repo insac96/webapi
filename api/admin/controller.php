@@ -144,12 +144,6 @@ class Controller {
     
     res(200, 'Gửi phần thưởng thành công');
   }
-
-  public function getAllServerByAccount () {
-    (new Auth())->getAuth(2);
-    $list = (new Server())->getAllServerByAccount();
-    res(200, null, $list);
-  }
 /* End Server */
 
 /* IP Client */

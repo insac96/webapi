@@ -1,5 +1,5 @@
 <template lang="pug">
-  div(class="SelectServer" class="mb-2")
+  div(class="SelectServer" class="mb-2" v-if="list")
     USelect(v-model="server" :list="list" value="server_id" label="server_name" label-top="Chọn máy chủ")
 </template>
 
@@ -17,10 +17,8 @@ export default {
 
   data() {
     return {
-      list: [
-        { server_name: 'Tất cả máy chủ', server_id: 'all' }
-      ],
-      server: null,
+      list: null,
+      server: this.model,
     }
   },
 
@@ -37,7 +35,10 @@ export default {
   methods: {
     async getAllServer () {
       const list = await this.API('getAllServer')
-      if(!!list) return this.list = this.list.concat(list);
+      if(!list) return 
+      
+      const data = [{ server_name: 'Tất cả máy chủ', server_id: 'all' }]
+      this.list = data.concat(list);
     }
   }
 }

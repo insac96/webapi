@@ -1,6 +1,6 @@
 <template lang="pug">
-  div(class="SelectServer")
-    USelect(v-model="server" :list="list" value="server_id" label="server_name" icon="bxs-server" icon-color="primary" placeholder="Chọn máy chủ" v-if="list")
+  div(class="SelectServer" v-if="list")
+    USelect(v-model="server" :list="list" value="server_id" label="server_name" icon="bxs-server" icon-color="primary" placeholder="Chọn máy chủ")
     UInput(class="mt-2" icon="user" icon-color="user" read-only :value="role.role_name" v-if="role")
 </template>
 
@@ -19,7 +19,7 @@ export default {
   data() {
     return {
       list: null,
-      server: null,
+      server: this.model,
       role: null
     }
   },
