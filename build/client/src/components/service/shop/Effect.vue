@@ -65,6 +65,7 @@ export default {
       })
       if(!buy) return
 
+      this.sendSocketNotify(`${this.storeUser.account.toUpperCase()} vừa mua hiệu ứng ${this.effectSelect.name.toUpperCase()}`)
       this.getUser()
       this.cancel()
       this.getShopEffect()

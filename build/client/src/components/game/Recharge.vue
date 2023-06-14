@@ -81,6 +81,7 @@ export default {
       })
       if(!buy) return
 
+      this.sendSocketNotify(`${this.storeUser.account.toUpperCase()} vừa mua gói nạp ${this.recharge.name.toUpperCase()}`)
       this.getUser()
       this.show = false
     },

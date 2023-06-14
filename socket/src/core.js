@@ -10,16 +10,14 @@ const socketCore = (io) => {
       })
     })
 
-    // Notify Login
-    socket.on('notify-login', ({account, vip, effect}) => {
-      if(!account || !vip || !effect) return
-      if(!vip.number) return
-      if(vip.number == 0 && effect == 'vip') return
+    // Notify User
+    socket.on('notify-user', ({account, vip, effect, content}) => {
+      if(!account || !vip || !effect || !content) return
 
-      socket.broadcast.emit('notify', {
+      io.emit('notify', {
         id: (new Date()).getTime(),
         effect: effect == 'vip' ? `vip-${vip.number}` : effect,
-        content: `VIP ${vip.number} - ${account.toUpperCase()} truy cập`,
+        content: content,
         dup: 2000
       })
     })

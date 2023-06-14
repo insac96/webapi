@@ -90,6 +90,12 @@ export default {
       })
       if(!buy) return
 
+      this.$socket.emit('notify-buy', {
+        content: '',
+        ...this.storeUser
+      })
+
+      this.sendSocketNotify(`${this.storeUser.account.toUpperCase()} vừa mua vật phẩm ${this.itemSelect.name.toUpperCase()}`)
       this.getUser()
       this.cancel()
       this.getShopItem()

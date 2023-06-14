@@ -52,8 +52,7 @@ const mixin = Vue.extend({
       this.$store.commit('setUser', user)
       this.$router.push('/home')
 
-      // Socket Notify Login
-      this.$socket.emit('notify-login', user)
+      this.sendSocketNotify(`VIP ${user['vip']['number']} - ${user['account'].toUpperCase()} truy cập`, user)
     },
 
     logout () {
@@ -68,13 +67,21 @@ const mixin = Vue.extend({
       if(this.routerPath != '/sign-in') return this.$router.push('/sign-in')
     },
 
+    sendSocketNotify (content, user = {}) {
+      this.$socket.emit('notify-user', {
+        content: content,
+        ...this.storeUser,
+        ...user
+      })
+    },
+
     async getUser () {
       const user = await this.API('getUser')
       if(!user) return 
 
       // Socket Notify Login
       if(!this.storeUser){
-        this.$socket.emit('notify-login', user)
+        this.sendSocketNotify(`VIP${user['vip']['number']} - ${user['account'].toUpperCase()} truy cập`, user)
       }
 
       this.$store.commit('setUser', user)
