@@ -15,7 +15,7 @@ export default {
   methods: {
     send () {
       if(!this.message) return this.notify('Vui lòng nhập nội dung')
-      this.$socket.emit('notify', this.message)
+      this.$socket.emit('notify-admin', this.message)
       this.message = null
     }
   },

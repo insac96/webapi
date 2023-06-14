@@ -21,6 +21,9 @@ const mixin = Vue.extend({
     storeNotifySocket () {
       return this.$store.state.notifiesSocket
     },
+    storeGameConfig () {
+      return this.$store.state.gameConfig
+    },
     publicPath () {
       return process.env.BASE_URL
     },
@@ -40,16 +43,17 @@ const mixin = Vue.extend({
       }, 2500)
     },
 
-    notifySocket(text) {
-      if(!text) return
-      const id = (new Date()).getTime();
-      this.$store.commit('addNotifySocket', { id, text })
+    notifySocket(data) {
+      this.$store.commit('addNotifySocket', data)
     },
 
     login (user) {
       this.$utils.setCookie('token', user.token)
       this.$store.commit('setUser', user)
       this.$router.push('/home')
+
+      // Socket Notify Login
+      this.$socket.emit('notify-login', user)
     },
 
     logout () {
@@ -66,7 +70,14 @@ const mixin = Vue.extend({
 
     async getUser () {
       const user = await this.API('getUser')
-      if(user) return this.$store.commit('setUser', user)
+      if(!user) return 
+
+      // Socket Notify Login
+      if(!this.storeUser){
+        this.$socket.emit('notify-login', user)
+      }
+
+      this.$store.commit('setUser', user)
     },
 
     async getConfig () {

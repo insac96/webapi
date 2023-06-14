@@ -9,9 +9,6 @@ export default {
   },
 
   sockets: {
-    connect: function () {
-      
-    },
     notify: function (data) {
       this.notifySocket(data)
     }

@@ -201,6 +201,11 @@ const routes = [
         name: 'Tiền tệ',
         component: () => import(/* webpackChunkName: "route" */ '@/views/admin/shop/CurrencyView.vue'),
       },
+      {
+        path: 'shop-effect',
+        name: 'Hiệu ứng',
+        component: () => import(/* webpackChunkName: "route" */ '@/views/admin/shop/EffectView.vue'),
+      },
 
       {
         path: 'activate-news',

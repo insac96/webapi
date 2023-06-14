@@ -11,6 +11,10 @@ export default new Vuex.Store({
       isLogin: false,
       profile: null 
     },
+    
+    gameConfig: {
+      notify: true
+    },
 
     notifies: [],
 
@@ -26,6 +30,10 @@ export default new Vuex.Store({
 
     setConfig (state, config) {
       state.config = config
+    },
+
+    setGameConfig (state, config) {
+      state.gameConfig.notify = config.notify
     },
 
     setUser (state, profile) {

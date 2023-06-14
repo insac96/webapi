@@ -8,4 +8,8 @@ class ShopPDO {
 
   static $PDO_GetShopCurrency = "SELECT * FROM ny_shop_currency WHERE display='1' ORDER BY update_time DESC";
   static $PDO_GetCurrency = "SELECT * FROM ny_shop_currency WHERE display='1' AND id=:id";
+
+  static $PDO_GetShopEffect = "SELECT * FROM ny_shop_effect WHERE display='1' ORDER BY update_time DESC";
+  static $PDO_GetEffect = "SELECT * FROM ny_shop_effect WHERE display='1' AND id=:id";
+  static $PDO_GetEffectByType = "SELECT * FROM ny_shop_effect WHERE display='1' AND type=:type";
 }

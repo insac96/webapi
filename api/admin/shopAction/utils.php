@@ -42,4 +42,13 @@ class ShopUtils extends ShopPDO {
     if(empty($currency)) return res(400, 'Gói tiền tệ không tồn tại');
     return $currency;
   }
+
+  /* Get Effect Buy ID */
+  public function getEffect ($id) {
+    if(!is_numeric($id)) return res(400, 'Không tìm thấy ID hiệu ứng');
+
+    $effect = (new _PDO())->select(self::$PDO_GetEffect, array('id' => $id));
+    if(empty($effect)) return res(400, 'Hiệu ứng không tồn tại');
+    return $effect;
+  }
 }

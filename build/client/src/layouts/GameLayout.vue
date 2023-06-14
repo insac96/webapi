@@ -1,11 +1,11 @@
 <template lang="pug">
-  div(class="GameLayout")
+  div(class="GameLayout" id="GameLayout")
     LayoutHeader(@menu="open = !open")
-    LayoutMenu(:open.sync="open")
+    LayoutMenu(:open.sync="open" :showNotify.sync="showNotify")
     LayoutIframe
     GameRecharge
-    WebNotify
-    WebNotifySocket
+    WebNotifyAlert
+    WebNotifySocket(v-if="storeGameConfig.notify")
 </template>
 
 <script>
@@ -13,8 +13,8 @@ import LayoutHeader from '@/components/game/layout/Header.vue'
 import LayoutMenu from '@/components/game/layout/Menu.vue'
 import LayoutIframe from '@/components/game/layout/Iframe.vue'
 import GameRecharge from '@/components/game/Recharge.vue'
-import WebNotify from '@/components/Notify.vue'
-import WebNotifySocket from '@/components/NotifySocket.vue'
+import WebNotifyAlert from '@/components/notify/Alert.vue'
+import WebNotifySocket from '@/components/notify/Socket.vue'
 
 export default {
   components: {
@@ -22,13 +22,14 @@ export default {
     LayoutMenu,
     LayoutIframe,
     GameRecharge,
-    WebNotify,
+    WebNotifyAlert,
     WebNotifySocket
   },
   
   data() {
     return {
-      open: false
+      open: false,
+      showNotify: true
     }
   },
 

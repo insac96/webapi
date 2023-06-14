@@ -43,6 +43,38 @@ class ShopUtils extends ShopPDO {
     return $currency;
   }
 
+  /* Get Effect By ID */
+  public function getEffect ($id) {
+    $effect = (new _PDO())->select(self::$PDO_GetEffect, array('id' => (int)$id));
+    if(empty($effect)) return res(400, 'Hiệu ứng không tồn tại');
+    return $effect;
+  }
+
+  /* Get Effect By Type */
+  public function getEffectByType ($type) {
+    $effect = (new _PDO())->select(self::$PDO_GetEffectByType, array('type' => (string)$type));
+    if(empty($effect)) return res(400, 'Hiệu ứng không tồn tại');
+    return $effect;
+  }
+
+  /* Get Count Buy Effect */
+  public function getCountBuyEffect ($account, $effect_id){
+    $sql = "SELECT id 
+      FROM ny_log_shop
+      WHERE account=:account
+      AND shop_type=:shop_type
+      AND shop_id=:shop_id
+    ";
+
+    $log = (new _PDO())->select($sql, array(
+      'account' => $account,
+      'shop_id' => $effect_id,
+      'shop_type' => 'effect'
+    ), true);
+
+    return count($log);
+  }
+
   /* Check Coin */
   public function checkCoin ($user, $need) {
     $coin_total = (int)$user['coin'] + (int)$user['coin_lock'];

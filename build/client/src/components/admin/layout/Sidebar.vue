@@ -50,6 +50,7 @@ export default {
             { title: 'Gói nạp', to: '/admin/shop-recharge' },
             { title: 'Vật phẩm', to: '/admin/shop-item' },
             { title: 'Tiền tệ', to: '/admin/shop-currency' },
+            { title: 'Hiệu ứng', to: '/admin/shop-effect' },
           ]
         },
         {

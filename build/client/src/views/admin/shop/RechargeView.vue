@@ -1,5 +1,5 @@
 <template lang="pug">
-  div(class="ActivateShopRechargeView")
+  div(class="ShopRechargeView")
     UTableAdmin(
       :head="head"
       :reload="reload"

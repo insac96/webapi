@@ -389,6 +389,21 @@ class Controller {
   }
 /* End Shop Currency*/
 
+/* Shop Effect */
+  public function getAllShopEffect () {
+    (new Auth())->getAuth(2);
+    $list = (new Shop())->getAllShopEffect();
+    res(200, null, $list);
+  }
+
+  public function updateShopEffect () {
+    (new Auth())->getAuth(2);
+    (new Shop())->updateShopEffect();
+    
+    res(200, 'Cập nhật hiệu ứng thành công');
+  }
+/* End Shop Effect */
+
 /* Pay */
   public function getAllPay () {
     (new Auth())->getAuth(2);

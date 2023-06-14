@@ -5,21 +5,21 @@
     div(class="AdminLayoutView")
       transition(name="up" mode="out-in")
         router-view
-    WebNotify
+    WebNotifyAlert
     WebLoading
 </template>
 
 <script>
 import LayoutHeader from '@/components/admin/layout/Header.vue'
 import LayoutSidebar from '@/components/admin/layout/Sidebar.vue'
-import WebNotify from '@/components/Notify.vue'
+import WebNotifyAlert from '@/components/notify/Alert.vue'
 import WebLoading from '@/components/Loading.vue'
 
 export default {
   components: {
     LayoutHeader,
     LayoutSidebar,
-    WebNotify,
+    WebNotifyAlert,
     WebLoading
   },
   

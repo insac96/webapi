@@ -4,8 +4,8 @@
       UFlex(class="MenuControl" align="center" full)
         UButton(size="2.5rem" avatar :color="item.icon" v-for="item in list" :key="item.icon" @click="tab = item.value")
           UIcon(:src="item.icon" size="1.2rem")
-        UButton(size="2.5rem" avatar color="dark" class="ml-auto" @click="$router.push('/')")
-          UIcon(src="home" size="1.2rem")
+        UButton(size="2.5rem" avatar color="dark" class="ml-auto" @click="tab = 'ConfigView'")
+          UIcon(src="bx-cog" size="1.2rem")
 
       div(class="MenuView")
         transition(name="up" mode="out-in")
@@ -20,6 +20,7 @@ import WheelView from '@/views/service/WheelView.vue'
 import GiftcodeView from '@/views/service/GiftcodeView.vue'
 import PayView from '@/views/service/PayView.vue'
 import UserView from '@/views/service/UserView.vue'
+import ConfigView from '@/components/game/Config.vue'
 
 export default {
   components: {
@@ -29,11 +30,12 @@ export default {
     WheelView,
     GiftcodeView,
     PayView,
-    UserView
+    UserView,
+    ConfigView
   },
 
   props: {
-    open: { type: Boolean, default: false }
+    open: { type: Boolean, default: false },
   },
 
   data() {

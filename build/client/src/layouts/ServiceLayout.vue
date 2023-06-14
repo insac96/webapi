@@ -11,7 +11,7 @@
       LayoutFooter
 
     LayoutGiftReferral
-    WebNotify
+    WebNotifyAlert
     WebNotifySocket
 </template>
 
@@ -22,8 +22,8 @@ import LayoutBanner from '@/components/service/layout/Banner.vue'
 import LayoutControl from '@/components/service/layout/Control.vue'
 import LayoutGiftReferral from '@/components/service/layout/GiftReferral.vue'
 import LayoutFooter from '@/components/service/layout/Footer.vue'
-import WebNotify from '@/components/Notify.vue'
-import WebNotifySocket from '@/components/NotifySocket.vue'
+import WebNotifyAlert from '@/components/notify/Alert.vue'
+import WebNotifySocket from '@/components/notify/Socket.vue'
 
 export default {
   components: {
@@ -33,7 +33,7 @@ export default {
     LayoutControl,
     LayoutGiftReferral,
     LayoutFooter,
-    WebNotify,
+    WebNotifyAlert,
     WebNotifySocket
   },
   
@@ -52,7 +52,7 @@ export default {
     }
   },
 
-  created() {
+  created () {
     this.checkAuth()
   },
 

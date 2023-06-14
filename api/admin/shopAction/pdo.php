@@ -11,4 +11,7 @@ class ShopPDO {
   static $PDO_GetAllShopCurrency = "SELECT * FROM ny_shop_currency";
   static $PDO_GetCurrency = "SELECT * FROM ny_shop_currency WHERE id=:id";
   static $PDO_DeleteCurrency = "DELETE FROM ny_shop_currency WHERE id=:id";
+
+  static $PDO_GetAllShopEffect = "SELECT * FROM ny_shop_effect";
+  static $PDO_GetEffect = "SELECT * FROM ny_shop_effect WHERE id=:id";
 }

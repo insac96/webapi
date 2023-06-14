@@ -23,6 +23,10 @@
         UText(size="0.85rem") Ngày đăng nhập
         UChip(icon="bxs-calendar" color="info") {{ storeUser.login_day }}
 
+      UFlex(align="center" justify="space-between" class="mb-2")
+        UText(size="0.85rem") Hiệu ứng
+        UChip(icon="bxs-party" color="success" @click="dialog.effect = true") Thay đổi 
+
       UFlex(align="center" justify="space-between")
         UText(size="0.85rem") Đặc quyền VIP
         UChip(icon="bxl-discord-alt" :color="`vip-${storeUser.vip.number}`" @click="$router.push('/vip')") Bấm để xem
@@ -100,6 +104,21 @@
         template(#footer)
           UFlex(justify="flex-end")
             UButton(@click="updateAuthBank") Xác nhận
+
+    //- Dialog - Cập nhật hiệu ứng
+    UDialog(v-model="dialog.effect" @hide="close" @show="getAllUserEffect")
+      UBox(title="Thay đổi hiệu ứng" width="100%")
+        UFlex(wrap="wrap" align="center")
+          UChip(
+            v-for="item in userEffect" :key="item.id"
+            class="box-resize"
+            :full="update.effect == item.type"
+            :color="update.effect == item.type ? 'dark' : null"
+            @click="update.effect = item.type"
+          ) {{ item.name }}
+        template(#footer)
+          UFlex(justify="flex-end")
+            UButton(@click="updateUserEffect") Xác nhận
 </template>
 
 <script>
@@ -110,10 +129,13 @@ export default {
         password: false,
         referral: false,
         phone: false,
-        bank: false
+        bank: false,
+        effect: false
       },
 
       linkReferral: null,
+
+      userEffect: null,
 
       update: {
         oldPassword: null,
@@ -123,7 +145,8 @@ export default {
           name: null,
           person: null,
           stk: null
-        }
+        },
+        effect: null
       }
     }
   },
@@ -203,6 +226,26 @@ export default {
       this.logout()
     },
 
+    async getAllUserEffect () {
+      this.update.effect = this.storeUser.effect
+      const list = await this.API('getAllUserEffect')
+      if(!list) return
+
+      const defaultList = [{ id: 0, name: 'Mặc định', type: 'vip' }]
+      this.userEffect = defaultList.concat(list)
+    },
+
+    async updateUserEffect () {
+      if(!this.update.effect) return this.notify('Vui lòng chọn hiệu ứng trước')
+
+      const update = await this.API('updateUserEffect', {
+        effect_type: this.update.effect
+      })
+      if(!update) return 
+      this.getUser()
+      this.close()
+    },
+
     close () {
       this.update = {
         oldPassword: null,
@@ -212,14 +255,16 @@ export default {
           name: null,
           person: null,
           stk: null
-        }
+        },
+        effect: null
       }
 
       this.dialog = {
         password: false,
         referral: false,
         phone: false,
-        bank: false
+        bank: false,
+        effect: false
       }
     }
   },

@@ -70,7 +70,6 @@ class User extends UserUtils {
   public function updateUserAuth () {
     if(
       empty($_POST['account'])
-      || empty($_POST['phone'])
       || !is_numeric($_POST['type_user']) 
       || !is_numeric($_POST['block'])  
     ) return res(400, 'Dữ liệu đầu vào không đủ');

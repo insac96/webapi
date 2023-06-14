@@ -285,4 +285,36 @@ class Shop extends ShopUtils {
     (new _PDO())->delete(self::$PDO_DeleteCurrency, array('id' => (int)$currency['id']));
     logAdmin('Xóa gói tiền tệ ['.$currency['name'].'] trong cửa hàng');
   }
+
+  /* Get All Shop Effect */
+  public function getAllShopEffect () {
+    return getTableList('ny_shop_effect', self::$PDO_GetAllShopEffect);
+  }
+
+  /* Update Shop Effect */
+  public function updateShopEffect () {
+    if(
+      !is_numeric($_POST['id']) 
+      || empty($_POST['name']) 
+      || !is_numeric($_POST['price']) 
+      || !is_numeric($_POST['display'])
+    ) return res(400, 'Dữ liệu đầu vào không đủ');
+    
+    // Check Effect
+    $effect = $this->getEffect($_POST['id']);
+
+    // Update
+    (new _PDO())->update('ny_shop_effect',
+      array(
+        'name' => (string)$_POST['name'],
+        'price' => (int)$_POST['price'],
+        'display' => (int)$_POST['display'],
+        'update_time' => time()
+      ),
+      array('id' => $effect['id'])
+    );    
+
+    // Log
+    logAdmin('Cập nhật hiệu ứng ['.$effect['name'].'] trong cửa hàng');
+  }
 }

@@ -77,6 +77,19 @@ public function getConfig () {
     
     res(200, 'Cập nhật thành công');
   }
+
+  public function getAllUserEffect () {
+    $user = (new Auth())->getAuth();
+    $list = (new User())->getAllUserEffect($user);
+    res(200, null, $list);
+  }
+
+  public function updateUserEffect () {
+    $user = (new Auth())->getAuth();
+    (new User())->updateUserEffect($user);
+    
+    res(200, 'Cập nhật thành công');
+  }
 /* End User */
 
 /* News */
@@ -132,6 +145,18 @@ public function getConfig () {
 
     (new Shop())->buyCurrency($user);
     res(200, 'Mua tiền tệ thành công');
+  }
+
+  public function getShopEffect () {
+    $list = (new Shop())->getShopEffect();
+    res(200, null, $list);
+  }
+
+  public function buyEffect () {
+    $user = (new Auth())->getAuth();
+
+    (new Shop())->buyEffect($user);
+    res(200, 'Mua hiệu ứng thành công');
   }
 /* End Shop */
 

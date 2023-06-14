@@ -108,6 +108,7 @@ CREATE TABLE `ny_user` (
 `join_telegram` tinyint(3) unsigned NOT NULL DEFAULT 0 COMMENT '0: False, 1: True',
 `share_web` tinyint(3) unsigned NOT NULL DEFAULT 0 COMMENT '0: False, 1: True',
 `get_gifts_referral` tinyint(3) unsigned DEFAULT 0 COMMENT '0: False, 1: True',
+`effect` varchar(100) NOT NULL DEFAULT 'vip',
 `date` varchar(20) NOT NULL DEFAULT '',
 `month` varchar(20) NOT NULL DEFAULT '',
 `year` varchar(20) NOT NULL DEFAULT '',
@@ -381,6 +382,30 @@ KEY `id` (`id`)
 ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `ny_shop_currency` VALUES (1, '1 Vòng Quay', 'wheel', 50000, 1, 'coin_lock', null, 1, 0);
+
+
+DROP TABLE IF EXISTS `ny_shop_effect`;
+CREATE TABLE `ny_shop_effect` (
+`id` int(11) NOT NULL,
+`name` varchar(2000) NOT NULL,
+`price` double(50,0) unsigned NOT NULL,
+`type` varchar(100),
+`display` tinyint(3) unsigned NOT NULL DEFAULT 1 COMMENT '0: Hide, 1: Show',
+`update_time` int(11) unsigned,
+PRIMARY KEY (`id`),
+KEY `id` (`id`)
+)
+ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `ny_shop_effect` VALUES (1, 'Ô Tô', 100000, 'car', 1, 0);
+INSERT INTO `ny_shop_effect` VALUES (2, 'Máy Bay', 100000, 'plane', 1, 0);
+INSERT INTO `ny_shop_effect` VALUES (3, 'Rồng', 100000, 'dragon', 1, 0);
+INSERT INTO `ny_shop_effect` VALUES (4, 'Phượng Hoàng', 100000, 'phoenix', 1, 0);
+INSERT INTO `ny_shop_effect` VALUES (5, 'Kỳ Lân', 100000, 'unicorn', 1, 0);
+INSERT INTO `ny_shop_effect` VALUES (6, 'Hổ', 100000, 'tiger', 1, 0);
+INSERT INTO `ny_shop_effect` VALUES (7, 'Sư Tử', 100000, 'lion', 1, 0);
+INSERT INTO `ny_shop_effect` VALUES (8, 'Sói', 100000, 'wolf', 1, 0);
+
 
 DROP TABLE IF EXISTS `ny_log_shop`;
 CREATE TABLE `ny_log_shop` (

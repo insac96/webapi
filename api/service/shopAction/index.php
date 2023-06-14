@@ -148,4 +148,42 @@ class Shop extends ShopUtils {
       'create_time' => time()
     ));
   }
+
+  /* Get All Effect */
+  public function getShopEffect () {
+    $list = (new _PDO())->select(self::$PDO_GetShopEffect, [], true);
+    return $list;
+  }
+
+  /* Buy Effect */
+  public function buyEffect ($user) {
+    // Check Data
+    if(empty($_POST['effect_id'])) return res(400, 'Dữ liệu đầu vào sai');
+
+    // Get Effect
+    $effect = $this->getEffect($_POST['effect_id']);
+
+    // Check Count Buy
+    $countBuy = $this->getCountBuyEffect($user['account'], $effect['id']);
+    if((int)$countBuy > 0)
+      res(400, 'Bạn đã mua hiệu ứng này rồi');
+
+    // Check Coin
+    $need = (int)$effect['price'];
+    $this->checkCoin($user, $need);
+
+    // Update User Coin
+    $this->updateUserCoin($user, $need);
+
+    // Create Log
+    (new _PDO())->create('ny_log_shop', array(
+      'account' => (string)$user['account'],
+      'server_id' => 'all',
+      'shop_id' => (int)$effect['id'],
+      'shop_type' => 'effect',
+      'price' => (int)$effect['price'],
+      'action' => 'Đã mua hiệu ứng ['.$effect['name'].'] với giá ['.$effect['price'].' Xu]',
+      'create_time' => time()
+    ));
+  }
 }
