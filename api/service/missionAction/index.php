@@ -18,6 +18,12 @@ class Mission extends MissionUtils {
     return $list;
   }
 
+  /* Get All Mission Custom */
+  public function getAllMissionCustom () {
+    $list = (new _PDO())->select(self::$PDO_GetAllMissionCustom, [], true);
+    return $list;
+  }
+
   /* Receive Mission */
   public function receiveMission ($user) {
     // Check Data

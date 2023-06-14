@@ -11,4 +11,14 @@ class MissionUtils extends MissionPDO {
     if(empty($mission)) return res(400, 'Nhiệm vụ không tồn tại');
     return $mission;
   }
+
+  /* Get Mission Custom*/
+  public function getMissionCustom ($id) {
+    if(!is_numeric($id)) return res(400, 'Dữ liệu đầu vào sai');
+
+    $mission = (new _PDO())->select(self::$PDO_GetMissionCustom, array('id' => $id));
+
+    if(empty($mission)) return res(400, 'Nhiệm vụ không tồn tại');
+    return $mission;
+  }
 }

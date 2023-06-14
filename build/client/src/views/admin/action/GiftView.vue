@@ -24,7 +24,7 @@
         UInput(v-model="select.name" label-top="Tên bộ quà tặng")
 
       template(#two v-if="select")
-        UAlert(color="danger" border) Bạn chắc chắn xóa nhiệm vụ này
+        UAlert(color="danger" border) Bạn chắc chắn xóa bộ quà tặng này
         
       template(#three v-if="select")
         UGiftAdmin(:gifts.sync="select.list")

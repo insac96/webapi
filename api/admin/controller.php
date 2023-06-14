@@ -555,6 +555,36 @@ class Controller {
   }
 /* End Mission */
 
+/* Mission Custom*/
+  public function getAllMissionCustom () {
+    (new Auth())->getAuth(2);
+    $list = (new Mission())->getAllMissionCustom();
+
+    res(200, null, $list);
+  }
+
+  public function createMissionCustom () {
+    (new Auth())->getAuth(2);
+    (new Mission())->createMissionCustom();
+    
+    res(200, 'Tạo nhiệm vụ thành công');
+  }
+
+  public function updateMissionCustom () {
+    (new Auth())->getAuth(2);
+    (new Mission())->updateMissionCustom();
+    
+    res(200, 'Sửa nhiệm vụ thành công');
+  }
+
+  public function deleteMissionCustom () {
+    (new Auth())->getAuth(2);
+    (new Mission())->deleteMissionCustom();
+    
+    res(200, 'Xóa nhiệm vụ thành công');
+  }
+/* End Mission Custom*/
+
 /* Wheel */
   public function getAllWheelGift () {
     (new Auth())->getAuth(2);

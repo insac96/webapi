@@ -199,6 +199,11 @@ public function withdrawMoney () {
     (new Mission())->receiveMission($user);
     res(200, 'Nhận thưởng thành công');
   }
+
+  public function getAllMissionCustom () {
+    $list = (new Mission())->getAllMissionCustom();
+    res(200, null, $list);
+  }
 /* End Mission */
 
 /* Wheel */

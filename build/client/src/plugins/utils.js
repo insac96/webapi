@@ -54,7 +54,7 @@ const getExpires = (time) => {
   const now_time = new Date()
 
   if(now_time < expires_time) return { active: true, text: getTime(time).to }
-  return { active: false, text: 'Kết thức' }
+  return { active: false, text: 'Kết thúc' }
 }
 
 const getMoney = (money, mini = true) => {
