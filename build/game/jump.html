@@ -35,23 +35,25 @@
         if(res.code != 200) return alert(res.msg);
         var dataJSON = res.data;
         var user = dataJSON.account;
-        
-        // var askpay = { recharge_id: 14, server_id: 'sf1' };
-        // var event = new CustomEvent('ask_pay', { detail: JSON.stringify(askpay) })
-        // window.parent.document.dispatchEvent(event)
 
-        // var logingame = { server_id: 'sf1' };
-        // var event = new CustomEvent('login_game', { detail: JSON.stringify(logingame) })
-        // window.parent.document.dispatchEvent(event)
-        
         // Go To Game
         //window.location.href = "/game/play.html?local=3&uid="+user;
       })
     }
+
+    function askPayAPI () {
+      var askpay = { recharge_id: 14, server_id: 'sf1' };
+      var event = new CustomEvent('ask_pay', { detail: JSON.stringify(askpay) })
+      window.parent.document.dispatchEvent(event)
+    }
+
+    function loginGameAPI () {
+      var logingame = { server_id: 'sf1' };
+      var event = new CustomEvent('login_game', { detail: JSON.stringify(logingame) })
+      window.parent.document.dispatchEvent(event)
+    }
     
     checkUserAPI();
-
-    alert('ok');
   </script>
 </body>
 </html>

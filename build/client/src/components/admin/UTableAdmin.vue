@@ -143,7 +143,8 @@ export default {
       shopTypeView : {
         'recharge': 'Gói nạp',
         'item': 'Vật phẩm',
-        'currency': 'Tiền tệ'
+        'currency': 'Tiền tệ',
+        'effect': 'Hiệu ứng'
       },
 
       statusView : {
