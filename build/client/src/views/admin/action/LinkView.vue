@@ -1,20 +1,17 @@
 <template lang="pug">
-  UCard(v-if="config")
-    UInput(@click="make('zalo')" v-model="linkMissionZalo" read-only placeholder="Bấm để tạo" label-top="Link NV vào nhóm Zalo")
+  UCard(v-if="config" class="ActionLinkView")
+    UInput(@click="make('group')" v-model="linkMissionGroup" placeholder="Bấm để tạo" read-only label-top="Facebook")
 
-    UInput(@click="make('group')" v-model="linkMissionGroup" placeholder="Bấm để tạo" read-only label-top="Link NV vào nhóm Facebook")
+    UInput(@click="make('zalo')" v-model="linkMissionZalo" read-only placeholder="Bấm để tạo" label-top="Zalo")
 
-    UInput(@click="make('telegram')" v-model="linkMissionTelegram" placeholder="Bấm để tạo" read-only label-top="Link NV vào nhóm Telegram")
+    UInput(@click="make('telegram')" v-model="linkMissionTelegram" placeholder="Bấm để tạo" read-only label-top="Telegram")
 </template>
 
 <script>
 export default {
-  props: {
-    config: { type: Object }
-  },
-
   data() {
     return {
+      config: null,
       loading: false,
       linkMissionZalo: null,
       linkMissionGroup: null,
@@ -22,7 +19,15 @@ export default {
     }
   },
 
+  created () {
+    this.getConfigAdmin()
+  },
+
   methods: {
+    async getConfigAdmin () {
+      this.config = await this.API('getConfig', null, true)
+    },
+    
     async make (type) {
       if(!!this.isLoading) return this.notify('Đang tạo, vui lòng đợi')
       if(!this.config.web_link) return this.notify('Vui lòng cập nhật Link trang Web trước')

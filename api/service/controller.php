@@ -4,6 +4,7 @@ require_once API_DIR.'/game/index.php';
 require 'serverAction/index.php';
 require 'notifyAction/index.php';
 require 'configAction/index.php';
+require 'adsAction/index.php';
 require 'authAction/index.php';
 require 'userAction/index.php';
 require 'vipAction/index.php';
@@ -19,11 +20,18 @@ require 'giftcodeAction/index.php';
 
 class Controller {
 /* Config */
-public function getConfig () {
-  $config = (new Config())->getConfig();
-  res(200, null, $config);
-}
+  public function getConfig () {
+    $config = (new Config())->getConfig();
+    res(200, null, $config);
+  }
 /* End Config */
+
+/* Ads */
+  public function getAllAds () {
+    $list = (new Ads())->getAllAds();
+    res(200, null, $list);
+  }
+/* End Ads */
 
 /* Auth */
   public function sign () {
@@ -104,7 +112,6 @@ public function getConfig () {
   }
 /* End News */
 
-
 /* Shop */
   public function getShopRecharge () {
     $list = (new Shop())->getShopRecharge();
@@ -161,10 +168,10 @@ public function getConfig () {
 /* End Shop */
 
 /* Gate */
-public function getAllGate () {
-  $list = (new Gate())->getAllGate();
-  res(200, null, $list);
-}
+  public function getAllGate () {
+    $list = (new Gate())->getAllGate();
+    res(200, null, $list);
+  }
 /* End Gate */
 
 /* Pay */
@@ -182,17 +189,17 @@ public function getAllGate () {
 /* End Pay */
 
 /* Withdraw */
-public function getAllWithdraw () {
-  $user = (new Auth())->getAuth();
-  $list = (new Withdraw())->getAllWithdraw($user);
-  res(200, null, $list);
-}
+  public function getAllWithdraw () {
+    $user = (new Auth())->getAuth();
+    $list = (new Withdraw())->getAllWithdraw($user);
+    res(200, null, $list);
+  }
 
-public function withdrawMoney () {
-  $user = (new Auth())->getAuth();
-  (new Withdraw())->withdrawMoney($user);
-  res(200, 'Rút tiền thành công, vui lòng đợi xét duyệt', null);
-}
+  public function withdrawMoney () {
+    $user = (new Auth())->getAuth();
+    (new Withdraw())->withdrawMoney($user);
+    res(200, 'Rút tiền thành công, vui lòng đợi xét duyệt', null);
+  }
 /* End Withdraw */
 
 /* Event */
@@ -261,10 +268,10 @@ public function withdrawMoney () {
 /* End GiftCode */
 
 /* VIP */
-public function getAllVip () {
-  $list = (new Vip())->getAllVip();
-  res(200, null, $list);
-}
+  public function getAllVip () {
+    $list = (new Vip())->getAllVip();
+    res(200, null, $list);
+  }
 /* End VIP */
 
 /* Game */
@@ -291,4 +298,5 @@ public function getAllVip () {
     $list = (new Server())->getServerRank();
     res(200, null, $list);
   }
+/* End Server */
 }

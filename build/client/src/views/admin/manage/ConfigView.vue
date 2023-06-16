@@ -4,9 +4,7 @@
 
     transition(name="up" mode="out-in")
       ConfigWeb(v-if="tab == 'web'" :config="config" @save="saveConfig")
-      ConfigNotify(v-if="tab == 'notify'")
       ConfigSocial(v-if="tab == 'social'" :config="config" @save="saveConfig")
-      ConfigLink(v-if="tab == 'link'" :config="config" @save="saveConfig")
       ConfigPrefix(v-if="tab == 'prefix'" :config="config" @save="saveConfig")
       ConfigCard(v-if="tab == 'card'" :config="config" @save="saveConfig")
       ConfigMomo(v-if="tab == 'momo'" :config="config" @save="saveConfig")
@@ -15,8 +13,6 @@
 
 <script>
 import ConfigWeb from '@/components/admin/config/Web.vue'
-import ConfigNotify from '@/components/admin/config/Notify.vue'
-import ConfigLink from '@/components/admin/config/Link.vue'
 import ConfigPrefix from '@/components/admin/config/Prefix.vue'
 import ConfigSocial from '@/components/admin/config/Social.vue'
 import ConfigCard from '@/components/admin/config/Card.vue'
@@ -26,8 +22,6 @@ import ConfigBanking from '@/components/admin/config/Banking.vue'
 export default {
   components: {
     ConfigWeb,
-    ConfigNotify,
-    ConfigLink,
     ConfigPrefix,
     ConfigCard,
     ConfigMomo,
@@ -40,8 +34,6 @@ export default {
       tab: 'web',
       list: [
         { value: 'web', label: 'Trang' },
-        { value: 'notify', label: 'Gửi thông báo' },
-        { value: 'link', label: 'Tạo Link' },
         { value: 'social', label: 'Cộng đồng' },
         { value: 'prefix', label: 'Prefix' },
         { value: 'card', label: 'Thẻ cào' },

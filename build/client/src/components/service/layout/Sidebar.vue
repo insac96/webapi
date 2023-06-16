@@ -1,7 +1,8 @@
 <template lang="pug">
   div(:class="classSidebar" ref="sidebar")
     UFlex(justify="center" class="mb-2")
-      img(:src="logo" height="60px" width="auto" alt="logo")
+      img(:src="logo" height="60px" width="auto" alt="logo" v-if="logo")
+      UText(v-if="!logo && !!storeConfig" size="1.2rem" weight="700") {{ storeConfig.game_name }}
     UFlex(
       class="Item" 
       align="center" 
@@ -43,7 +44,7 @@ export default {
     },
 
     logo () {
-      if(!this.storeConfig || !this.storeConfig.game_logo) return `${this.publicPath}images/logo.png`
+      if(!this.storeConfig || !this.storeConfig.game_logo) return null
       return this.storeConfig.game_logo
     }
   },

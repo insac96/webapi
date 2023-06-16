@@ -87,7 +87,7 @@ export default {
         { value: 'join_group', label: 'Tham gia Group FB' },
         { value: 'join_zalo', label: 'Tham gia Group Zalo' },
         { value: 'join_telegram', label: 'Tham gia Group Telegram' },
-        { value: 'share_web', label: 'Chia sẻ Website' },
+        // { value: 'share_web', label: 'Chia sẻ Website' },
       ],
 
       displayVal: [

@@ -1,9 +1,9 @@
-const express = require('express');
-const app = express();
-const cors = require('cors');
-const http = require('http');
-const server = http.createServer(app);
-const { Server } = require("socket.io");
+const express = require('express')
+const app = express()
+const cors = require('cors')
+const http = require('http')
+const server = http.createServer(app)
+const { Server } = require("socket.io")
 const socketCore = require('./core') 
 
 const io = new Server(server, {
@@ -12,16 +12,9 @@ const io = new Server(server, {
       origin: true,
       credentials: true
   },
-});
-
-app.use(cors())
-
-app.get('/', (req, res) => {
-  res.send('Socket ON')
 })
 
+app.use(cors())
+app.get('/', (req, res) => res.send('Socket ON'))
 socketCore(io)
-
-server.listen(5000, () => {
-  console.log('Socket On Port 5000');
-});
+server.listen(5000)

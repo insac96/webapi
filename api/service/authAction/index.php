@@ -68,10 +68,14 @@ class Auth extends AuthUtils {
       res(400, 'Tên tài khoản không chứa ký tự đặc biệt');
     if(preg_match("/\\s/", $account))
       res(400, 'Tài khoản không để khoảng trắng');
+
     if(strlen($password) < 6 || strlen($password) > 15)
       res(400, 'Mật khẩu trong khoảng từ 5-15 ký tự');
     if(preg_match("/\\s/", $password))
       res(400, 'Mật khẩu không để khoảng trắng');
+
+    if(preg_match("/\\s/", $phone))
+      res(400, 'Số điện thoại không để khoảng trắng');
     if(!preg_match('/^[0-9]{10}+$/', $phone))
       res(400, 'Định dạng số điện thoại không hợp lệ');
 
@@ -84,6 +88,18 @@ class Auth extends AuthUtils {
     $authCheck = $this->getAuthCheckByPhone($phone);
     if(!empty($authCheck))
       res(400, 'Số điện thoại đã tồn tại');
+
+    // Check Ads
+    $listAds = (new Ads())->getAllAds();
+    if(count($listAds) > 0){
+      if(!is_numeric($_POST['reg_from']))
+        res(400, 'Vui lòng chọn nguồn biết đến trò chơi');
+      $ads = (new Ads())->getAds($_POST['reg_from']);
+      $reg_from = $ads['id'];
+    }
+    else {
+      $reg_from = 0;
+    }
 
     // Check Referraler And Create User
     if(!empty($_POST['referral_code'])){
@@ -102,6 +118,7 @@ class Auth extends AuthUtils {
       'password' => (string)$password,
       'phone' => (string)$phone,
       'referral_code' => (string)$referral_code,
+      'reg_from' => (int)$reg_from,
       'referraler' => !empty($referraler) ? $referraler : null
     ));
 

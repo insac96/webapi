@@ -6,8 +6,8 @@
           UserCurrency
     
     transition(name="up")
-      UAlert(border color="wheel" v-if="gifts.length == 0") Vòng quay may mắn hiện đang bảo trì, vui lòng quay lại sau
-      WheelCircle(v-if="!!gifts" :list="gifts" @reload="reload")
+      UAlert(border color="danger" v-if="!!gifts && gifts.length == 0") Vòng quay may mắn hiện đang bảo trì, vui lòng quay lại sau
+      WheelCircle(v-else :list="gifts" @reload="reload")
 
     transition(name="up")
       WheelLogs(:list="logs" class="mt-2" title="Lịch sử của bạn")

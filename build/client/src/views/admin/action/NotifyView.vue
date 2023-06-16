@@ -1,5 +1,5 @@
 <template lang="pug">
-  UCard(title="Thông báo thời gian thực")
+  UCard(class="ActionNotifyView" title="Thông báo thời gian thực")
     form(@submit.prevent="send")
       UInput(v-model="message" icon="notify" icon-color="primary" placeholder="Nhập nội dung")
 </template>

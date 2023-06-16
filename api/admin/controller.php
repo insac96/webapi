@@ -5,6 +5,7 @@ require 'configAction/index.php';
 require 'serverAction/index.php';
 require 'ipAction/index.php';
 require 'statisticalAction/index.php';
+require 'adsAction/index.php';
 require 'vipAction/index.php';
 require 'authAction/index.php';
 require 'userAction/index.php';
@@ -232,6 +233,40 @@ class Controller {
     res(200, 'Gửi vật phẩm thành công');
   }
 /* End User */
+
+/* Ads */
+  public function getAllAds () {
+    (new Auth())->getAuth(2);
+    $list = (new Ads())->getAllAds();
+    res(200, null, $list);
+  }
+
+  public function createAds () {
+    (new Auth())->getAuth(2);
+    (new Ads())->createAds();
+    
+    res(200, 'Tạo quảng cáo thành công');
+  }
+
+  public function updateAds () {
+    (new Auth())->getAuth(2);
+    (new Ads())->updateAds();
+    
+    res(200, 'Cập nhật quảng cáo thành công');
+  }
+
+  public function getAdsRevenue () {
+    (new Auth())->getAuth(2);
+    $list = (new Ads())->getAdsRevenue();
+    res(200, null, $list);
+  }
+
+  public function getAdsSignUp () {
+    (new Auth())->getAuth(2);
+    $list = (new Ads())->getAdsSignUp();
+    res(200, null, $list);
+  }
+/* End Ads */
 
 /* News */
   public function getAllNews () {

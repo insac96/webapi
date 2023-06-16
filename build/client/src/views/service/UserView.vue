@@ -15,6 +15,12 @@ export default {
   components: {
     UserMini,
     UserInfo
-  }
+  },
+
+  created () {
+    const token = this.$utils.getCookie('token')
+    if(!token) return this.$router.push('/home')
+    this.getUser()
+  },
 }
 </script>

@@ -6,7 +6,7 @@
       UFlex(align="center" class="mb-2")
         UChip(class="capitalize") {{storeUser.account}}
         UChip(:color="`vip-${storeUser.vip.number}`" full) VIP {{storeUser.vip.number}}
-        UChip(:color="`type-${storeUser.type}`" full @click="goToAdmin") {{typeView[storeUser.type]}}
+        UChip(color="type-2" full @click="$router.push('/admin')" v-if="storeUser.type > 0") ADMIN
         UButton(color="danger" avatar size="33px" class="ml-auto" @click="logout")
           UIcon(src="bx-power-off" size="1.2rem")
       UFlex(align="center" class="EXP")
@@ -41,14 +41,7 @@ export default {
         percent: `${percent}%`
       }
     }
-  },
-  
-  methods: {
-    goToAdmin () {
-      if(!this.storeUser || this.storeUser.type == 0) return
-      window.open('/client/admin', '_blank')
-    }
-  },
+  }
 }
 </script>
 

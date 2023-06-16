@@ -2,6 +2,11 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
+const originalPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err)
+}
+
 const routes = [
   // Layout Service
   {
@@ -143,6 +148,11 @@ const routes = [
         component: () => import(/* webpackChunkName: "route" */ '@/views/admin/manage/UserView.vue'),
       },
       {
+        path: 'manage-ads',
+        name: 'Quảng cáo',
+        component: () => import(/* webpackChunkName: "route" */ '@/views/admin/manage/AdsView.vue'),
+      },
+      {
         path: 'manage-ip',
         name: 'Quản lý IP',
         component: () => import(/* webpackChunkName: "route" */ '@/views/admin/manage/IPView.vue'),
@@ -155,13 +165,23 @@ const routes = [
 
       {
         path: 'action-vip',
-        name: 'Đặc quyền VIP',
+        name: 'Quản lý VIP',
         component: () => import(/* webpackChunkName: "route" */ '@/views/admin/action/VipView.vue'),
+      },
+      {
+        path: 'action-notify',
+        name: 'Thông báo',
+        component: () => import(/* webpackChunkName: "route" */ '@/views/admin/action/NotifyView.vue'),
       },
       {
         path: 'action-gift',
         name: 'Bộ quà tặng',
         component: () => import(/* webpackChunkName: "route" */ '@/views/admin/action/GiftView.vue'),
+      },
+      {
+        path: 'action-link',
+        name: 'Link nhiệm vụ',
+        component: () => import(/* webpackChunkName: "route" */ '@/views/admin/action/LinkView.vue'),
       },
       {
         path: 'action-send',

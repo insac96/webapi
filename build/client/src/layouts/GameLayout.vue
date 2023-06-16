@@ -5,7 +5,7 @@
     LayoutIframe
     GameRecharge
     WebNotifyAlert
-    WebNotifySocket(v-if="storeGameConfig.notify")
+    WebNotifySocket(v-if="storeGameConfig.notify" game)
 </template>
 
 <script>

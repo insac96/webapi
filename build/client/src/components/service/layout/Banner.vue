@@ -2,8 +2,8 @@
   div(class="ServiceLayoutBanner")
     div(class="Banner")
       img(:src="banner" alt="banner")
-    div(class="Play bounce-anim" @click="$router.push('/game')")
-      img(:src="`${publicPath}images/play.png`" alt="banner")
+    UButton(size="4rem" color="danger" avatar class="Play jump-anim" @click="$router.push('/game')")
+      UIcon(src="bx-play" size="3rem")
 </template>
 
 <script>
@@ -45,7 +45,6 @@ export default {
   .Play
     position: absolute
     border-radius: 50%
-    width: 180px
-    img
-      width: 100%
+    .UiIcon
+      transform: translateX(3px)
 </style>

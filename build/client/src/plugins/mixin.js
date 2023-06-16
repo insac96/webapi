@@ -81,14 +81,22 @@ const mixin = Vue.extend({
 
       // Socket Notify Login
       if(!this.storeUser){
-        this.sendSocketNotify(`VIP${user['vip']['number']} - ${user['account'].toUpperCase()} truy cập`, user)
+        this.sendSocketNotify(`VIP ${user['vip']['number']} - ${user['account'].toUpperCase()} truy cập`, user)
       }
 
       this.$store.commit('setUser', user)
     },
 
     async getConfig () {
-      const config = await this.API('getConfig')
+      let config
+
+      if(process.env.NODE_ENV === 'production'){
+        config = window.CONFIG
+      }
+      else {
+        config = await this.API('getConfig')
+      }
+
       if(config) return this.$store.commit('setConfig', config)
     },
 

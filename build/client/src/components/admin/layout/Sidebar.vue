@@ -24,6 +24,7 @@ export default {
             { title: 'Thống kê', to: '/admin/manage-statistical' },
             { title: 'Máy chủ', to: '/admin/manage-server' },
             { title: 'Tài khoản', to: '/admin/manage-user' },
+            { title: 'Quảng cáo', to: '/admin/manage-ads' },
             { title: 'Địa chỉ IP', to: '/admin/manage-ip' },
             { title: 'Cài đặt', to: '/admin/manage-config' },
           ]
@@ -31,8 +32,10 @@ export default {
         {
           title: 'Chức năng',
           child: [
-            { title: 'Sửa VIP', to: '/admin/action-vip' },
-            { title: 'Tạo bộ quà', to: '/admin/action-gift' },
+            { title: 'Quản lý VIP', to: '/admin/action-vip' },
+            { title: 'Thông báo', to: '/admin/action-notify' },
+            { title: 'Bộ quà tặng', to: '/admin/action-gift' },
+            { title: 'Link nhiệm vụ', to: '/admin/action-link' },
             { title: 'Gửi vật phẩm', to: '/admin/action-send' },
           ]
         },

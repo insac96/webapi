@@ -1,5 +1,5 @@
 <template lang="pug">
-  div(class="WebNotifySocket")
+  div(:class="`WebNotifySocket WebNotifySocket--${!!game ? 'game' : 'default'}`")
     transition(name="notify-socket")
       UFlex(
         v-if="notify"
@@ -14,6 +14,10 @@
 
 <script>
 export default {
+  props: {
+    game: { type: Boolean } 
+  },
+
   data() {
     return {
       notify: null,
@@ -113,7 +117,6 @@ export default {
 <style lang="sass">
 .WebNotifySocket
   position: fixed
-  top: calc(var(--header) + var(--space) * 0.5)
   left: var(--space)
   width: auto
   height: auto
@@ -121,6 +124,13 @@ export default {
   align-items: center
   justify-content: center
   z-index: 999999
+  &--game
+    top: calc(var(--header) + var(--space))
+  &--default
+    top: calc(0 + var(--space))
+    @media (max-width: 576px)
+      top: calc(var(--header) + var(--space))
+
   .Notify
     position: relative
     &--VIP

@@ -1,5 +1,5 @@
 <template lang="pug">
-  div(class="UserInfo")
+  div(class="UserInfo" v-if="storeUser")
     //- Chi Tiết
     UCard(title="Chi tiết" class="mb-2")
       UFlex(align="center" justify="space-between" class="mb-2" v-if="storeUser.referraler")
@@ -63,10 +63,10 @@
       UFlex(align="center" justify="space-between")
         UText(size="0.85rem") Tổng tiêu
         UChip(icon="coin" color="coin") {{ $utils.getMoney(storeUser.spend_all, false) }}
-      template(#footer)
-        UFlex(justify="space-between" align="center")
-          UChip(@click="notify('Chức năng sắp ra mắt')") Xem lịch sử tiêu phí
-          UChip(@click="$router.push('/shop')" full) Tiêu thêm
+      //- template(#footer)
+      //-   UFlex(justify="space-between" align="center")
+      //-     UChip(@click="notify('Chức năng sắp ra mắt')") Xem lịch sử tiêu phí
+      //-     UChip(@click="$router.push('/shop')" full) Tiêu thêm
 
     //- Dialog - Mã mời
     UDialog(v-model="dialog.referral" @show="makeLink" @hide="")
@@ -107,18 +107,11 @@
 
     //- Dialog - Cập nhật hiệu ứng
     UDialog(v-model="dialog.effect" @hide="close" @show="getAllUserEffect")
-      UBox(title="Thay đổi hiệu ứng" width="100%")
-        UFlex(wrap="wrap" align="center")
-          UChip(
-            v-for="item in userEffect" :key="item.id"
-            class="box-resize"
-            :full="update.effect == item.type"
-            :color="update.effect == item.type ? 'dark' : null"
-            @click="update.effect = item.type"
-          ) {{ item.name }}
+      UBox(title="Thay đổi hiệu ứng" width="100%" v-if="userEffect")
+        USelect(v-model="update.effect" :list="userEffect" value="type" label="name" icon="bxs-party" icon-color="success")
         template(#footer)
           UFlex(justify="flex-end")
-            UButton(@click="updateUserEffect") Xác nhận
+            UButton(@click="updateUserEffect" color="success") Xác nhận
 </template>
 
 <script>
@@ -231,7 +224,7 @@ export default {
       const list = await this.API('getAllUserEffect')
       if(!list) return
 
-      const defaultList = [{ id: 0, name: 'Mặc định', type: 'vip' }]
+      const defaultList = [{ id: 0, name: 'Theo cấp VIP', type: 'vip' }]
       this.userEffect = defaultList.concat(list)
     },
 

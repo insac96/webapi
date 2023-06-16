@@ -1,11 +1,11 @@
 <template lang="pug">
-  div(class="ServiceLayoutFooter")
+  div(class="ServiceLayoutFooter" v-if="storeConfig")
     UFlex(justify="flex-end" align="center")
-      div(@click="openLink(storeConfig.fanpage_link)" class="Link")
+      div(@click="openLink(storeConfig.fanpage_link)" class="Link" v-if="storeConfig.fanpage_link")
         img(:src="`${publicPath}images/social/facebook.png`" alt="facebook")
-      div(@click="openLink(storeConfig.messenger_link)" class="Link")
+      div(@click="openLink(storeConfig.messenger_link)" class="Link" v-if="storeConfig.messenger_link")
         img(:src="`${publicPath}images/social/messenger.png`" alt="messenger")
-      div(@click="openLink(storeConfig.zalo_link)" class="Link")
+      div(@click="openLink(storeConfig.zalo_link)" class="Link" v-if="storeConfig.zalo_link")
         img(:src="`${publicPath}images/social/zalo.png`" alt="zalo")
 </template>
 

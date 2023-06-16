@@ -77,11 +77,12 @@ CREATE TABLE `ny_auth` (
 `bank_name` varchar(100),
 `bank_person` varchar(100),
 `bank_stk` varchar(50),
+`reg_from` int(11) NOT NULL DEFAULT 0,
 PRIMARY KEY (`id`),
 KEY `id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO `ny_auth` VALUES (1, 'admin', '21232f297a57a5a743894a0e4a801fc3', null, 0, 2, null, null, null, null, null, null);
+INSERT INTO `ny_auth` VALUES (1, 'admin', '21232f297a57a5a743894a0e4a801fc3', null, 0, 2, null, null, null, null, null, null, 0);
 
 /* User */
 DROP TABLE IF EXISTS `ny_user`;
@@ -106,7 +107,6 @@ CREATE TABLE `ny_user` (
 `join_group` tinyint(3) unsigned NOT NULL DEFAULT 0 COMMENT '0: False, 1: True',
 `join_zalo` tinyint(3) unsigned NOT NULL DEFAULT 0 COMMENT '0: False, 1: True',
 `join_telegram` tinyint(3) unsigned NOT NULL DEFAULT 0 COMMENT '0: False, 1: True',
-`share_web` tinyint(3) unsigned NOT NULL DEFAULT 0 COMMENT '0: False, 1: True',
 `get_gifts_referral` tinyint(3) unsigned DEFAULT 0 COMMENT '0: False, 1: True',
 `effect` varchar(100) NOT NULL DEFAULT 'vip',
 `date` varchar(20) NOT NULL DEFAULT '',
@@ -583,6 +583,20 @@ CREATE TABLE `ny_gift` (
 `id` int(11) NOT NULL AUTO_INCREMENT,
 `name` varchar(100) NOT NULL,
 `list` text,
+PRIMARY KEY (`id`),
+KEY `id` (`id`)
+) 
+ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+/* ADS */
+DROP TABLE IF EXISTS `ny_ads`;
+CREATE TABLE `ny_ads` (
+`id` int(11) NOT NULL AUTO_INCREMENT,
+`name` varchar(100) NOT NULL,
+`type` varchar(100) NOT NULL,
+`display` tinyint(3) unsigned NOT NULL DEFAULT 1 COMMENT '0: Hide, 1: Show',
+`create_time` int(11) unsigned,
 PRIMARY KEY (`id`),
 KEY `id` (`id`)
 ) 

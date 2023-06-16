@@ -9,9 +9,7 @@
             span Máy chủ 
             span(class="uppercase") {{ server_id }}
 
-    UAlert(border v-if="list.length == 0") Vòng quay may mắn đang bảo trì, vui lòng quay lại sau
-
-    div(v-else :class="{'Wheel': true, 'Wheel--spin': !!this.spin }" :style="{'--ui-circle-deg': `${this.now}deg`}")
+    div(:class="{'Wheel': true, 'Wheel--spin': !!this.spin }" :style="{'--ui-circle-deg': `${this.now}deg`}")
       div(class="Circle" ref="circle")
         div(class="Gift" v-for="(item, index) in list" :key="item.id" :style="styleGift(index)")
           div(class="Gift__Content")
@@ -23,8 +21,6 @@
 
       div(class="Spin" @click="spinWheel")
         UIcon(src="wheel")
-
-    audio(:src="`${publicPath}sounds/wheel/${sound}.mp3`" preload="auto" ref="audio")
 
     UDialog(v-model="dialog.result" @hide="$emit('reload')" max="180px")
       UBox(v-if="gift" title="Kết quả lượt quay" width="100%" @click="dialog.result = false")
@@ -62,7 +58,6 @@ export default {
         server: false
       },
       anim: null,
-      audio: null,
       circle: null,
       gift: null,
       colors: [
@@ -77,13 +72,11 @@ export default {
         'diamond': 'Kim Cương',
         'unlucky': 'Mất Lượt',
         'item': 'Vật phẩm',
-      },
-      sound: 'spin'
+      }
     }
   },
 
   mounted () {
-    this.audio = this.$refs.audio
     this.circle = this.$refs.circle
     this.circle.addEventListener('transitionend', this.endAnim)
   },
@@ -123,17 +116,11 @@ export default {
     },
 
     startAnim () {
-      this.playSound('spin')
       this.spin = true
       this.anim = window.requestAnimationFrame(this.animation)
     },
 
     endAnim () {
-      if(this.gift.type == 'unlucky')
-        this.playSound('lose')
-      else
-        this.playSound('win')
-
       this.spin = false
       this.dialog.result = true
     },
@@ -148,13 +135,7 @@ export default {
         window.cancelAnimationFrame(this.animation)
         this.anim = null
       }
-    },
-
-    playSound (name) {
-      this.sound = name
-      this.audio.onended = () => this.sound = 'spin'
-      this.audio.play()
-    },
+    }
   }
 }
 </script>
@@ -173,7 +154,7 @@ export default {
       transform: rotate(360deg)
 
   .Wheel
-    --ui-wheel-size: 380px
+    --ui-wheel-size: 350px
     position: relative
     display: flex
     align-items: center
@@ -185,7 +166,7 @@ export default {
     max-width: var(--ui-wheel-size)
     max-width: var(--ui-wheel-size)
     @media (min-width: 769px)
-      --ui-wheel-size: 420px
+      --ui-wheel-size: 400px
     &--spin
       .Spin
         animation: rotate 4.2s linear
