@@ -34,7 +34,7 @@
         quill-editor(:content="select.info" :options="editorOption" @change="onEditorChangeCreate($event)")
 
       template(#two v-if="select")
-        UAlert(color="danger" border) Bạn chắc chắn xóa nhiệm vụ này
+        UAlert(color="danger" border) Bạn chắc chắn xóa nhiệm vụ này 
         
       template(#three v-if="select")
         UGiftAdmin(:gifts.sync="select.gifts")

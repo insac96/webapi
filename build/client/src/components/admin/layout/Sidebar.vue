@@ -1,7 +1,7 @@
 <template lang="pug">
   div(class="AdminLayoutSidebar" ref="sidebar")
     UFlex(align="center" class="AdminLayoutSidebar__Header") Admin Pannel
-
+    
     div(class="AdminLayoutSidebar__Body")
       UBox(class="Tab" v-for="(tab, i) in list" :key="i" :title="tab.title")
         UFlex(class="Item" align="center" v-for="(item, j) in tab.child" :key="j" @click="to(item.to)") {{ item.title }}

@@ -2,7 +2,7 @@
   UFlex(class="AdminLayoutHeader" align="center")
     UIcon(src="bx-menu-alt-left" size="2rem" color="dark" @click="$emit('menu')")
     UText(weight="700" class="mr-auto ml-2") {{ $route.name }}
-    UChip() 
+    UChip()
       span Xin chào, 
       span(class="capitalize") {{storeUser.account}}
     UChip(full color="danger" class="ml-1" @click="$router.push('/')") Thoát
