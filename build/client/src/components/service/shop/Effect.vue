@@ -13,10 +13,10 @@
       
         UFlex(justify="center")
           img(
-            :src="`${publicPath}images/effect/${item.type}.png`" 
+            :src="`${publicPath}images/effect/${item.type}.gif`" 
             :alt="item.name" 
             width="70%" 
-            height="80px"
+            height="100px"
           )
 
         template(#footer)

@@ -397,14 +397,9 @@ KEY `id` (`id`)
 )
 ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO `ny_shop_effect` VALUES (1, 'Ô Tô', 100000, 'car', 1, 0);
-INSERT INTO `ny_shop_effect` VALUES (2, 'Máy Bay', 100000, 'plane', 1, 0);
-INSERT INTO `ny_shop_effect` VALUES (3, 'Rồng', 100000, 'dragon', 1, 0);
-INSERT INTO `ny_shop_effect` VALUES (4, 'Phượng Hoàng', 100000, 'phoenix', 1, 0);
-INSERT INTO `ny_shop_effect` VALUES (5, 'Kỳ Lân', 100000, 'unicorn', 1, 0);
-INSERT INTO `ny_shop_effect` VALUES (6, 'Hổ', 100000, 'tiger', 1, 0);
-INSERT INTO `ny_shop_effect` VALUES (7, 'Sư Tử', 100000, 'lion', 1, 0);
-INSERT INTO `ny_shop_effect` VALUES (8, 'Sói', 100000, 'wolf', 1, 0);
+INSERT INTO `ny_shop_effect` VALUES (1, 'Huyền Long', 100000, 'dragon-blue', 1, 0);
+INSERT INTO `ny_shop_effect` VALUES (2, 'Ngọc Long', 100000, 'dragon-green', 1, 0);
+INSERT INTO `ny_shop_effect` VALUES (3, 'Huyết Long', 100000, 'dragon-red', 1, 0);
 
 
 DROP TABLE IF EXISTS `ny_log_shop`;

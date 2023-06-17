@@ -9,6 +9,7 @@
       ) 
         div(class="Notify__Content") 
           UText(weight="600" size="0.85rem") {{ notify.content }}
+        //- img(:src="effectData.img" :width="effectData.w" :height="effectData.h")
         img(:src="effectData.img" :width="effectData.w" :height="effectData.h")
 </template>
 
@@ -23,14 +24,9 @@ export default {
       notify: null,
 
       config: {
-        'car': { w: 'auto', h: '60px', tx: '75%', color: '178,13,22' },
-        'plane': { w: 'auto', h: '70px', tx: '60%', color: '68,135,192' },
-        'dragon': { w: 'auto', h: '110px', tx: '60%', color: '255,89,17' },
-        'phoenix': { w: 'auto', h: '140px', tx: '65%', color: '190,49,11' },
-        'unicorn': { w: 'auto', h: '120px', tx: '60%', color: '126,50,80' },
-        'tiger': { w: 'auto', h: '100px', tx: '50%', color: '61,59,61' },
-        'lion': { w: 'auto', h: '100px', tx: '60%', color: '232,174,69' },
-        'wolf': { w: 'auto', h: '110px', tx: '60%', color: '71,85,155' },
+        'dragon-red': { w: 'auto', h: '140px', tx: '-50%', ty: '-20%', color: '184, 57, 28' },
+        'dragon-blue': { w: 'auto', h: '140px', tx: '-55%', ty: '-20%', color: '38, 112, 163' },
+        'dragon-green': { w: 'auto', h: '130px', tx: '-45%', ty: '-5%', color: '42, 135, 115' },
       }
     }
   },
@@ -50,7 +46,8 @@ export default {
           img: `${this.publicPath}images/avatar/${num}.webp`,
           w: '45px',
           h: '45px',
-          tx: '50%',
+          tx: '-var(--space) * 2',
+          ty: '0',
           color: `--ui-vip-${num}`,
         }
       }
@@ -60,14 +57,15 @@ export default {
           img: `${this.publicPath}images/effect/admin.png`,
           w: 'auto',
           h: '80px',
-          tx: '60%',
+          tx: '-30%',
+          ty: '-5%',
           color: `--ui-type-2`,
         }
       }
       else {
         return {
           type: 'custom',
-          img: `${this.publicPath}images/effect/${effect}.png`,
+          img: `${this.publicPath}images/effect/${effect}.gif`,
           ...this.config[effect]
         }
       }
@@ -77,7 +75,8 @@ export default {
       if(!this.effectData) return {}
       return {
         '--ui-notify-color': this.effectData.type == 'custom' ? this.effectData.color : `var(${this.effectData.color})`,
-        '--ui-notify-img-x': this.effectData.tx
+        '--ui-notify-img-x': this.effectData.tx,
+        '--ui-notify-img-y': this.effectData.ty
       }
     },
 
@@ -127,7 +126,7 @@ export default {
   &--game
     top: calc(var(--header) + var(--space))
   &--default
-    top: calc(0 + var(--space))
+    top: var(--space)
     @media (max-width: 576px)
       top: calc(var(--header) + var(--space))
 
@@ -137,11 +136,13 @@ export default {
       img
         border-radius: 50%
         box-shadow: 0px 0px 15px -5px rgba(0,0,0,0.4)
+        transform: translateX(calc(var(--space) * -1))
+    &--CUSTOM, &--ADMIN
+      img
+        transform: translateX(var(--ui-notify-img-x)) translateY(var(--ui-notify-img-y))
     img
-      position: absolute
-      right: 0
-      z-index: 1
-      transform: translateX(calc(var(--ui-notify-img-x) + var(--space)))
+      z-index: 0
+      
     &__Content
       display: flex
       align-items: center
