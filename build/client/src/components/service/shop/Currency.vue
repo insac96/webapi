@@ -57,8 +57,7 @@ export default {
   methods: {
     async getShopCurrency () {
       const list = await this.API('getShopCurrency')
-      if(!list) return this.notify('Chưa có vật phẩm nào bày bán')
-      this.list = list
+      if(!!list) return this.list = list
     },
 
     async buyCurrency () {

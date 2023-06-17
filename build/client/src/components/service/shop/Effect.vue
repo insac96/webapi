@@ -18,7 +18,6 @@
             width="70%" 
             height="100px"
           )
-
         template(#footer)
           UFlex(justify="center")
             UChip(icon="coin") {{ $utils.getMoney(item.price) }}

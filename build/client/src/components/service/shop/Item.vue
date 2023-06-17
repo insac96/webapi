@@ -76,8 +76,7 @@ export default {
   methods: {
     async getShopItem () {
       const list = await this.API('getShopItem')
-      if(!list) return this.notify('Chưa có vật phẩm nào bày bán', 'warn')
-      this.list = list
+      if(!!list) return this.list = list
     },
 
     async buyItem () {
