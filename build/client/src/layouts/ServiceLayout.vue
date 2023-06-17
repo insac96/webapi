@@ -1,40 +1,41 @@
 <template lang="pug">
-  div(class="ServiceLayout")
-    LayoutHeader(@menu="open = !open")
-    LayoutSidebar(:list="menu" :open.sync="open")
-    LayoutBanner
-    LayoutControl(:list="menu")
-
+  div(class="ServiceLayout" :style="styleLayout")
+    LayoutSidebar(:open.sync="open_left")
+    SocketChat(:open.sync="open_right")
+    
     div(class="ServiceLayoutView")
-      transition(name="up" mode="out-in")
-        router-view
+      LayoutHeader(@menu-left="open_left = !open_left" @menu-right="open_right = !open_right")
+      div(class="Container")
+        LayoutBanner(class="mb-2")
+        transition(name="up" mode="out-in")
+          router-view
       LayoutFooter
-
-    LayoutGiftReferral
-    WebNotifyAlert
-    WebNotifySocket
+      LayoutGiftReferral
+    
+    WebNotify
+    SocketNotify
 </template>
 
 <script>
 import LayoutHeader from '@/components/service/layout/Header.vue'
 import LayoutSidebar from '@/components/service/layout/Sidebar.vue'
 import LayoutBanner from '@/components/service/layout/Banner.vue'
-import LayoutControl from '@/components/service/layout/Control.vue'
 import LayoutGiftReferral from '@/components/service/layout/GiftReferral.vue'
 import LayoutFooter from '@/components/service/layout/Footer.vue'
-import WebNotifyAlert from '@/components/notify/Alert.vue'
-import WebNotifySocket from '@/components/notify/Socket.vue'
+import WebNotify from '@/components/Notify.vue'
+import SocketNotify from '@/components/socket/Notify.vue'
+import SocketChat from '@/components/socket/Chat.vue'
 
 export default {
   components: {
     LayoutHeader,
     LayoutSidebar,
     LayoutBanner,
-    LayoutControl,
     LayoutGiftReferral,
     LayoutFooter,
-    WebNotifyAlert,
-    WebNotifySocket
+    WebNotify,
+    SocketNotify,
+    SocketChat,
   },
   
   data() {
@@ -48,7 +49,17 @@ export default {
         { title: 'Xếp Hạng', icon: 'rank', to: '/rank' }
       ],
 
-      open: false
+      open_left: false,
+      open_right: false
+    }
+  },
+
+  computed: {
+    styleLayout () {
+      return {
+        '--ui-reponsize-left': !!this.open_left ? '0px' : '-100%',
+        '--ui-reponsize-right': !!this.open_right ? '0px' : '-100%',
+      }
     }
   },
 
@@ -69,17 +80,48 @@ export default {
 </script>
 
 <style lang="sass">
+@import @/assets/reponsize.sass
+
+.ServiceLayout
+  --ui-reponsize-left: 0px
+  --ui-reponsize-right: 0px
+
 .ServiceLayout
   position: relative
-  width: 750px
-  max-width: 100%
-  min-height: 100%
-  margin: 0 auto
-  background: rgb(var(--ui-background))
-  //box-shadow: 0 20px 27px #0000000d
+  display: grid
+  width: 100%
+  height: 100%
+  grid-template-columns: 300px 1fr 300px
+  grid-template-rows: 1fr
+  grid-template-areas: "sidebar_left main sidebar_right"
+  transition: all 0.25s ease
+  .ServiceLayoutSidebar, .SocketChat
+    position: fixed
+    top: 0
+    width: 300px
+    height: 100%
+  .ServiceLayoutSidebar
+    grid-area: sidebar_left
+    left: 0
+  .SocketChat
+    grid-area: sidebar_right
+    right: 0
   .ServiceLayoutView
-    padding: var(--space)
-    padding-bottom: 60px
-    @media (min-width: 769px)
-      padding-bottom: var(--space)
+    position: relative
+    grid-area: main
+    min-width: 100%
+    .Container
+      width: 750px
+      max-width: 100%
+      margin: 0 auto
+      padding: var(--space)
+  
+  @include mobile
+    grid-template-columns: 0 1fr 0
+    .ServiceLayoutSidebar
+      left: var(--ui-reponsize-left)
+    .SocketChat
+      width: 400px
+      max-width: 80%
+      right: var(--ui-reponsize-right)
 </style>

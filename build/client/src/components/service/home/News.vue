@@ -10,7 +10,7 @@
           UText(size="0.8rem" color="gray-600" mini) {{ news.description }}
         UChip(class="News__Time") {{ $utils.getTime(news.update_time).from }}
         
-    UFlex(justify="flex-end" class="mt-2")
+    UFlex(justify="flex-end" class="mt-2" v-if="page > 1")
       UPagination(:total="total" :page.sync="page")
 </template>
 

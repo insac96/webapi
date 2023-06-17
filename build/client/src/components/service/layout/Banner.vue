@@ -27,6 +27,8 @@ export default {
   width: 100%
   overflow: hidden
   aspect-ratio: 16 / 6
+  box-shadow: 0 0 20px -10px rgba(var(--ui-black), 0.2)
+  border-radius: var(--radius)
   .Banner
     width: 100%
     height: 100%

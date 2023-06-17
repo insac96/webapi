@@ -1,20 +1,28 @@
 <template lang="pug">
   UFlex(class="GameLayoutHeader" align="center")
-    UIcon(src="bx-menu-alt-left" size="1.5rem" color="dark" class="mr-auto" @click="$emit('menu')")
+    UIcon(src="bx-menu-alt-left" size="1.5rem" color="dark" class="mr-auto" @click="$emit('open-menu')")
     UserCurrency(:diamond="false")
-    UButton(color="danger" @click="$router.push('/')" size="33px" avatar class="ml-1")
-      UIcon(src="bx-x" size="1.5rem")
+    UIcon(src="bx-chat" size="1.5rem" class="ml-2" @click="$emit('open-chat')")
 </template>
 
 <style lang="sass">
+@import @/assets/reponsize.sass
+
 .GameLayoutHeader
   position: relative
   width: 100%
-  height: 45px
-  max-height: 45px
   background: rgb(var(--ui-content))
   padding: var(--space)
   box-shadow: 0 5px 20px 0 #0000000d
+  z-index: 100
+  @include mobile
+    z-index: 11
   i
     cursor: pointer
+  @include desktop
+    .bx-chat
+      display: none
+  @include mobile
+    .bx-chat
+      display: inline-block
 </style>

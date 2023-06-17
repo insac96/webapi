@@ -33,7 +33,7 @@ export default {
           title: 'Chức năng',
           child: [
             { title: 'Quản lý VIP', to: '/admin/action-vip' },
-            { title: 'Thông báo', to: '/admin/action-notify' },
+            { title: 'Thời gian thực', to: '/admin/action-socket' },
             { title: 'Bộ quà tặng', to: '/admin/action-gift' },
             { title: 'Link nhiệm vụ', to: '/admin/action-link' },
             { title: 'Gửi vật phẩm', to: '/admin/action-send' },

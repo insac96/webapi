@@ -169,9 +169,9 @@ const routes = [
         component: () => import(/* webpackChunkName: "route" */ '@/views/admin/action/VipView.vue'),
       },
       {
-        path: 'action-notify',
-        name: 'Thông báo',
-        component: () => import(/* webpackChunkName: "route" */ '@/views/admin/action/NotifyView.vue'),
+        path: 'action-socket',
+        name: 'Thời gian thực',
+        component: () => import(/* webpackChunkName: "route" */ '@/views/admin/action/SocketView.vue'),
       },
       {
         path: 'action-gift',

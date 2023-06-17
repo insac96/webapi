@@ -1,5 +1,5 @@
 <template lang="pug">
-  div(:class="`WebNotifySocket WebNotifySocket--${!!game ? 'game' : 'default'}`")
+  div(:class="`SocketNotify SocketNotify--${!!game ? 'game' : 'default'}`")
     transition(name="notify-socket")
       UFlex(
         v-if="notify"
@@ -114,9 +114,10 @@ export default {
 </script>
 
 <style lang="sass">
-.WebNotifySocket
+@import @/assets/reponsize.sass
+
+.SocketNotify
   position: fixed
-  left: var(--space)
   width: auto
   height: auto
   display: inline-flex
@@ -124,11 +125,14 @@ export default {
   justify-content: center
   z-index: 999999
   &--game
-    top: calc(var(--header) + var(--space))
+    top: calc(45px + var(--space))
+    left: var(--space)
   &--default
-    top: var(--space)
-    @media (max-width: 576px)
-      top: calc(var(--header) + var(--space))
+    top: calc(var(--header) + var(--space))
+    @include mobile
+      left: var(--space)
+    @include desktop
+      left: calc(300px + var(--space))
 
   .Notify
     position: relative

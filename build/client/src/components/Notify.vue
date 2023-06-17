@@ -1,5 +1,6 @@
+
 <template lang="pug">
-  div(class="WebNotifyAlert")
+  div(class="WebNotify")
     transition-group(tag="div" name="notify-alert" class="Main-Notify")
       UFlex(
         v-for="(item, index) in storeNotify"
@@ -13,7 +14,7 @@
 </template>
 
 <style lang="sass">
-.WebNotifyAlert
+.WebNotify
   position: fixed
   top: 0
   right: 0

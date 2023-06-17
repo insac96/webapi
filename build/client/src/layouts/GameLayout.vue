@@ -1,11 +1,14 @@
 <template lang="pug">
-  div(class="GameLayout" id="GameLayout")
-    LayoutHeader(@menu="open = !open")
-    LayoutMenu(:open.sync="open" :showNotify.sync="showNotify")
+  div(class="GameLayout" :style="styleLayout" id="GameLayout")
+    LayoutHeader(@open-menu="open_menu = !open_menu" @open-chat="open_chat = !open_chat")
     LayoutIframe
+    SocketChat(:open.sync="open_chat")
+
+    LayoutMenu(:open.sync="open_menu" :showNotify.sync="showNotify")
     GameRecharge
-    WebNotifyAlert
-    WebNotifySocket(v-if="storeGameConfig.notify" game)
+
+    WebNotify
+    SocketNotify(v-if="storeGameConfig.notify" game)
 </template>
 
 <script>
@@ -13,8 +16,9 @@ import LayoutHeader from '@/components/game/layout/Header.vue'
 import LayoutMenu from '@/components/game/layout/Menu.vue'
 import LayoutIframe from '@/components/game/layout/Iframe.vue'
 import GameRecharge from '@/components/game/Recharge.vue'
-import WebNotifyAlert from '@/components/notify/Alert.vue'
-import WebNotifySocket from '@/components/notify/Socket.vue'
+import WebNotify from '@/components/Notify.vue'
+import SocketNotify from '@/components/socket/Notify.vue'
+import SocketChat from '@/components/socket/Chat.vue'
 
 export default {
   components: {
@@ -22,14 +26,24 @@ export default {
     LayoutMenu,
     LayoutIframe,
     GameRecharge,
-    WebNotifyAlert,
-    WebNotifySocket
+    WebNotify,
+    SocketNotify,
+    SocketChat
   },
   
   data() {
     return {
-      open: false,
+      open_menu: false,
+      open_chat: false,
       showNotify: true
+    }
+  },
+
+  computed: {
+    styleLayout () {
+      return {
+        '--ui-reponsize': !!this.open_chat ? '0px' : '-100%',
+      }
     }
   },
 
@@ -65,15 +79,36 @@ export default {
 </script>
 
 <style lang="sass">
+@import @/assets/reponsize.sass
+
 .GameLayout
-  position: fixed
-  display: flex
-  align-items: center
-  justify-content: center
-  flex-direction: column
-  top: 0
-  left: 0
+  --ui-reponsize: 0px
+
+.GameLayout
+  position: relative
+  display: grid
+  grid-template-columns: 1fr 300px
+  grid-template-rows:  45px 1fr
+  grid-template-areas: "header sidebar" "main sidebar"
   width: 100%
   height: 100%
-  overflow: hidden
+  background: rgba(var(--ui-background))
+  transition: all 0.25s ease
+  .GameLayoutHeader
+    grid-area: header
+  .GameLayoutIframe
+    grid-area: main
+  .SocketChat
+    grid-area: sidebar
+    position: fixed
+    top: 0
+    right: 0
+    width: 300px
+    height: 100%
+  @include mobile
+    grid-template-columns: 1fr 0px
+    .SocketChat
+      width: 400px
+      max-width: 80%
+      right: var(--ui-reponsize)
 </style>

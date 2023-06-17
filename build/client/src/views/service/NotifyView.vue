@@ -3,9 +3,8 @@
     UTab(:list="tabs" v-model="tab" color="time" class="mb-2")
 
     transition(name="up")
-      UCard(v-if="list")
-        UAlert(border color="time" v-if="list.length == 0") Bạn chưa có thông báo nào
-        
+      UAlert(border color="time" v-if="list && list.length == 0") Bạn chưa có thông báo nào
+      UCard(v-if="list && list.length != 0")
         div(class="Notify" v-for="notify in list" :key="notify.id")
           UText(full color="time" size="0.75rem" weight="700" class="mb-1") {{ $utils.getTime(notify.create_time).from }}
           UText(weight="500" size="0.9rem") {{ notify.content }}

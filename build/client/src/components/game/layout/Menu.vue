@@ -4,8 +4,10 @@
       UFlex(class="MenuControl" align="center" full)
         UButton(size="2.5rem" avatar :color="item.icon" v-for="item in list" :key="item.icon" @click="tab = item.value")
           UIcon(:src="item.icon" size="1.2rem")
-        UButton(size="2.5rem" avatar color="dark" class="ml-auto" @click="tab = 'ConfigView'")
+        UButton(size="2.5rem" avatar color="dark" @click="tab = 'ConfigView'")
           UIcon(src="bx-cog" size="1.2rem")
+        UButton(size="2.5rem" avatar color="danger" class="ml-auto" @click="$router.push('/home')")
+          UIcon(src="home" size="1.2rem")
 
       div(class="MenuView")
         transition(name="up" mode="out-in")
@@ -49,7 +51,6 @@ export default {
         { title: 'Vòng Quay', icon: 'wheel', value: 'WheelView' },
         { title: 'GiftCode', icon: 'giftcode', value: 'GiftcodeView' },
         { title: 'Nạp Xu', icon: 'pay', value: 'PayView' },
-        { title: 'Tài Khoản', icon: 'user', value: 'UserView' },
       ]
     }
   },

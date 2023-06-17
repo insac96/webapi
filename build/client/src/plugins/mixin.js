@@ -51,7 +51,6 @@ const mixin = Vue.extend({
       this.$utils.setCookie('token', user.token)
       this.$store.commit('setUser', user)
       this.$router.push('/home')
-
       this.sendSocketNotify(`VIP ${user['vip']['number']} - ${user['account'].toUpperCase()} truy cập`, user)
     },
 

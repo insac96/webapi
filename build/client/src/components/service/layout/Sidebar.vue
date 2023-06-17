@@ -1,12 +1,12 @@
 <template lang="pug">
-  div(:class="classSidebar" ref="sidebar")
-    UFlex(justify="center" class="mb-2")
+  div(class="ServiceLayoutSidebar" ref="sidebar")
+    UFlex(justify="center" align="center" class="ServiceLayoutSidebar__Top mb-2")
       img(:src="logo" height="60px" width="auto" alt="logo" v-if="logo")
       UText(v-if="!logo && !!storeConfig" size="1.2rem" weight="700") {{ storeConfig.game_name }}
     UFlex(
       class="Item" 
       align="center" 
-      v-for="item in listMenu" :key="item.icon" 
+      v-for="item in list" :key="item.icon" 
       @click="to(item.to)"
     )
       UButton(width="3rem" avatar :color="item.icon" class="mr-2")
@@ -17,32 +17,27 @@
 <script>
 export default {
   props: {
-    list: { type: Array },
     open: { type: Boolean }
   },
 
   data() {
     return {
-      show: this.open
+      show: this.open,
+      list: [
+        { title: 'Trang chủ', icon: 'home', to: '/home' },
+        { title: 'Chơi ngay', icon: 'game', to: '/game' },
+        { title: 'Nạp Xu', icon: 'pay', to: '/pay' },
+        { title: 'Cửa Hàng', icon: 'shop', to: '/shop' },
+        { title: 'Sự Kiện', icon: 'event', to: '/event' },
+        { title: 'Nhiệm Vụ', icon: 'mission', to: '/mission' },
+        { title: 'Vòng Quay', icon: 'wheel', to: '/wheel' },
+        { title: 'Xếp Hạng', icon: 'rank', to: '/rank' },
+        { title: 'GiftCode', icon: 'giftcode', to: '/giftcode' }
+      ]
     }
   },
 
   computed: {
-    classSidebar () {
-      return {
-        'ServiceLayoutSidebar': true,
-        'ServiceLayoutSidebar--open': this.show,
-      }
-    },
-
-    listMenu () {
-      const list = this.list ? JSON.parse(JSON.stringify(this.list)) : []
-      list.unshift({ title: 'Chơi ngay', icon: 'game', to: '/game' })
-      list.unshift({ title: 'Trang chủ', icon: 'home', to: '/home' })
-      list.push({ title: 'GiftCode', icon: 'giftcode', to: '/giftcode' })
-      return list
-    },
-
     logo () {
       if(!this.storeConfig || !this.storeConfig.game_logo) return null
       return this.storeConfig.game_logo
@@ -89,24 +84,20 @@ export default {
 
 <style lang="sass">
 .ServiceLayoutSidebar
-  position: fixed
-  top: 0
-  left: -300px
-  width: 300px
-  height: 100%
-  background: rgba(var(--ui-content))
+  display: flex
+  flex-direction: column
+  background: rgb(var(--ui-content))
   padding: var(--space)
-  box-shadow: 0 20px 27px #0000000d
-  opacity: 0
-  transition: all 0.5s ease
+  box-shadow: 3px 0 20px -10px rgba(0,0,0,0.3)
+  transition: all 0.25s ease
+  overflow: hidden
   z-index: 99
+  &__Top
+    min-height: var(--header)
   .Item
     background: rgba(var(--ui-gray-100))
     border-radius: var(--radius)
     padding: calc(var(--space) * 0.5)
     margin-bottom: calc(var(--space) * 0.5)
     cursor: pointer
-  &--open
-    left: 0
-    opacity: 1
 </style>

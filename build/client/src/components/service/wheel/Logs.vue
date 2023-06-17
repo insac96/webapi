@@ -3,7 +3,7 @@
     div(class="Logs")
       transition-group(tag="div" name="log")
         UAlert(border :icon="log.gift_type" :color="log.gift_type" v-for="log in list" :key="log.id")
-          UText(class="mr-auto") {{ world ? `[${log.account}]` : '' }} {{ log.action }}
+          UText(class="mr-auto" mini) {{ world ? `[${log.account}]` : '' }} {{ log.action }}
           UChip(class="ml-2" :color="log.gift_type" full) {{$utils.getTime(log.create_time).from}}
 </template>
 

@@ -1,3 +1,4 @@
+@import reponsize.sass
 @import utils.sass
 @import anim.sass
 @import color.sass
@@ -20,7 +21,12 @@ html
     font-size: 15px
 
 body
-  background: #f9f9f9
+  background: rgb(var(--ui-background))
+  // background: url('../../public/images/background.jpg')
+  // background-position: center
+  // background-size: cover
+  // background-repeat: no-repeat
+  background-attachment: fixed
   color: rgba(var(--ui-text), 1)
   font-family: 'Quicksand'
   font-weight: 400

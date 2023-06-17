@@ -1,7 +1,6 @@
 <template lang="pug">
   div(class="HomeView")
     UTab(:list="list" v-model="tab" class="mb-2")
-
     transition(name="up")
       HomeNews(:tab="tab")
 </template>

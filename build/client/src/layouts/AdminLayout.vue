@@ -5,21 +5,21 @@
     div(class="AdminLayoutView")
       transition(name="up" mode="out-in")
         router-view
-    WebNotifyAlert
+    WebNotify
     WebLoading
 </template>
 
 <script>
 import LayoutHeader from '@/components/admin/layout/Header.vue'
 import LayoutSidebar from '@/components/admin/layout/Sidebar.vue'
-import WebNotifyAlert from '@/components/notify/Alert.vue'
+import WebNotify from '@/components/Notify.vue'
 import WebLoading from '@/components/Loading.vue'
 
 export default {
   components: {
     LayoutHeader,
     LayoutSidebar,
-    WebNotifyAlert,
+    WebNotify,
     WebLoading
   },
   
@@ -44,6 +44,8 @@ export default {
 </script>
 
 <style lang="sass">
+@import @/assets/reponsize.sass
+
 .AdminLayout
   --ui-reponsize: 300px
 .AdminLayout
@@ -72,7 +74,8 @@ export default {
     grid-area: main
     padding: var(--space)
     overflow-y: auto
-  @media (max-width: 768px) 
+
+  @include mobile
     grid-template-columns: 0px 1fr
     .AdminLayoutSidebar
       left: calc(var(--ui-reponsize) - 300px)

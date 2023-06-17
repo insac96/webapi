@@ -29,17 +29,14 @@ export default {
   width: 100%
   overflow-x: auto
   overflow-y: hidden
-  white-space: nowrap
   transition: all 0.2s
   will-change: transform
+  white-space: nowrap
   cursor: pointer
   scrollbar-width: none
   scroll-snap-type: x mandatory
-  //text-align: center
   &::-webkit-scrollbar
     display: none
   > div
     display: inline-block
-    &:last-child
-      margin-right: 0
 </style>

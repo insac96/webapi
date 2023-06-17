@@ -1,5 +1,5 @@
 <template lang="pug">
-  div(class="PayGate" v-if="list")
+  UCard(class="PayGate" v-if="list" title="Kênh nạp")
     UFlex(justify="center" align="center" wrap="wrap")
       UBox(
         v-for="item in list"
