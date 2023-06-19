@@ -1,5 +1,6 @@
 <template lang="pug">
-  iframe(class="GameLayoutIframe" :src="src")
+  div(class="GameLayoutIframe")
+    iframe(:src="src")
 </template>
 
 <script>
@@ -15,7 +16,10 @@ export default {
 <style lang="sass">
 .GameLayoutIframe
   width: 100%
-  flex-grow: 1
-  border: none
-  outline: none
+  height: 100%
+  iframe
+    width: 100%
+    height: 100%
+    border: none
+    outline: none
 </style>

@@ -6,7 +6,8 @@
         UText(size="1rem" weight="700" mini) {{ news.title }}
         UText(size="0.8rem" color="gray-600" mini) {{ news.description }}
       UChip(class="News__Time") {{ $utils.getTime(news.update_time).from }}
-    UCard(class="Content")
+
+    UCard(class="NewsMain")
       div(v-html="news.content")
 </template>
 
@@ -36,7 +37,7 @@ export default {
 
 <style lang="sass">
 .NewsView
-  .Content
+  .NewsMain
     position: relative
     box-shadow: none !important
     border: none !important
@@ -45,6 +46,7 @@ export default {
       position: relative
       max-width: 90%
       margin: 0 auto
+
   .News
     position: relative
     display: flex

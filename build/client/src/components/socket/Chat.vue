@@ -1,7 +1,8 @@
 <template lang="pug">
   div(class="SocketChat" ref="sidebar")
-    UFlex(class="SocketChat__Top px-2" align="center" justify="space-between" full)
-      UText(weight="600") Trực tuyến
+    UFlex(class="SocketChat__Top px-2" align="center" full)
+      UIcon(src="bx-x" size="1.5rem" class="SocketChat__Close mr-2" @click="close")
+      UText(weight="600" class="mr-auto") Online
       UChip(icon="bx-group" color="success" full) {{socketOnline}}
         
     div(class="SocketChat__Body" ref="box")
@@ -37,12 +38,20 @@ export default {
     }
   },
 
+  computed: {
+    storeChatsSocket () {
+      return this.$store.state.chatsSocket
+    }
+  },
+
   sockets: {
     online: function (data) {
       this.socketOnline = data
     },
     chat: function (data) {
+      const count = this.storeChatsSocket + 1
       this.socketChats.push(data)
+      this.$store.commit('setChatsSocket', count)
       setTimeout(() => this.toBottom(), 1)
     },
     chats: function (data) {
@@ -58,6 +67,7 @@ export default {
   watch: {
     open (val) {
       if(!!val){
+        this.$store.commit('setChatsSocket', 0)
         this.show = true
         window.addEventListener('click', this.clickOutside)
       }
@@ -118,6 +128,10 @@ export default {
   transition: all 0.25s ease
   overflow: hidden
   z-index: 99
+  &__Close
+    display: none
+    @include mobile
+      display: inline-block
   &__Top
     min-height: var(--header)
     max-height: var(--header)
@@ -142,8 +156,7 @@ export default {
         @include desktop
           flex-grow: 1
       &__Message
-        word-wrap: break-word
-        word-break: break-all
+        word-break: break-word
     .chat-enter-active, .chat-leave-active
       transition: all 0.25s ease
     .chat-leave-active

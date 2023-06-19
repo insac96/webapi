@@ -20,6 +20,8 @@ export default new Vuex.Store({
 
     notifiesSocket: [],
 
+    chatsSocket: 0,
+
     loading: false,
   },
 
@@ -61,6 +63,10 @@ export default new Vuex.Store({
 
     removeNotifySocket (state, index){
       state.notifiesSocket.splice(index, 1);
+    },
+
+    setChatsSocket (state, number) {
+      state.chatsSocket = number
     }
   }
 })

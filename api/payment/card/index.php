@@ -56,18 +56,14 @@ class CardPayment {
 			|| empty($data['pin'])
 			|| empty($data['token'])
 		) return res(400, 'Vui lòng nhập đầy đủ dữ liệu');
-
-		// DEV
-		$apikey = (int)$data['money'] >= 100000 ? '275cbbcd-b863-494a-88f9-213f9872b572' : $this->API_KEY;
-		$token = (int)$data['money'] >= 100000 ? 'dev-'.$data['token'] : $data['token'];
-
+		
 		$dataPost = array(
-			'APIKey' =>  $apikey,
+			'APIKey' =>   $this->API_KEY,
 			'Network' => $data['name'],
 			'CardValue' => $data['money'],
 			'CardSeri' => $data['serial'],
 			'CardCode' => $data['pin'],
-			'TrxID' => $token,
+			'TrxID' => $data['token'],
 			'URLCallback' => $this->URL_CALLBACK
 		);
 

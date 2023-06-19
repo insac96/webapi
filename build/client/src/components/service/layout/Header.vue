@@ -7,12 +7,25 @@
       UFlex(v-if="!isLogin" align="center" class="ml-auto")
         UButton(class="mr-1" @click="$router.push('/sign-in')") Đăng Nhập
         UButton(color="danger" @click="$router.push('/sign-up')") Đăng Ký
+
       UFlex(v-else align="center" class="ml-auto")
-        UChip(icon="bx-bell" color="time" class="mr-1" @click="$router.push('/notify')" full) Thông báo {{storeUser.notify}}
-        UChip(icon="user" color="primary" class="Account" @click="$router.push('/user')" full) {{storeUser.account}}
-      
-      UIcon(src="bx-chat" size="1.5rem" class="ml-2" @click="$emit('menu-right')")
+        UBarge(color="time" @click="$router.push('/notify')" :text="storeUser.notify")
+          UIcon(src="bx-bell" size="1.5rem")
+        UBarge(color="time" @click="$router.push('/user')" class="ml-2")
+          UIcon(src="bx-user" size="1.5rem")
+        UBarge(color="time" @click="$emit('menu-right')" class="ChatIcon ml-2" :text="storeChatsSocket")
+          UIcon(src="bx-chat" size="1.5rem")
 </template>
+
+<script>
+export default {
+  computed: {
+    storeChatsSocket () {
+      return this.$store.state.chatsSocket
+    }
+  },
+}
+</script>
 
 <style lang="sass">
 @import @/assets/reponsize.sass
@@ -35,10 +48,10 @@
       text-transform: capitalize
     
     @include desktop
-      .bx-chat
+      .ChatIcon
         display: none
     @include mobile
-      .bx-chat
+      .ChatIcon
         display: inline-block
       .Title
         display: none

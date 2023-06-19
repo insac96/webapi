@@ -1,6 +1,7 @@
 import Vue from 'vue'
 
 import UAlert from '@/components/uikit/UAlert'
+import UBarge from '@/components/uikit/UBarge'
 import UBox from '@/components/uikit/UBox'
 import UButton from '@/components/uikit/UButton'
 import UCard from '@/components/uikit/UCard'
@@ -29,6 +30,7 @@ Vue.component('UGiftAdmin', UGiftAdmin)
 Vue.component('UTableAdmin', UTableAdmin)
 
 Vue.component('UAlert', UAlert)
+Vue.component('UBarge', UBarge)
 Vue.component('UBox', UBox)
 Vue.component('UButton', UButton)
 Vue.component('UCard', UCard)

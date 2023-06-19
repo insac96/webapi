@@ -18,7 +18,7 @@
           )
         template(#footer)
           UFlex(justify="center")
-            UText(weight="500" size="0.8rem" no-wrap) Khuyến mãi {{ bonus(item) }}%
+            UText(weight="500" size="0.8rem" no-wrap) +{{ bonus(item) }}% Xu
 </template>
 
 <script>
